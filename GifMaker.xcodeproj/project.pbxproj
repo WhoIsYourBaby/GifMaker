@@ -17,6 +17,9 @@
 		6A254D4E19D50E870079B61F /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A254D4D19D50E870079B61F /* AssetsLibrary.framework */; };
 		6A254D5019D50E8F0079B61F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A254D4F19D50E8F0079B61F /* AVFoundation.framework */; };
 		6A254D5219D50E960079B61F /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A254D5119D50E960079B61F /* CoreVideo.framework */; };
+		6A254D5519D518E40079B61F /* UIStoryboard+Main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D5419D518E40079B61F /* UIStoryboard+Main.m */; };
+		6A254D5A19D5425E0079B61F /* UIImageView+PlayGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D5719D5425E0079B61F /* UIImageView+PlayGIF.m */; };
+		6A254D5B19D5425E0079B61F /* YFGIFImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D5919D5425E0079B61F /* YFGIFImageView.m */; };
 		6AA1E33919D4202600F0CA9D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA1E33819D4202600F0CA9D /* Foundation.framework */; };
 		6AA1E33B19D4202600F0CA9D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA1E33A19D4202600F0CA9D /* CoreGraphics.framework */; };
 		6AA1E33D19D4202600F0CA9D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AA1E33C19D4202600F0CA9D /* UIKit.framework */; };
@@ -84,6 +87,12 @@
 		6A254D4D19D50E870079B61F /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		6A254D4F19D50E8F0079B61F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6A254D5119D50E960079B61F /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		6A254D5319D518E40079B61F /* UIStoryboard+Main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+Main.h"; sourceTree = "<group>"; };
+		6A254D5419D518E40079B61F /* UIStoryboard+Main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+Main.m"; sourceTree = "<group>"; };
+		6A254D5619D5425E0079B61F /* UIImageView+PlayGIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+PlayGIF.h"; sourceTree = "<group>"; };
+		6A254D5719D5425E0079B61F /* UIImageView+PlayGIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+PlayGIF.m"; sourceTree = "<group>"; };
+		6A254D5819D5425E0079B61F /* YFGIFImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YFGIFImageView.h; sourceTree = "<group>"; };
+		6A254D5919D5425E0079B61F /* YFGIFImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YFGIFImageView.m; sourceTree = "<group>"; };
 		6AA1E33519D4202600F0CA9D /* GifMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GifMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AA1E33819D4202600F0CA9D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6AA1E33A19D4202600F0CA9D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -253,6 +262,8 @@
 				6A254D3D19D50DDC0079B61F /* ExportViewController.m */,
 				6A254D4019D50DDC0079B61F /* SquareCamViewController.h */,
 				6A254D4119D50DDC0079B61F /* SquareCamViewController.m */,
+				6A254D5319D518E40079B61F /* UIStoryboard+Main.h */,
+				6A254D5419D518E40079B61F /* UIStoryboard+Main.m */,
 				6AA1E35319D4202600F0CA9D /* Images.xcassets */,
 				6AA1E33F19D4202600F0CA9D /* Supporting Files */,
 			);
@@ -371,6 +382,10 @@
 		6AA1E39719D420B100F0CA9D /* ANImageBitmapRep */ = {
 			isa = PBXGroup;
 			children = (
+				6A254D5619D5425E0079B61F /* UIImageView+PlayGIF.h */,
+				6A254D5719D5425E0079B61F /* UIImageView+PlayGIF.m */,
+				6A254D5819D5425E0079B61F /* YFGIFImageView.h */,
+				6A254D5919D5425E0079B61F /* YFGIFImageView.m */,
 				6AA1E39819D420B100F0CA9D /* ANImageBitmapRep.h */,
 				6AA1E39919D420B100F0CA9D /* ANImageBitmapRep.m */,
 				6AA1E39A19D420B100F0CA9D /* BitmapContextRep.h */,
@@ -535,13 +550,16 @@
 				6AA1E3BE19D420B100F0CA9D /* NSMutableArray+Move.m in Sources */,
 				6AA1E3B819D420B100F0CA9D /* ANCutColorTable.m in Sources */,
 				6AA1E3CB19D420B100F0CA9D /* BitmapScaleManipulator.m in Sources */,
+				6A254D5A19D5425E0079B61F /* UIImageView+PlayGIF.m in Sources */,
 				6AA1E3C819D420B100F0CA9D /* BitmapContextManipulator.m in Sources */,
+				6A254D5519D518E40079B61F /* UIStoryboard+Main.m in Sources */,
 				6AA1E3BB19D420B100F0CA9D /* ANGifImageDescriptor.m in Sources */,
 				6AA1E3C319D420B100F0CA9D /* NSImage+ANImageBitmapRep.m in Sources */,
 				6AA1E3BD19D420B100F0CA9D /* LZWSpoof.m in Sources */,
 				6AA1E3BF19D420B100F0CA9D /* PhotoEntry.m in Sources */,
 				6AA1E3C019D420B100F0CA9D /* UIImagePixelSource.m in Sources */,
 				6A254D4419D50DDC0079B61F /* SquareCamViewController.m in Sources */,
+				6A254D5B19D5425E0079B61F /* YFGIFImageView.m in Sources */,
 				6AA1E3B619D420B100F0CA9D /* ANAvgColorTable.m in Sources */,
 				6AA1E3BA19D420B100F0CA9D /* ANGifDataSubblock.m in Sources */,
 				6AA1E3C419D420B100F0CA9D /* OSCommonImage.m in Sources */,

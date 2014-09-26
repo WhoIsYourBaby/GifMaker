@@ -8,9 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+@interface GifPlayerCell : UICollectionViewCell
+
+@property (weak, nonatomic) IBOutlet UIImageView *gifImgView;
+
+@end
+
+
 @interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 {
-    IBOutlet UICollectionView *gitCollectView;
+    IBOutlet UICollectionView *gifCollectView;
 }
 
 @end
+
