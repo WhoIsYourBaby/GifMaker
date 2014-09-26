@@ -189,7 +189,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	
 	AVCaptureSession *session = [AVCaptureSession new];
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-	    [session setSessionPreset:AVCaptureSessionPreset640x480];
+	    [session setSessionPreset:AVCaptureSessionPresetPhoto];
 	else
 	    [session setSessionPreset:AVCaptureSessionPresetPhoto];
 	
@@ -229,8 +229,8 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	
 	effectiveScale = 1.0;
 	previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
-	[previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
-	[previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+	[previewLayer setBackgroundColor:[[UIColor redColor] CGColor]];
+	[previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
 	CALayer *rootLayer = [previewView layer];
 	[rootLayer setMasksToBounds:YES];
 	[previewLayer setFrame:[rootLayer bounds]];
@@ -251,6 +251,7 @@ bail:
 	}
 }
 
+
 // clean up capture setup
 - (void)teardownAVCapture
 {
@@ -269,6 +270,7 @@ bail:
 	if ( context == AVCaptureStillImageIsCapturingStillImageContext ) {
 		BOOL isCapturingStillImage = [[change objectForKey:NSKeyValueChangeNewKey] boolValue];
 		
+        /*  闪光动画效果
 		if ( isCapturingStillImage ) {
 			// do flash bulb like animation
 			flashView = [[UIView alloc] initWithFrame:[previewView frame]];
@@ -294,6 +296,7 @@ bail:
 							 }
 			 ];
 		}
+         */
 	}
 }
 
