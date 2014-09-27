@@ -92,6 +92,7 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="dmC-Fc-oE5" appends="YES" id="JNa-Mb-46s"/>
+                                    <outletCollection property="gestureRecognizers" destination="bYz-7v-oDl" appends="YES" id="J5Q-4r-ikh"/>
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yHb-1a-Mb9">
@@ -147,6 +148,11 @@
                         <outlet property="delegate" destination="c8i-2z-qLc" id="6Aa-uU-1eR"/>
                     </connections>
                 </pinchGestureRecognizer>
+                <tapGestureRecognizer id="bYz-7v-oDl">
+                    <connections>
+                        <action selector="handleFocusGesture:" destination="c8i-2z-qLc" id="b1Z-al-cce"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="741" y="134"/>
         </scene>

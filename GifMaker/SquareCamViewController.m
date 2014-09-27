@@ -175,10 +175,14 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 
 #pragma mark-
 
-@interface SquareCamViewController (InternalMethods)
+@interface SquareCamViewController ()
+
+@property (nonatomic) AVCaptureDeviceInput *videoDeviceInput;
+
 - (void)setupAVCapture;
 - (void)teardownAVCapture;
 - (void)drawFaceBoxesForFeatures:(NSArray *)features forVideoBox:(CGRect)clap orientation:(UIDeviceOrientation)orientation;
+
 @end
 
 @implementation SquareCamViewController
@@ -201,7 +205,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
     isUsingFrontFacingCamera = NO;
 	if ( [session canAddInput:deviceInput] )
 		[session addInput:deviceInput];
-	
+	[self setVideoDeviceInput:deviceInput];
     // Make a still image output
 	stillImageOutput = [AVCaptureStillImageOutput new];
 	[stillImageOutput addObserver:self forKeyPath:@"capturingStillImage" options:NSKeyValueObservingOptionNew context:AVCaptureStillImageIsCapturingStillImageContext];
@@ -722,12 +726,32 @@ bail:
 				[[previewLayer session] removeInput:oldInput];
 			}
 			[[previewLayer session] addInput:input];
+            [self setVideoDeviceInput:input];
 			[[previewLayer session] commitConfiguration];
 			break;
 		}
 	}
 	isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
 }
+
+
+//自动聚焦和连续聚焦：
+
+- (void)autoFocusAtPoint:(CGPoint)point
+{
+    AVCaptureDevice *device = [[self videoDeviceInput] device];
+    if ([device isFocusPointOfInterestSupported] && [device isFocusModeSupported:AVCaptureFocusModeAutoFocus]) {
+        NSError *error;
+        if ([device lockForConfiguration:&error]) {
+            [device setFocusPointOfInterest:point];
+            [device setFocusMode:AVCaptureFocusModeAutoFocus];
+            [device unlockForConfiguration];
+        } else {
+            
+        }
+    }
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -815,6 +839,13 @@ bail:
 		[previewLayer setAffineTransform:CGAffineTransformMakeScale(effectiveScale, effectiveScale)];
 		[CATransaction commit];
 	}
+}
+
+
+- (IBAction)handleFocusGesture:(UIGestureRecognizer *)sender
+{
+    CGPoint devicePoint = [previewLayer captureDevicePointOfInterestForPoint:[sender locationInView:[sender view]]];
+    [self autoFocusAtPoint:devicePoint];
 }
 
 @end
