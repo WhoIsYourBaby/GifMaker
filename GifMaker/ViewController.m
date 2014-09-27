@@ -141,6 +141,7 @@
 - (void)btnCameraTap
 {
     SquareCamViewController *square = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"SquareCamViewController"];
+    square.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:square animated:YES completion:nil];
 }
 
