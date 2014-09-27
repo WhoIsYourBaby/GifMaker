@@ -66,6 +66,7 @@
 	CGFloat effectiveScale;
 }
 
+- (IBAction)dismissVC:(id)sender;
 - (IBAction)takePicture:(id)sender;
 - (IBAction)switchCameras:(id)sender;
 - (IBAction)handlePinchGesture:(UIGestureRecognizer *)sender;

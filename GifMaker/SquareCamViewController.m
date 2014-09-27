@@ -189,7 +189,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	
 	AVCaptureSession *session = [AVCaptureSession new];
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-	    [session setSessionPreset:AVCaptureSessionPresetPhoto];
+	    [session setSessionPreset:AVCaptureSessionPresetMedium];
 	else
 	    [session setSessionPreset:AVCaptureSessionPresetPhoto];
 	
@@ -258,7 +258,7 @@ bail:
 	[videoDataOutput release];
 	if (videoDataOutputQueue)
 		dispatch_release(videoDataOutputQueue);
-	[stillImageOutput removeObserver:self forKeyPath:@"isCapturingStillImage"];
+	[stillImageOutput removeObserver:self forKeyPath:@"capturingStillImage"];
 	[stillImageOutput release];
 	[previewLayer removeFromSuperlayer];
 	[previewLayer release];
@@ -698,6 +698,11 @@ bail:
 	[faceDetector release];
 	[square release];
 	[super dealloc];
+}
+
+- (IBAction)dismissVC:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 // use front/back camera

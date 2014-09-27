@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02F6E85B19D64B57005AFFE4 /* back_front@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85619D64B57005AFFE4 /* back_front@2x.png */; };
+		02F6E85C19D64B57005AFFE4 /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85719D64B57005AFFE4 /* camera@2x.png */; };
+		02F6E85D19D64B57005AFFE4 /* cut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85819D64B57005AFFE4 /* cut@2x.png */; };
+		02F6E85E19D64B57005AFFE4 /* shop@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85919D64B57005AFFE4 /* shop@2x.png */; };
+		02F6E85F19D64B57005AFFE4 /* video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85A19D64B57005AFFE4 /* video@2x.png */; };
+		02F6E86319D64D5F005AFFE4 /* off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E86219D64D5F005AFFE4 /* off@2x.png */; };
 		6A254D4219D50DDC0079B61F /* ExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D3D19D50DDC0079B61F /* ExportViewController.m */; };
 		6A254D4319D50DDC0079B61F /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A254D3F19D50DDC0079B61F /* squarePNG.png */; };
 		6A254D4419D50DDC0079B61F /* SquareCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D4119D50DDC0079B61F /* SquareCamViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -75,6 +81,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		02F6E85619D64B57005AFFE4 /* back_front@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_front@2x.png"; sourceTree = "<group>"; };
+		02F6E85719D64B57005AFFE4 /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
+		02F6E85819D64B57005AFFE4 /* cut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cut@2x.png"; sourceTree = "<group>"; };
+		02F6E85919D64B57005AFFE4 /* shop@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop@2x.png"; sourceTree = "<group>"; };
+		02F6E85A19D64B57005AFFE4 /* video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@2x.png"; sourceTree = "<group>"; };
+		02F6E86219D64D5F005AFFE4 /* off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "off@2x.png"; sourceTree = "<group>"; };
 		6A254D3C19D50DDC0079B61F /* ExportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportViewController.h; sourceTree = "<group>"; };
 		6A254D3D19D50DDC0079B61F /* ExportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportViewController.m; sourceTree = "<group>"; };
 		6A254D3F19D50DDC0079B61F /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
@@ -204,6 +216,12 @@
 		6A254D3E19D50DDC0079B61F /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				02F6E86219D64D5F005AFFE4 /* off@2x.png */,
+				02F6E85619D64B57005AFFE4 /* back_front@2x.png */,
+				02F6E85719D64B57005AFFE4 /* camera@2x.png */,
+				02F6E85819D64B57005AFFE4 /* cut@2x.png */,
+				02F6E85919D64B57005AFFE4 /* shop@2x.png */,
+				02F6E85A19D64B57005AFFE4 /* video@2x.png */,
 				6A254D3F19D50DDC0079B61F /* squarePNG.png */,
 			);
 			path = Pictures;
@@ -258,12 +276,12 @@
 				6AA1E34D19D4202600F0CA9D /* Main_iPad.storyboard */,
 				6AA1E35019D4202600F0CA9D /* ViewController.h */,
 				6AA1E35119D4202600F0CA9D /* ViewController.m */,
-				6A254D3C19D50DDC0079B61F /* ExportViewController.h */,
-				6A254D3D19D50DDC0079B61F /* ExportViewController.m */,
 				6A254D4019D50DDC0079B61F /* SquareCamViewController.h */,
 				6A254D4119D50DDC0079B61F /* SquareCamViewController.m */,
 				6A254D5319D518E40079B61F /* UIStoryboard+Main.h */,
 				6A254D5419D518E40079B61F /* UIStoryboard+Main.m */,
+				6A254D3C19D50DDC0079B61F /* ExportViewController.h */,
+				6A254D3D19D50DDC0079B61F /* ExportViewController.m */,
 				6AA1E35319D4202600F0CA9D /* Images.xcassets */,
 				6AA1E33F19D4202600F0CA9D /* Supporting Files */,
 			);
@@ -513,9 +531,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AA1E34F19D4202600F0CA9D /* Main_iPad.storyboard in Resources */,
+				02F6E85E19D64B57005AFFE4 /* shop@2x.png in Resources */,
 				6AA1E35419D4202600F0CA9D /* Images.xcassets in Resources */,
 				6A254D4319D50DDC0079B61F /* squarePNG.png in Resources */,
+				02F6E86319D64D5F005AFFE4 /* off@2x.png in Resources */,
+				02F6E85D19D64B57005AFFE4 /* cut@2x.png in Resources */,
+				02F6E85B19D64B57005AFFE4 /* back_front@2x.png in Resources */,
+				02F6E85C19D64B57005AFFE4 /* camera@2x.png in Resources */,
 				6AA1E34C19D4202600F0CA9D /* Main_iPhone.storyboard in Resources */,
+				02F6E85F19D64B57005AFFE4 /* video@2x.png in Resources */,
 				6AA1E34319D4202600F0CA9D /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
