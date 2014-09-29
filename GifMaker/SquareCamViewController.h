@@ -52,7 +52,6 @@
 @interface SquareCamViewController : UIViewController <UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 {
 	IBOutlet UIView *previewView;
-	IBOutlet UISegmentedControl *camerasControl;
 	AVCaptureVideoPreviewLayer *previewLayer;
 	AVCaptureVideoDataOutput *videoDataOutput;
 	BOOL detectFaces;
@@ -71,6 +70,5 @@
 - (IBAction)switchCameras:(id)sender;
 - (IBAction)handlePinchGesture:(UIGestureRecognizer *)sender;
 - (IBAction)handleFocusGesture:(UIGestureRecognizer *)sender;
-- (IBAction)toggleFaceDetection:(id)sender;
 
 @end

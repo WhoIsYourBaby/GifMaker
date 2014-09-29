@@ -698,6 +698,7 @@ bail:
 
 - (void)dealloc
 {
+    self.videoDeviceInput= nil;
 	[self teardownAVCapture];
 	[faceDetector release];
 	[square release];
