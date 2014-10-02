@@ -50,6 +50,7 @@
 #import <ImageIO/ImageIO.h>
 #import <AssertMacros.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "GifManager.h"
 
 #pragma mark-
 
@@ -801,19 +802,7 @@ bail:
                                                       else {
                                                           // trivial simple JPEG case
                                                           NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                                                          CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
-                                                                                                                      imageDataSampleBuffer,
-                                                                                                                      kCMAttachmentMode_ShouldPropagate);
-                                                          ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-                                                          [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
-                                                              if (error) {
-                                                                  [self displayErrorOnMainQueue:error withMessage:@"Save to camera roll failed"];
-                                                              }
-                                                          }];
-                                                          
-                                                          if (attachments)
-                                                              CFRelease(attachments);
-                                                          [library release];
+                                                          [[GifManager shareInterface] saveTempImageJEPG:jpegData];
                                                       }
                                                   }
 	 ];

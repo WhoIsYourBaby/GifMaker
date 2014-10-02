@@ -8,10 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface GifManager : NSObject
+
 
 + (instancetype)shareInterface;
 
+- (void)clean;
+
+- (void)saveTempImageJEPG:(NSData *)imgData;
 
 
 @end

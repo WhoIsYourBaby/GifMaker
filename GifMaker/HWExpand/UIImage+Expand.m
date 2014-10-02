@@ -100,6 +100,8 @@ CGFloat RadiansToDegrees(CGFloat radians)
     
     return newImage ;
 }
+
+
 - (UIImage *)imageByScalingProportionallyToSize:(CGSize)targetSize {
     
     UIImage *sourceImage = self;
@@ -157,8 +159,7 @@ CGFloat RadiansToDegrees(CGFloat radians)
     
     if(newImage == nil) NSLog(@"could not scale image");
     
-    
-    return [newImage retain];
+    return newImage;
 }
 
 - (UIImage *)imageByScalingToSize:(CGSize)targetSize {

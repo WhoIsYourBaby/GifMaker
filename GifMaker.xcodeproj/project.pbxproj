@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		0215CF3819DCE2C70049B09B /* view_bkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0215CF3719DCE2C70049B09B /* view_bkg@2x.png */; };
 		0215CF3A19DCE3240049B09B /* done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0215CF3919DCE3240049B09B /* done@2x.png */; };
-		0215CF4E19DCEBE20049B09B /* ImageMaskView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF4819DCEBE20049B09B /* ImageMaskView.mm */; };
-		0215CF4F19DCEBE20049B09B /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF4A19DCEBE20049B09B /* Matrix.m */; };
-		0215CF5019DCEBE20049B09B /* UIImage+Expand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF4D19DCEBE20049B09B /* UIImage+Expand.m */; };
+		0215CF4E19DCEBE20049B09B /* ImageMaskView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF4819DCEBE20049B09B /* ImageMaskView.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0215CF4F19DCEBE20049B09B /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF4A19DCEBE20049B09B /* Matrix.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0215CF5019DCEBE20049B09B /* UIImage+Expand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF4D19DCEBE20049B09B /* UIImage+Expand.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0215CF5319DCEC3A0049B09B /* GifManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF5219DCEC3A0049B09B /* GifManager.m */; };
+		0215CF5619DCF6B00049B09B /* HWDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF5519DCF6B00049B09B /* HWDevice.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		02F6E85B19D64B57005AFFE4 /* back_front@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85619D64B57005AFFE4 /* back_front@2x.png */; };
 		02F6E85C19D64B57005AFFE4 /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85719D64B57005AFFE4 /* camera@2x.png */; };
 		02F6E85D19D64B57005AFFE4 /* cut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85819D64B57005AFFE4 /* cut@2x.png */; };
@@ -98,6 +99,8 @@
 		0215CF4D19DCEBE20049B09B /* UIImage+Expand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Expand.m"; sourceTree = "<group>"; };
 		0215CF5119DCEC3A0049B09B /* GifManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifManager.h; sourceTree = "<group>"; };
 		0215CF5219DCEC3A0049B09B /* GifManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifManager.m; sourceTree = "<group>"; };
+		0215CF5419DCF6B00049B09B /* HWDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWDevice.h; sourceTree = "<group>"; };
+		0215CF5519DCF6B00049B09B /* HWDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWDevice.m; sourceTree = "<group>"; };
 		02F6E85619D64B57005AFFE4 /* back_front@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_front@2x.png"; sourceTree = "<group>"; };
 		02F6E85719D64B57005AFFE4 /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
 		02F6E85819D64B57005AFFE4 /* cut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cut@2x.png"; sourceTree = "<group>"; };
@@ -242,6 +245,8 @@
 				0215CF4D19DCEBE20049B09B /* UIImage+Expand.m */,
 				0215CF5119DCEC3A0049B09B /* GifManager.h */,
 				0215CF5219DCEC3A0049B09B /* GifManager.m */,
+				0215CF5419DCF6B00049B09B /* HWDevice.h */,
+				0215CF5519DCF6B00049B09B /* HWDevice.m */,
 			);
 			path = HWExpand;
 			sourceTree = "<group>";
@@ -609,6 +614,7 @@
 				6AA1E3B419D420B100F0CA9D /* ANGifAppExtension.m in Sources */,
 				6AA1E3C119D420B100F0CA9D /* ANImageBitmapRep.m in Sources */,
 				6AA1E3C619D420B100F0CA9D /* CGContextCreator.m in Sources */,
+				0215CF5619DCF6B00049B09B /* HWDevice.m in Sources */,
 				6AA1E3BE19D420B100F0CA9D /* NSMutableArray+Move.m in Sources */,
 				6AA1E3B819D420B100F0CA9D /* ANCutColorTable.m in Sources */,
 				0215CF4E19DCEBE20049B09B /* ImageMaskView.mm in Sources */,
