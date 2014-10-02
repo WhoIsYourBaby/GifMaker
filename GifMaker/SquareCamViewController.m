@@ -424,66 +424,7 @@ bail:
 	});
 }
 
-// main action method to take a still image -- if face detection has been turned on and a face has been detected
-// the square overlay will be composited on top of the captured image and saved to the camera roll
-- (IBAction)takePicture:(id)sender
-{
-	// Find out the current orientation and tell the still image output.
-	AVCaptureConnection *stillImageConnection = [stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
-	UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
-	AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
-	[stillImageConnection setVideoOrientation:avcaptureOrientation];
-	[stillImageConnection setVideoScaleAndCropFactor:effectiveScale];
-	
-    BOOL doingFaceDetection = detectFaces && (effectiveScale == 1.0);
-	
-    // set the appropriate pixel format / image type output setting depending on if we'll need an uncompressed image for
-    // the possiblity of drawing the red square over top or if we're just writing a jpeg to the camera roll which is the trival case
-    if (doingFaceDetection)
-		[stillImageOutput setOutputSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCMPixelFormat_32BGRA] 
-																		forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
-	else
-		[stillImageOutput setOutputSettings:[NSDictionary dictionaryWithObject:AVVideoCodecJPEG 
-																		forKey:AVVideoCodecKey]]; 
-	
-	[stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection
-		completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-			if (error) {
-				[self displayErrorOnMainQueue:error withMessage:@"Take picture failed"];
-			}
-			else {
-				// trivial simple JPEG case
-                NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
-                                                                            imageDataSampleBuffer,
-                                                                            kCMAttachmentMode_ShouldPropagate);
-                ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-                [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
-                    if (error) {
-                        [self displayErrorOnMainQueue:error withMessage:@"Save to camera roll failed"];
-                    }
-                }];
-                
-                if (attachments)
-                    CFRelease(attachments);
-                [library release];
-			}
-		}
-	 ];
-}
 
-// turn on/off face detection
-- (IBAction)toggleFaceDetection:(id)sender
-{
-	detectFaces = [(UISwitch *)sender isOn];
-	[[videoDataOutput connectionWithMediaType:AVMediaTypeVideo] setEnabled:detectFaces];
-	if (!detectFaces) {
-		dispatch_async(dispatch_get_main_queue(), ^(void) {
-			// clear out any squares currently displaying.
-			[self drawFaceBoxesForFeatures:[NSArray array] forVideoBox:CGRectZero orientation:UIDeviceOrientationPortrait];
-		});
-	}
-}
 
 // find where the video box is positioned within the preview layer based on the video size and gravity
 + (CGRect)videoPreviewBoxForGravity:(NSString *)gravity frameSize:(CGSize)frameSize apertureSize:(CGSize)apertureSize
@@ -705,36 +646,6 @@ bail:
 	[super dealloc];
 }
 
-- (IBAction)dismissVC:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-// use front/back camera
-- (IBAction)switchCameras:(id)sender
-{
-	AVCaptureDevicePosition desiredPosition;
-	if (isUsingFrontFacingCamera)
-		desiredPosition = AVCaptureDevicePositionBack;
-	else
-		desiredPosition = AVCaptureDevicePositionFront;
-	
-	for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
-		if ([d position] == desiredPosition) {
-			[[previewLayer session] beginConfiguration];
-			AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
-			for (AVCaptureInput *oldInput in [[previewLayer session] inputs]) {
-				[[previewLayer session] removeInput:oldInput];
-			}
-			[[previewLayer session] addInput:input];
-            [self setVideoDeviceInput:input];
-			[[previewLayer session] commitConfiguration];
-			break;
-		}
-	}
-	isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
-}
-
 
 //自动聚焦和连续聚焦：
 
@@ -806,6 +717,8 @@ bail:
 	return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark - Actions
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
 	if ( [gestureRecognizer isKindOfClass:[UIPinchGestureRecognizer class]] ) {
@@ -814,6 +727,8 @@ bail:
 	return YES;
 }
 
+
+#pragma mark - 双指缩放Actions
 // scale image depending on users pinch gesture
 - (IBAction)handlePinchGesture:(UIPinchGestureRecognizer *)recognizer
 {
@@ -842,11 +757,120 @@ bail:
 	}
 }
 
-
+#pragma mark - 自动聚焦
 - (IBAction)handleFocusGesture:(UIGestureRecognizer *)sender
 {
     CGPoint devicePoint = [previewLayer captureDevicePointOfInterestForPoint:[sender locationInView:[sender view]]];
     [self autoFocusAtPoint:devicePoint];
 }
+
+#pragma mark - 完成
+- (IBAction)btnDoneTap:(id)sender
+{
+}
+
+
+#pragma mark - 照相
+// main action method to take a still image -- if face detection has been turned on and a face has been detected
+// the square overlay will be composited on top of the captured image and saved to the camera roll
+- (IBAction)takePicture:(id)sender
+{
+	// Find out the current orientation and tell the still image output.
+	AVCaptureConnection *stillImageConnection = [stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+	UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
+	AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
+	[stillImageConnection setVideoOrientation:avcaptureOrientation];
+	[stillImageConnection setVideoScaleAndCropFactor:effectiveScale];
+	
+    BOOL doingFaceDetection = detectFaces && (effectiveScale == 1.0);
+	
+    // set the appropriate pixel format / image type output setting depending on if we'll need an uncompressed image for
+    // the possiblity of drawing the red square over top or if we're just writing a jpeg to the camera roll which is the trival case
+    if (doingFaceDetection)
+		[stillImageOutput setOutputSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCMPixelFormat_32BGRA]
+																		forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
+	else
+		[stillImageOutput setOutputSettings:[NSDictionary dictionaryWithObject:AVVideoCodecJPEG
+																		forKey:AVVideoCodecKey]];
+	
+	[stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection
+                                                  completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+                                                      if (error) {
+                                                          [self displayErrorOnMainQueue:error withMessage:@"Take picture failed"];
+                                                      }
+                                                      else {
+                                                          // trivial simple JPEG case
+                                                          NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+                                                          CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
+                                                                                                                      imageDataSampleBuffer,
+                                                                                                                      kCMAttachmentMode_ShouldPropagate);
+                                                          ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+                                                          [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
+                                                              if (error) {
+                                                                  [self displayErrorOnMainQueue:error withMessage:@"Save to camera roll failed"];
+                                                              }
+                                                          }];
+                                                          
+                                                          if (attachments)
+                                                              CFRelease(attachments);
+                                                          [library release];
+                                                      }
+                                                  }
+	 ];
+}
+
+
+- (IBAction)takeVideo:(id)sender
+{
+}
+
+
+// turn on/off face detection
+//取消使用
+- (IBAction)toggleFaceDetection:(id)sender
+{
+	detectFaces = [(UISwitch *)sender isOn];
+	[[videoDataOutput connectionWithMediaType:AVMediaTypeVideo] setEnabled:detectFaces];
+	if (!detectFaces) {
+		dispatch_async(dispatch_get_main_queue(), ^(void) {
+			// clear out any squares currently displaying.
+			[self drawFaceBoxesForFeatures:[NSArray array] forVideoBox:CGRectZero orientation:UIDeviceOrientationPortrait];
+		});
+	}
+}
+
+
+#pragma mark - dismiss
+- (IBAction)dismissVC:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - 切换前后摄像头
+// use front/back camera
+- (IBAction)switchCameras:(id)sender
+{
+	AVCaptureDevicePosition desiredPosition;
+	if (isUsingFrontFacingCamera)
+		desiredPosition = AVCaptureDevicePositionBack;
+	else
+		desiredPosition = AVCaptureDevicePositionFront;
+	
+	for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
+		if ([d position] == desiredPosition) {
+			[[previewLayer session] beginConfiguration];
+			AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
+			for (AVCaptureInput *oldInput in [[previewLayer session] inputs]) {
+				[[previewLayer session] removeInput:oldInput];
+			}
+			[[previewLayer session] addInput:input];
+            [self setVideoDeviceInput:input];
+			[[previewLayer session] commitConfiguration];
+			break;
+		}
+	}
+	isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
+}
+
 
 @end

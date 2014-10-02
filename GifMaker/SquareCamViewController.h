@@ -67,8 +67,10 @@
 
 - (IBAction)dismissVC:(id)sender;
 - (IBAction)takePicture:(id)sender;
+- (IBAction)takeVideo:(id)sender;
 - (IBAction)switchCameras:(id)sender;
 - (IBAction)handlePinchGesture:(UIGestureRecognizer *)sender;
 - (IBAction)handleFocusGesture:(UIGestureRecognizer *)sender;
+- (IBAction)btnDoneTap:(id)sender;
 
 @end

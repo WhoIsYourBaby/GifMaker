@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0215CF3819DCE2C70049B09B /* view_bkg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0215CF3719DCE2C70049B09B /* view_bkg@2x.png */; };
+		0215CF3A19DCE3240049B09B /* done@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0215CF3919DCE3240049B09B /* done@2x.png */; };
+		0215CF4E19DCEBE20049B09B /* ImageMaskView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF4819DCEBE20049B09B /* ImageMaskView.mm */; };
+		0215CF4F19DCEBE20049B09B /* Matrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF4A19DCEBE20049B09B /* Matrix.m */; };
+		0215CF5019DCEBE20049B09B /* UIImage+Expand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF4D19DCEBE20049B09B /* UIImage+Expand.m */; };
+		0215CF5319DCEC3A0049B09B /* GifManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF5219DCEC3A0049B09B /* GifManager.m */; };
 		02F6E85B19D64B57005AFFE4 /* back_front@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85619D64B57005AFFE4 /* back_front@2x.png */; };
 		02F6E85C19D64B57005AFFE4 /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85719D64B57005AFFE4 /* camera@2x.png */; };
 		02F6E85D19D64B57005AFFE4 /* cut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85819D64B57005AFFE4 /* cut@2x.png */; };
@@ -81,6 +87,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0215CF3719DCE2C70049B09B /* view_bkg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "view_bkg@2x.png"; sourceTree = "<group>"; };
+		0215CF3919DCE3240049B09B /* done@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "done@2x.png"; sourceTree = "<group>"; };
+		0215CF4719DCEBE20049B09B /* ImageMaskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageMaskView.h; sourceTree = "<group>"; };
+		0215CF4819DCEBE20049B09B /* ImageMaskView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ImageMaskView.mm; sourceTree = "<group>"; };
+		0215CF4919DCEBE20049B09B /* Matrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Matrix.h; sourceTree = "<group>"; };
+		0215CF4A19DCEBE20049B09B /* Matrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Matrix.m; sourceTree = "<group>"; };
+		0215CF4B19DCEBE20049B09B /* PointTransforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointTransforms.h; sourceTree = "<group>"; };
+		0215CF4C19DCEBE20049B09B /* UIImage+Expand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Expand.h"; sourceTree = "<group>"; };
+		0215CF4D19DCEBE20049B09B /* UIImage+Expand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Expand.m"; sourceTree = "<group>"; };
+		0215CF5119DCEC3A0049B09B /* GifManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GifManager.h; sourceTree = "<group>"; };
+		0215CF5219DCEC3A0049B09B /* GifManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifManager.m; sourceTree = "<group>"; };
 		02F6E85619D64B57005AFFE4 /* back_front@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_front@2x.png"; sourceTree = "<group>"; };
 		02F6E85719D64B57005AFFE4 /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
 		02F6E85819D64B57005AFFE4 /* cut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cut@2x.png"; sourceTree = "<group>"; };
@@ -213,9 +230,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0215CF4619DCEBE20049B09B /* HWExpand */ = {
+			isa = PBXGroup;
+			children = (
+				0215CF4719DCEBE20049B09B /* ImageMaskView.h */,
+				0215CF4819DCEBE20049B09B /* ImageMaskView.mm */,
+				0215CF4919DCEBE20049B09B /* Matrix.h */,
+				0215CF4A19DCEBE20049B09B /* Matrix.m */,
+				0215CF4B19DCEBE20049B09B /* PointTransforms.h */,
+				0215CF4C19DCEBE20049B09B /* UIImage+Expand.h */,
+				0215CF4D19DCEBE20049B09B /* UIImage+Expand.m */,
+				0215CF5119DCEC3A0049B09B /* GifManager.h */,
+				0215CF5219DCEC3A0049B09B /* GifManager.m */,
+			);
+			path = HWExpand;
+			sourceTree = "<group>";
+		};
 		6A254D3E19D50DDC0079B61F /* Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				0215CF3919DCE3240049B09B /* done@2x.png */,
+				0215CF3719DCE2C70049B09B /* view_bkg@2x.png */,
 				02F6E86219D64D5F005AFFE4 /* off@2x.png */,
 				02F6E85619D64B57005AFFE4 /* back_front@2x.png */,
 				02F6E85719D64B57005AFFE4 /* camera@2x.png */,
@@ -268,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				6A254D3E19D50DDC0079B61F /* Pictures */,
+				0215CF4619DCEBE20049B09B /* HWExpand */,
 				6AA1E37019D420B100F0CA9D /* ANGif */,
 				6AA1E39719D420B100F0CA9D /* ANImageBitmapRep */,
 				6AA1E34719D4202600F0CA9D /* AppDelegate.h */,
@@ -532,9 +568,11 @@
 			files = (
 				6AA1E34F19D4202600F0CA9D /* Main_iPad.storyboard in Resources */,
 				02F6E85E19D64B57005AFFE4 /* shop@2x.png in Resources */,
+				0215CF3819DCE2C70049B09B /* view_bkg@2x.png in Resources */,
 				6AA1E35419D4202600F0CA9D /* Images.xcassets in Resources */,
 				6A254D4319D50DDC0079B61F /* squarePNG.png in Resources */,
 				02F6E86319D64D5F005AFFE4 /* off@2x.png in Resources */,
+				0215CF3A19DCE3240049B09B /* done@2x.png in Resources */,
 				02F6E85D19D64B57005AFFE4 /* cut@2x.png in Resources */,
 				02F6E85B19D64B57005AFFE4 /* back_front@2x.png in Resources */,
 				02F6E85C19D64B57005AFFE4 /* camera@2x.png in Resources */,
@@ -573,10 +611,13 @@
 				6AA1E3C619D420B100F0CA9D /* CGContextCreator.m in Sources */,
 				6AA1E3BE19D420B100F0CA9D /* NSMutableArray+Move.m in Sources */,
 				6AA1E3B819D420B100F0CA9D /* ANCutColorTable.m in Sources */,
+				0215CF4E19DCEBE20049B09B /* ImageMaskView.mm in Sources */,
 				6AA1E3CB19D420B100F0CA9D /* BitmapScaleManipulator.m in Sources */,
+				0215CF5319DCEC3A0049B09B /* GifManager.m in Sources */,
 				6A254D5A19D5425E0079B61F /* UIImageView+PlayGIF.m in Sources */,
 				6AA1E3C819D420B100F0CA9D /* BitmapContextManipulator.m in Sources */,
 				6A254D5519D518E40079B61F /* UIStoryboard+Main.m in Sources */,
+				0215CF4F19DCEBE20049B09B /* Matrix.m in Sources */,
 				6AA1E3BB19D420B100F0CA9D /* ANGifImageDescriptor.m in Sources */,
 				6AA1E3C319D420B100F0CA9D /* NSImage+ANImageBitmapRep.m in Sources */,
 				6AA1E3BD19D420B100F0CA9D /* LZWSpoof.m in Sources */,
@@ -588,6 +629,7 @@
 				6AA1E3BA19D420B100F0CA9D /* ANGifDataSubblock.m in Sources */,
 				6AA1E3C419D420B100F0CA9D /* OSCommonImage.m in Sources */,
 				6AA1E3B219D420B100F0CA9D /* ANGifGraphicControlExt.m in Sources */,
+				0215CF5019DCEBE20049B09B /* UIImage+Expand.m in Sources */,
 				6AA1E3BC19D420B100F0CA9D /* ANGifImageFrame.m in Sources */,
 				6AA1E34519D4202600F0CA9D /* main.m in Sources */,
 				6AA1E3C719D420B100F0CA9D /* CGImageContainer.m in Sources */,

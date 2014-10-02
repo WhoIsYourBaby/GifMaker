@@ -41,6 +41,8 @@
     UIBarButtonItem *itemAlbum = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(btnAlbumTap)];
     self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:itemAlbum, itemCamera, nil];
     
+    gifCollectView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
+    
     [self enumerateAssetsGroup];
 }
 
@@ -141,8 +143,10 @@
 - (void)btnCameraTap
 {
     SquareCamViewController *square = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"SquareCamViewController"];
+    UINavigationController *squareNav = [[UINavigationController alloc] initWithRootViewController:square];
+    squareNav.navigationBarHidden = YES;
     square.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentViewController:square animated:YES completion:nil];
+    [self presentViewController:squareNav animated:YES completion:nil];
 }
 
 
