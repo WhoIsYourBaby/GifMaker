@@ -51,6 +51,8 @@
 #import <AssertMacros.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "GifManager.h"
+#import "UIImage+Expand.h"
+#import "PictureRollView.h"
 
 #pragma mark-
 
@@ -193,10 +195,13 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	NSError *error = nil;
 	
 	AVCaptureSession *session = [AVCaptureSession new];
+    [session setSessionPreset:AVCaptureSessionPresetHigh];
+    /*
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
 	    [session setSessionPreset:AVCaptureSessionPresetMedium];
 	else
 	    [session setSessionPreset:AVCaptureSessionPresetPhoto];
+     */
 	
     // Select a video device, make an input
 	AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
@@ -217,8 +222,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	videoDataOutput = [AVCaptureVideoDataOutput new];
 	
     // we want BGRA, both CoreGraphics and OpenGL work well with 'BGRA'
-	NSDictionary *rgbOutputSettings = [NSDictionary dictionaryWithObject:
-									   [NSNumber numberWithInt:kCMPixelFormat_32BGRA] forKey:(id)kCVPixelBufferPixelFormatTypeKey];
+	NSDictionary *rgbOutputSettings = @{(id)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithInt:kCMPixelFormat_32BGRA]};
 	[videoDataOutput setVideoSettings:rgbOutputSettings];
 	[videoDataOutput setAlwaysDiscardsLateVideoFrames:YES]; // discard if the data output queue is blocked (as we process the still image)
     
@@ -234,7 +238,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	
 	effectiveScale = 1.0;
 	previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
-	[previewLayer setBackgroundColor:[[UIColor redColor] CGColor]];
+	[previewLayer setBackgroundColor:[[UIColor clearColor] CGColor]];
 	[previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
 	CALayer *rootLayer = [previewView layer];
 	[rootLayer setMasksToBounds:YES];
@@ -571,7 +575,7 @@ bail:
 }
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
-{	
+{
 	// got an image
 	CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
 	CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate);
@@ -660,7 +664,7 @@ bail:
             [device setFocusMode:AVCaptureFocusModeAutoFocus];
             [device unlockForConfiguration];
         } else {
-            
+            NSLog(@"%s -> %@", __FUNCTION__, error);
         }
     }
 }
@@ -719,6 +723,16 @@ bail:
 }
 
 #pragma mark - Actions
+
+- (void)didSaveImageName:(NSString *)aName
+{
+    if (picRoll.hidden == YES) {
+        picRoll.hidden = NO;
+    }
+    UIImage *img = [[GifManager shareInterface] littleTempImageWithName:aName];
+    [picRoll addPicture:img];
+}
+
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -787,12 +801,15 @@ bail:
 	
     // set the appropriate pixel format / image type output setting depending on if we'll need an uncompressed image for
     // the possiblity of drawing the red square over top or if we're just writing a jpeg to the camera roll which is the trival case
+    /*
     if (doingFaceDetection)
 		[stillImageOutput setOutputSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCMPixelFormat_32BGRA]
 																		forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
 	else
 		[stillImageOutput setOutputSettings:[NSDictionary dictionaryWithObject:AVVideoCodecJPEG
 																		forKey:AVVideoCodecKey]];
+     */
+    [stillImageOutput setOutputSettings:@{(id)AVVideoCodecKey : AVVideoCodecJPEG}];
 	
 	[stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection
                                                   completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
@@ -802,7 +819,12 @@ bail:
                                                       else {
                                                           // trivial simple JPEG case
                                                           NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                                                          [[GifManager shareInterface] saveTempImageJEPG:jpegData];
+                                                          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                                                              NSString *jpgName = [[GifManager shareInterface] saveTempImageJEPG:jpegData];
+                                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                                  [self didSaveImageName:jpgName];
+                                                              });
+                                                          });
                                                       }
                                                   }
 	 ];

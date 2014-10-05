@@ -13,8 +13,6 @@
 #define k_Doc_temp_big @"temp/big"
 #define k_Doc_temp_little @"temp/little"
 
-#define k_Size_little CGSizeMake(50.f, 70.f)
-
 static GifManager *interface = nil;
 
 @implementation GifManager
@@ -88,12 +86,15 @@ static GifManager *interface = nil;
 }
 
 
-- (void)saveTempImageJEPG:(NSData *)imgData
+- (NSString *)saveTempImageJEPG:(NSData *)imgData
 {
     NSString *jpgName = [[HWDevice uuidString] stringByAppendingPathExtension:@".jpg"];
     
     NSString *jpgBigPath = [[self docTempBig] stringByAppendingPathComponent:jpgName];
     UIImage *bigImg = [UIImage imageWithData:imgData];
+    
+    bigImg = [self bestImage:bigImg];
+    
     NSData *bigImgData = UIImageJPEGRepresentation(bigImg, 0.5);
     if (![bigImgData writeToFile:jpgBigPath atomically:YES]) {
         NSLog(@"%s -> %@", __FUNCTION__, jpgBigPath);
@@ -105,6 +106,44 @@ static GifManager *interface = nil;
     if (![litImgData writeToFile:jpgLitPath atomically:YES]) {
         NSLog(@"%s -> %@", __FUNCTION__, litImgData);
     }
+    return jpgName;
 }
+
+
+//返回适配屏幕大小的image
+- (UIImage *)bestImage:(UIImage *)aImg
+{
+    CGRect rrr = [[UIScreen mainScreen] applicationFrame];
+    CGSize aSize = [aImg size];
+    CGFloat screenScale = 1.f;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
+        screenScale = screenScale * [[UIScreen mainScreen] scale];
+    }
+    rrr = CGRectMake(0, 0, rrr.size.width * screenScale, rrr.size.height * screenScale);
+    float originX = (aSize.width - rrr.size.width) / 2.f;
+    float originY = (aSize.height - rrr.size.height) / 2.f;
+    if (originY < 0 || originX < 0) {
+        NSLog(@"%s -> 错误的Image Size : %@, applicationFrame : %@", __FUNCTION__, NSStringFromCGSize(aSize), NSStringFromCGRect(rrr));
+    }
+    rrr.origin.x = originX;
+    rrr.origin.y = originY;
+    
+    return [aImg imageAtRect:rrr];
+}
+
+
+- (UIImage *)littleTempImageWithName:(NSString *)aName
+{
+    NSString *filePath = [[self docTempLittle] stringByAppendingPathComponent:aName];
+    return [UIImage imageWithContentsOfFile:filePath];
+}
+
+
+- (UIImage *)bigTempImageWithName:(NSString *)aName
+{
+    NSString *filePath = [[self docTempBig] stringByAppendingPathComponent:aName];
+    return [UIImage imageWithContentsOfFile:filePath];
+}
+
 
 @end

@@ -13,7 +13,16 @@
 CGFloat DegreesToRadians(CGFloat degrees);
 CGFloat RadiansToDegrees(CGFloat radians);
 
-+ (UIImage *)imageFromView:(UIView *)view
++ (UIImage *)imageWithLayer:(CALayer *)layer
+{
+    UIGraphicsBeginImageContext(layer.bounds.size);
+    [layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
+}
+
++ (UIImage *)imageWithView:(UIView *)view
 {
     UIGraphicsBeginImageContext(view.bounds.size);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
@@ -32,10 +41,12 @@ CGFloat RadiansToDegrees(CGFloat radians)
     return radians * 180/M_PI;
 }
 
--(UIImage *)imageAtRect:(CGRect)rect
+- (UIImage *)imageAtRect:(CGRect)rect
 {
-    CGImageRef imageRef = CGImageCreateWithImageInRect([self CGImage], rect);
-    UIImage* subImage = [UIImage imageWithCGImage: imageRef];
+    CGImageRef cgimg = [self CGImage];
+    CGRect rotateRect = CGRectMake(rect.origin.y, rect.origin.x, rect.size.height, rect.size.width);
+    CGImageRef imageRef = CGImageCreateWithImageInRect(cgimg, rotateRect);
+    UIImage* subImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:[self imageOrientation]];
     CGImageRelease(imageRef);
     return subImage;
 }
@@ -118,7 +129,7 @@ CGFloat RadiansToDegrees(CGFloat radians)
     CGFloat scaledWidth = targetWidth;
     CGFloat scaledHeight = targetHeight;
     
-    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    CGPoint thumbnailPoint = CGPointMake(0.0, 0.0);
     
     if (CGSizeEqualToSize(imageSize, targetSize) == NO) {
         
@@ -148,7 +159,7 @@ CGFloat RadiansToDegrees(CGFloat radians)
     UIGraphicsBeginImageContext(targetSize);
     
     CGRect thumbnailRect = CGRectZero;
-    thumbnailRect.origin = thumbnailPoint;
+//    thumbnailRect.origin = thumbnailPoint;
     thumbnailRect.size.width  = scaledWidth;
     thumbnailRect.size.height = scaledHeight;
     

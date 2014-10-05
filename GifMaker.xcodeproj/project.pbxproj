@@ -14,6 +14,7 @@
 		0215CF5019DCEBE20049B09B /* UIImage+Expand.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF4D19DCEBE20049B09B /* UIImage+Expand.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0215CF5319DCEC3A0049B09B /* GifManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF5219DCEC3A0049B09B /* GifManager.m */; };
 		0215CF5619DCF6B00049B09B /* HWDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 0215CF5519DCF6B00049B09B /* HWDevice.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		02A78F0219E14044004A2B9B /* PictureRollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 02A78F0119E14044004A2B9B /* PictureRollView.m */; };
 		02F6E85B19D64B57005AFFE4 /* back_front@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85619D64B57005AFFE4 /* back_front@2x.png */; };
 		02F6E85C19D64B57005AFFE4 /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85719D64B57005AFFE4 /* camera@2x.png */; };
 		02F6E85D19D64B57005AFFE4 /* cut@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85819D64B57005AFFE4 /* cut@2x.png */; };
@@ -101,6 +102,8 @@
 		0215CF5219DCEC3A0049B09B /* GifManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GifManager.m; sourceTree = "<group>"; };
 		0215CF5419DCF6B00049B09B /* HWDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWDevice.h; sourceTree = "<group>"; };
 		0215CF5519DCF6B00049B09B /* HWDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWDevice.m; sourceTree = "<group>"; };
+		02A78F0019E14044004A2B9B /* PictureRollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureRollView.h; sourceTree = "<group>"; };
+		02A78F0119E14044004A2B9B /* PictureRollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureRollView.m; sourceTree = "<group>"; };
 		02F6E85619D64B57005AFFE4 /* back_front@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back_front@2x.png"; sourceTree = "<group>"; };
 		02F6E85719D64B57005AFFE4 /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
 		02F6E85819D64B57005AFFE4 /* cut@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cut@2x.png"; sourceTree = "<group>"; };
@@ -323,6 +326,8 @@
 				6A254D5419D518E40079B61F /* UIStoryboard+Main.m */,
 				6A254D3C19D50DDC0079B61F /* ExportViewController.h */,
 				6A254D3D19D50DDC0079B61F /* ExportViewController.m */,
+				02A78F0019E14044004A2B9B /* PictureRollView.h */,
+				02A78F0119E14044004A2B9B /* PictureRollView.m */,
 				6AA1E35319D4202600F0CA9D /* Images.xcassets */,
 				6AA1E33F19D4202600F0CA9D /* Supporting Files */,
 			);
@@ -624,6 +629,7 @@
 				6AA1E3C819D420B100F0CA9D /* BitmapContextManipulator.m in Sources */,
 				6A254D5519D518E40079B61F /* UIStoryboard+Main.m in Sources */,
 				0215CF4F19DCEBE20049B09B /* Matrix.m in Sources */,
+				02A78F0219E14044004A2B9B /* PictureRollView.m in Sources */,
 				6AA1E3BB19D420B100F0CA9D /* ANGifImageDescriptor.m in Sources */,
 				6AA1E3C319D420B100F0CA9D /* NSImage+ANImageBitmapRep.m in Sources */,
 				6AA1E3BD19D420B100F0CA9D /* LZWSpoof.m in Sources */,

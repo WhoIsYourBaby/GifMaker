@@ -47,7 +47,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-@class CIDetector;
+@class CIDetector, PictureRollView;
 
 @interface SquareCamViewController : UIViewController <UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 {
@@ -63,6 +63,7 @@
 	CIDetector *faceDetector;
 	CGFloat beginGestureScale;
 	CGFloat effectiveScale;
+    IBOutlet PictureRollView *picRoll;
 }
 
 - (IBAction)dismissVC:(id)sender;
