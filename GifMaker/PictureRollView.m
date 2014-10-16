@@ -37,7 +37,7 @@
         CGRect litRect = CGRectMake(i * litRectWidth + litRectWidth / 6, litRectWidth / 3, litRectWidth / 3 * 2, litRectWidth / 3 * 2);
         CGContextFillRect(context, litRect);
         
-        CGRect litRect2 = CGRectMake(i * litRectWidth + litRectWidth / 6, litRectWidth / 3 * 2 + k_Size_little.height, litRectWidth / 3 * 2, litRectWidth / 3 * 2);
+        CGRect litRect2 = CGRectMake(i * litRectWidth + litRectWidth / 6, litRectWidth + k_Size_little.height, litRectWidth / 3 * 2, litRectWidth / 3 * 2);
         CGContextFillRect(context, litRect2);
     }
     CGContextFillPath(context);

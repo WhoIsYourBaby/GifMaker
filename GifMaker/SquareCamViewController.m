@@ -799,22 +799,12 @@ bail:
 	
     BOOL doingFaceDetection = detectFaces && (effectiveScale == 1.0);
 	
-    // set the appropriate pixel format / image type output setting depending on if we'll need an uncompressed image for
-    // the possiblity of drawing the red square over top or if we're just writing a jpeg to the camera roll which is the trival case
-    /*
-    if (doingFaceDetection)
-		[stillImageOutput setOutputSettings:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:kCMPixelFormat_32BGRA]
-																		forKey:(id)kCVPixelBufferPixelFormatTypeKey]];
-	else
-		[stillImageOutput setOutputSettings:[NSDictionary dictionaryWithObject:AVVideoCodecJPEG
-																		forKey:AVVideoCodecKey]];
-     */
     [stillImageOutput setOutputSettings:@{(id)AVVideoCodecKey : AVVideoCodecJPEG}];
 	
 	[stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection
                                                   completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
                                                       if (error) {
-                                                          [self displayErrorOnMainQueue:error withMessage:@"Take picture failed"];
+                                                          NSLog(@"%s -> Take picture failed", __FUNCTION__);
                                                       }
                                                       else {
                                                           // trivial simple JPEG case

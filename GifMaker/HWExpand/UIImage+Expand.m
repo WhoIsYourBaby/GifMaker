@@ -147,9 +147,9 @@ CGFloat RadiansToDegrees(CGFloat radians)
         // center the image
         
         if (widthFactor < heightFactor) {
-            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5 + 1;
         } else if (widthFactor > heightFactor) {
-            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5 + 1;
         }
     }
     
@@ -173,7 +173,7 @@ CGFloat RadiansToDegrees(CGFloat radians)
     return newImage;
 }
 
-- (UIImage *)imageByScalingToSize:(CGSize)targetSize {
+- (UIImage *)imageByScalingToCustomSize:(CGSize)targetSize {
     
     UIImage *sourceImage = self;
     UIImage *newImage = nil;

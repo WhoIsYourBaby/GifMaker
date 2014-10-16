@@ -101,7 +101,7 @@ static GifManager *interface = nil;
     }
     
     NSString *jpgLitPath = [[self docTempLittle] stringByAppendingPathComponent:jpgName];
-    UIImage *litImg = [bigImg imageByScalingProportionallyToSize:k_Size_little];
+    UIImage *litImg = [bigImg imageByScalingToCustomSize:k_Size_little];
     NSData *litImgData = UIImageJPEGRepresentation(litImg, 0.5);
     if (![litImgData writeToFile:jpgLitPath atomically:YES]) {
         NSLog(@"%s -> %@", __FUNCTION__, litImgData);
