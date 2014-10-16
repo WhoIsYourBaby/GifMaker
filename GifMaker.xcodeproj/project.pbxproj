@@ -23,6 +23,8 @@
 		02F6E86319D64D5F005AFFE4 /* off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E86219D64D5F005AFFE4 /* off@2x.png */; };
 		6A08D2A919EFB22900E07E2E /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A08D2A819EFB22900E07E2E /* pause@2x.png */; };
 		6A08D2AC19EFCCB200E07E2E /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A08D2AB19EFCCB200E07E2E /* EditorViewController.m */; };
+		6A08D2B119EFD72E00E07E2E /* MyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A08D2AE19EFD72E00E07E2E /* MyView.m */; };
+		6A08D2B219EFD72E00E07E2E /* MyViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A08D2B019EFD72E00E07E2E /* MyViewModel.m */; };
 		6A254D4219D50DDC0079B61F /* ExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D3D19D50DDC0079B61F /* ExportViewController.m */; };
 		6A254D4319D50DDC0079B61F /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A254D3F19D50DDC0079B61F /* squarePNG.png */; };
 		6A254D4419D50DDC0079B61F /* SquareCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D4119D50DDC0079B61F /* SquareCamViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -115,6 +117,10 @@
 		6A08D2A819EFB22900E07E2E /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
 		6A08D2AA19EFCCB200E07E2E /* EditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorViewController.h; sourceTree = "<group>"; };
 		6A08D2AB19EFCCB200E07E2E /* EditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorViewController.m; sourceTree = "<group>"; };
+		6A08D2AD19EFD72E00E07E2E /* MyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyView.h; sourceTree = "<group>"; };
+		6A08D2AE19EFD72E00E07E2E /* MyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyView.m; sourceTree = "<group>"; };
+		6A08D2AF19EFD72E00E07E2E /* MyViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewModel.h; sourceTree = "<group>"; };
+		6A08D2B019EFD72E00E07E2E /* MyViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewModel.m; sourceTree = "<group>"; };
 		6A254D3C19D50DDC0079B61F /* ExportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportViewController.h; sourceTree = "<group>"; };
 		6A254D3D19D50DDC0079B61F /* ExportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportViewController.m; sourceTree = "<group>"; };
 		6A254D3F19D50DDC0079B61F /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
@@ -244,6 +250,10 @@
 		0215CF4619DCEBE20049B09B /* HWExpand */ = {
 			isa = PBXGroup;
 			children = (
+				6A08D2AD19EFD72E00E07E2E /* MyView.h */,
+				6A08D2AE19EFD72E00E07E2E /* MyView.m */,
+				6A08D2AF19EFD72E00E07E2E /* MyViewModel.h */,
+				6A08D2B019EFD72E00E07E2E /* MyViewModel.m */,
 				0215CF4719DCEBE20049B09B /* ImageMaskView.h */,
 				0215CF4819DCEBE20049B09B /* ImageMaskView.mm */,
 				0215CF4919DCEBE20049B09B /* Matrix.h */,
@@ -628,6 +638,7 @@
 				6AA1E3B419D420B100F0CA9D /* ANGifAppExtension.m in Sources */,
 				6AA1E3C119D420B100F0CA9D /* ANImageBitmapRep.m in Sources */,
 				6AA1E3C619D420B100F0CA9D /* CGContextCreator.m in Sources */,
+				6A08D2B119EFD72E00E07E2E /* MyView.m in Sources */,
 				0215CF5619DCF6B00049B09B /* HWDevice.m in Sources */,
 				6A08D2AC19EFCCB200E07E2E /* EditorViewController.m in Sources */,
 				6AA1E3BE19D420B100F0CA9D /* NSMutableArray+Move.m in Sources */,
@@ -637,6 +648,7 @@
 				0215CF5319DCEC3A0049B09B /* GifManager.m in Sources */,
 				6A254D5A19D5425E0079B61F /* UIImageView+PlayGIF.m in Sources */,
 				6AA1E3C819D420B100F0CA9D /* BitmapContextManipulator.m in Sources */,
+				6A08D2B219EFD72E00E07E2E /* MyViewModel.m in Sources */,
 				6A254D5519D518E40079B61F /* UIStoryboard+Main.m in Sources */,
 				0215CF4F19DCEBE20049B09B /* Matrix.m in Sources */,
 				02A78F0219E14044004A2B9B /* PictureRollView.m in Sources */,
