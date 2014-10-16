@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define k_Size_little CGSizeMake(50.f, 70.f)    //小图片size
+#define k_Size_little CGSizeMake(57.f, 70.f)    //小图片size
 
 
 @interface GifManager : NSObject
@@ -16,7 +16,7 @@
 
 + (instancetype)shareInterface;
 
-- (void)clean;
+- (void)cleanTempDir;
 
 - (NSString *)saveTempImageJEPG:(NSData *)imgData;
 

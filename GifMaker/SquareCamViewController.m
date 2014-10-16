@@ -195,7 +195,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	NSError *error = nil;
 	
 	AVCaptureSession *session = [AVCaptureSession new];
-    [session setSessionPreset:AVCaptureSessionPresetHigh];
+    [session setSessionPreset:AVCaptureSessionPreset352x288];
     /*
 	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
 	    [session setSessionPreset:AVCaptureSessionPresetMedium];
@@ -574,76 +574,9 @@ bail:
 	[CATransaction commit];
 }
 
-- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
-{
-	// got an image
-	CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-	CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate);
-	CIImage *ciImage = [[CIImage alloc] initWithCVPixelBuffer:pixelBuffer options:(NSDictionary *)attachments];
-	if (attachments)
-		CFRelease(attachments);
-	NSDictionary *imageOptions = nil;
-	UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
-	int exifOrientation;
-	
-    /* kCGImagePropertyOrientation values
-        The intended display orientation of the image. If present, this key is a CFNumber value with the same value as defined
-        by the TIFF and EXIF specifications -- see enumeration of integer constants. 
-        The value specified where the origin (0,0) of the image is located. If not present, a value of 1 is assumed.
-        
-        used when calling featuresInImage: options: The value for this key is an integer NSNumber from 1..8 as found in kCGImagePropertyOrientation.
-        If present, the detection will be done based on that orientation but the coordinates in the returned features will still be based on those of the image. */
-        
-	enum {
-		PHOTOS_EXIF_0ROW_TOP_0COL_LEFT			= 1, //   1  =  0th row is at the top, and 0th column is on the left (THE DEFAULT).
-		PHOTOS_EXIF_0ROW_TOP_0COL_RIGHT			= 2, //   2  =  0th row is at the top, and 0th column is on the right.  
-		PHOTOS_EXIF_0ROW_BOTTOM_0COL_RIGHT      = 3, //   3  =  0th row is at the bottom, and 0th column is on the right.  
-		PHOTOS_EXIF_0ROW_BOTTOM_0COL_LEFT       = 4, //   4  =  0th row is at the bottom, and 0th column is on the left.  
-		PHOTOS_EXIF_0ROW_LEFT_0COL_TOP          = 5, //   5  =  0th row is on the left, and 0th column is the top.  
-		PHOTOS_EXIF_0ROW_RIGHT_0COL_TOP         = 6, //   6  =  0th row is on the right, and 0th column is the top.  
-		PHOTOS_EXIF_0ROW_RIGHT_0COL_BOTTOM      = 7, //   7  =  0th row is on the right, and 0th column is the bottom.  
-		PHOTOS_EXIF_0ROW_LEFT_0COL_BOTTOM       = 8  //   8  =  0th row is on the left, and 0th column is the bottom.  
-	};
-	
-	switch (curDeviceOrientation) {
-		case UIDeviceOrientationPortraitUpsideDown:  // Device oriented vertically, home button on the top
-			exifOrientation = PHOTOS_EXIF_0ROW_LEFT_0COL_BOTTOM;
-			break;
-		case UIDeviceOrientationLandscapeLeft:       // Device oriented horizontally, home button on the right
-			if (isUsingFrontFacingCamera)
-				exifOrientation = PHOTOS_EXIF_0ROW_BOTTOM_0COL_RIGHT;
-			else
-				exifOrientation = PHOTOS_EXIF_0ROW_TOP_0COL_LEFT;
-			break;
-		case UIDeviceOrientationLandscapeRight:      // Device oriented horizontally, home button on the left
-			if (isUsingFrontFacingCamera)
-				exifOrientation = PHOTOS_EXIF_0ROW_TOP_0COL_LEFT;
-			else
-				exifOrientation = PHOTOS_EXIF_0ROW_BOTTOM_0COL_RIGHT;
-			break;
-		case UIDeviceOrientationPortrait:            // Device oriented vertically, home button on the bottom
-		default:
-			exifOrientation = PHOTOS_EXIF_0ROW_RIGHT_0COL_TOP;
-			break;
-	}
-
-	imageOptions = [NSDictionary dictionaryWithObject:[NSNumber numberWithInt:exifOrientation] forKey:CIDetectorImageOrientation];
-	NSArray *features = [faceDetector featuresInImage:ciImage options:imageOptions];
-	[ciImage release];
-	
-    // get the clean aperture
-    // the clean aperture is a rectangle that defines the portion of the encoded pixel dimensions
-    // that represents image data valid for display.
-	CMFormatDescriptionRef fdesc = CMSampleBufferGetFormatDescription(sampleBuffer);
-	CGRect clap = CMVideoFormatDescriptionGetCleanAperture(fdesc, false /*originIsTopLeft == false*/);
-	
-	dispatch_async(dispatch_get_main_queue(), ^(void) {
-		[self drawFaceBoxesForFeatures:features forVideoBox:clap orientation:curDeviceOrientation];
-	});
-}
-
 - (void)dealloc
 {
+    NSLog(@"%s -> ", __FUNCTION__);
     self.videoDeviceInput= nil;
 	[self teardownAVCapture];
 	[faceDetector release];
@@ -681,12 +614,14 @@ bail:
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.navigationController.navigationBarHidden = YES;
 	// Do any additional setup after loading the view, typically from a nib.
 	[self setupAVCapture];
 	square = [[UIImage imageNamed:@"squarePNG"] retain];
 	NSDictionary *detectorOptions = [[NSDictionary alloc] initWithObjectsAndKeys:CIDetectorAccuracyLow, CIDetectorAccuracy, nil];
 	faceDetector = [[CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectorOptions] retain];
 	[detectorOptions release];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
 }
 
 - (void)viewDidUnload
@@ -823,6 +758,19 @@ bail:
 
 - (IBAction)takeVideo:(id)sender
 {
+    [sender setSelected:![sender isSelected]];
+    BOOL isSelect = [sender isSelected];
+    if (isSelect) {
+        self.videoTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(videoScheduledTimer:) userInfo:nil repeats:YES];
+    } else {
+        [self.videoTimer invalidate];
+        self.videoTimer = nil;
+    }
+}
+
+- (void)videoScheduledTimer:(NSTimer *)aTimer
+{
+    [self takePicture:nil];
 }
 
 
@@ -844,7 +792,10 @@ bail:
 #pragma mark - dismiss
 - (IBAction)dismissVC:(id)sender
 {
+    /*
     [self dismissViewControllerAnimated:YES completion:nil];
+     */
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - 切换前后摄像头

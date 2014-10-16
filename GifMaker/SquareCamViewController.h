@@ -66,6 +66,8 @@
     IBOutlet PictureRollView *picRoll;
 }
 
+@property (retain, nonatomic) NSTimer *videoTimer;
+
 - (IBAction)dismissVC:(id)sender;
 - (IBAction)takePicture:(id)sender;
 - (IBAction)takeVideo:(id)sender;

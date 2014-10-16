@@ -8,6 +8,7 @@
 
 #import "PictureRollView.h"
 #import "GifManager.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define litRectWidth 6
 
@@ -51,7 +52,30 @@
     imgView.frame = CGRectOffset(imgView.frame, countOfPic * k_Size_little.width, litRectWidth);
     [self addSubview:imgView];
     countOfPic ++;
+    [self resetContentSize];
+    [self flipAnimationOnView:imgView];
+    if ((countOfPic + 1) * k_Size_little.width - self.frame.size.width > 0) {
+        [self setContentOffset:CGPointMake((countOfPic + 1) * k_Size_little.width - self.frame.size.width, 0) animated:YES];
+    }
 }
 
+- (void)resetContentSize
+{
+    self.contentSize = CGSizeMake((countOfPic + 1) * k_Size_little.width, self.frame.size.height);
+}
+
+
+- (void)flipAnimationOnView:(UIView *)aView
+{
+    //旋转动画
+    CABasicAnimation* rotationAnimation =
+    [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];//"z"还可以是“x”“y”，表示沿z轴旋转
+    rotationAnimation.fromValue = [NSNumber numberWithFloat:M_PI];
+    rotationAnimation.toValue = [NSNumber numberWithFloat:2 * M_PI];
+    rotationAnimation.duration = 0.5;
+    rotationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]; //缓入缓出
+    [rotationAnimation setDelegate:self];
+    [aView.layer addAnimation:rotationAnimation forKey:@"imageRotate"];
+}
 
 @end

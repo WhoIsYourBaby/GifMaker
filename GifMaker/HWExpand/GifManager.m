@@ -67,7 +67,7 @@ static GifManager *interface = nil;
     }
 }
 
-- (void)clean
+- (void)cleanTempDir
 {
     [self cleanInDir:[self docTempBig]];
     [self cleanInDir:[self docTempLittle]];
@@ -80,8 +80,9 @@ static GifManager *interface = nil;
     NSError *err = nil;
     for (NSString *subItem in bigArr) {
         NSString *itemPath = [dirPath stringByAppendingPathComponent:subItem];
-        [fm removeItemAtPath:itemPath error:&err];
-        NSLog(@"%s -> %@", __FUNCTION__, err);
+        if (![fm removeItemAtPath:itemPath error:&err]) {
+            NSLog(@"%s -> %@", __FUNCTION__, err);
+        }
     }
 }
 
@@ -93,7 +94,7 @@ static GifManager *interface = nil;
     NSString *jpgBigPath = [[self docTempBig] stringByAppendingPathComponent:jpgName];
     UIImage *bigImg = [UIImage imageWithData:imgData];
     
-    bigImg = [self bestImage:bigImg];
+//    bigImg = [self bestImage:bigImg];
     
     NSData *bigImgData = UIImageJPEGRepresentation(bigImg, 0.5);
     if (![bigImgData writeToFile:jpgBigPath atomically:YES]) {

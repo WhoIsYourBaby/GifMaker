@@ -10,6 +10,7 @@
 #import "SquareCamViewController.h"
 #import "UIStoryboard+Main.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import "GifManager.h"
 
 @implementation GifPlayerCell
 
@@ -46,6 +47,12 @@
     [self enumerateAssetsGroup];
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = NO;
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -137,16 +144,19 @@
     } else {
         NSLog(@"%s -> No Assets in GifMaker", __FUNCTION__);
     }
-    
 }
 
 - (void)btnCameraTap
 {
+    [[GifManager shareInterface] cleanTempDir];
     SquareCamViewController *square = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"SquareCamViewController"];
+    /*
     UINavigationController *squareNav = [[UINavigationController alloc] initWithRootViewController:square];
     squareNav.navigationBarHidden = YES;
     square.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:squareNav animated:YES completion:nil];
+     */
+    [self.navigationController pushViewController:square animated:YES];
 }
 
 
