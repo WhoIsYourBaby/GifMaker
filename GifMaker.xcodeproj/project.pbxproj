@@ -22,6 +22,7 @@
 		02F6E85F19D64B57005AFFE4 /* video@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E85A19D64B57005AFFE4 /* video@2x.png */; };
 		02F6E86319D64D5F005AFFE4 /* off@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 02F6E86219D64D5F005AFFE4 /* off@2x.png */; };
 		6A08D2A919EFB22900E07E2E /* pause@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A08D2A819EFB22900E07E2E /* pause@2x.png */; };
+		6A08D2AC19EFCCB200E07E2E /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A08D2AB19EFCCB200E07E2E /* EditorViewController.m */; };
 		6A254D4219D50DDC0079B61F /* ExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D3D19D50DDC0079B61F /* ExportViewController.m */; };
 		6A254D4319D50DDC0079B61F /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A254D3F19D50DDC0079B61F /* squarePNG.png */; };
 		6A254D4419D50DDC0079B61F /* SquareCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D4119D50DDC0079B61F /* SquareCamViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -112,6 +113,8 @@
 		02F6E85A19D64B57005AFFE4 /* video@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "video@2x.png"; sourceTree = "<group>"; };
 		02F6E86219D64D5F005AFFE4 /* off@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "off@2x.png"; sourceTree = "<group>"; };
 		6A08D2A819EFB22900E07E2E /* pause@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pause@2x.png"; sourceTree = "<group>"; };
+		6A08D2AA19EFCCB200E07E2E /* EditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorViewController.h; sourceTree = "<group>"; };
+		6A08D2AB19EFCCB200E07E2E /* EditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorViewController.m; sourceTree = "<group>"; };
 		6A254D3C19D50DDC0079B61F /* ExportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportViewController.h; sourceTree = "<group>"; };
 		6A254D3D19D50DDC0079B61F /* ExportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportViewController.m; sourceTree = "<group>"; };
 		6A254D3F19D50DDC0079B61F /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
@@ -325,6 +328,8 @@
 				6AA1E35119D4202600F0CA9D /* ViewController.m */,
 				6A254D4019D50DDC0079B61F /* SquareCamViewController.h */,
 				6A254D4119D50DDC0079B61F /* SquareCamViewController.m */,
+				6A08D2AA19EFCCB200E07E2E /* EditorViewController.h */,
+				6A08D2AB19EFCCB200E07E2E /* EditorViewController.m */,
 				6A254D5319D518E40079B61F /* UIStoryboard+Main.h */,
 				6A254D5419D518E40079B61F /* UIStoryboard+Main.m */,
 				6A254D3C19D50DDC0079B61F /* ExportViewController.h */,
@@ -624,6 +629,7 @@
 				6AA1E3C119D420B100F0CA9D /* ANImageBitmapRep.m in Sources */,
 				6AA1E3C619D420B100F0CA9D /* CGContextCreator.m in Sources */,
 				0215CF5619DCF6B00049B09B /* HWDevice.m in Sources */,
+				6A08D2AC19EFCCB200E07E2E /* EditorViewController.m in Sources */,
 				6AA1E3BE19D420B100F0CA9D /* NSMutableArray+Move.m in Sources */,
 				6AA1E3B819D420B100F0CA9D /* ANCutColorTable.m in Sources */,
 				0215CF4E19DCEBE20049B09B /* ImageMaskView.mm in Sources */,

@@ -53,6 +53,8 @@
 #import "GifManager.h"
 #import "UIImage+Expand.h"
 #import "PictureRollView.h"
+#import "EditorViewController.h"
+#import "UIStoryboard+Main.h"
 
 #pragma mark-
 
@@ -614,7 +616,6 @@ bail:
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationController.navigationBarHidden = YES;
 	// Do any additional setup after loading the view, typically from a nib.
 	[self setupAVCapture];
 	square = [[UIImage imageNamed:@"squarePNG"] retain];
@@ -634,6 +635,7 @@ bail:
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -717,6 +719,9 @@ bail:
 #pragma mark - 完成
 - (IBAction)btnDoneTap:(id)sender
 {
+    EditorViewController *editor = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"EditorViewController"];
+    [self.navigationController pushViewController:editor animated:YES];
+    [editor autorelease];
 }
 
 

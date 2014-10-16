@@ -176,6 +176,20 @@
             </objects>
             <point key="canvasLocation" x="279" y="826"/>
         </scene>
+        <!--Editor View Controller-->
+        <scene sceneID="RPv-bh-1wT">
+            <objects>
+                <viewController restorationIdentifier="EditorViewController" storyboardIdentifier="EditorViewController" id="Zkp-ej-9HX" customClass="EditorViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fiy-09-U1F">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G6J-Tt-crl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="715" y="826"/>
+        </scene>
     </scenes>
     <resources>
         <image name="back_front.png" width="26" height="26"/>
