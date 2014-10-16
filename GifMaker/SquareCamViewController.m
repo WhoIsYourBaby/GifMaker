@@ -761,7 +761,7 @@ bail:
     [sender setSelected:![sender isSelected]];
     BOOL isSelect = [sender isSelected];
     if (isSelect) {
-        self.videoTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(videoScheduledTimer:) userInfo:nil repeats:YES];
+        self.videoTimer = [NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(videoScheduledTimer:) userInfo:nil repeats:YES];
     } else {
         [self.videoTimer invalidate];
         self.videoTimer = nil;

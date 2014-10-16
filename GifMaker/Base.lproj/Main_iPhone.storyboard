@@ -131,6 +131,9 @@
                                 <state key="normal" image="done.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="btnDoneTap:" destination="c8i-2z-qLc" eventType="touchUpInside" id="3DD-8R-0Tx"/>
+                                </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ymw-fy-pOr" customClass="PictureRollView">
                                 <rect key="frame" x="16" y="438" width="288" height="80"/>
