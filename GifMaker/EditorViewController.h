@@ -17,10 +17,9 @@
 
 @property (strong, nonatomic) NSMutableArray *imgNameArray;
 
-
-- (UICollectionView *)collectionView;
-
 - (void)initImgNameArray:(NSArray *)aArr;
+
+- (IBAction)btnPreviewTap:(id)sender;
 
 @end
 
@@ -32,3 +31,4 @@
 
 
 @end
+

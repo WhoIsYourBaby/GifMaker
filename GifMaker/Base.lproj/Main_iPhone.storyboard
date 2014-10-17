@@ -190,6 +190,20 @@
             </objects>
             <point key="canvasLocation" x="1152" y="826"/>
         </scene>
+        <!--Preview View Controller-->
+        <scene sceneID="eM5-rT-ETp">
+            <objects>
+                <viewController restorationIdentifier="PreviewViewController" storyboardIdentifier="PreviewViewController" id="T7d-Td-9lG" customClass="PreviewViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Aez-uN-88f">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GLt-1T-03L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1598" y="826"/>
+        </scene>
         <!--Editor View Controller-->
         <scene sceneID="RPv-bh-1wT">
             <objects>
@@ -204,7 +218,7 @@
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="5" id="8eZ-s9-wSB">
                                     <size key="itemSize" width="70" height="80"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="50" height="40"/>
                                     <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
@@ -227,6 +241,22 @@
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="EditorFooterView" id="qdD-Vg-af6">
+                                    <rect key="frame" x="0.0" y="150" width="320" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="pb4-kp-QFm">
+                                            <rect key="frame" x="70" y="1" width="180" height="38"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <state key="normal" title="预览" backgroundImage="btnSavePlay.png">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="btnPreviewTap:" destination="Zkp-ej-9HX" eventType="touchUpInside" id="eCN-Xg-E5y"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                </collectionReusableView>
                                 <connections>
                                     <outlet property="dataSource" destination="Zkp-ej-9HX" id="9Lc-1R-sft"/>
                                     <outlet property="delegate" destination="Zkp-ej-9HX" id="7Ra-R8-geA"/>
@@ -246,6 +276,7 @@
     </scenes>
     <resources>
         <image name="back_front.png" width="26" height="26"/>
+        <image name="btnSavePlay.png" width="76" height="18"/>
         <image name="camera.png" width="29" height="23"/>
         <image name="done.png" width="26" height="24"/>
         <image name="off.png" width="24" height="27"/>

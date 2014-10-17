@@ -33,6 +33,8 @@
 		6A20B5CB19F0FA9100D72911 /* UIView+CaptureImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A20B5C519F0FA9100D72911 /* UIView+CaptureImage.m */; };
 		6A20B5CC19F0FA9100D72911 /* UIViewController+ADFlipTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A20B5C719F0FA9100D72911 /* UIViewController+ADFlipTransition.m */; };
 		6A20B5CF19F0FC1100D72911 /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A20B5CE19F0FC1100D72911 /* DrawerViewController.m */; };
+		6A20B5D119F1056000D72911 /* btnSavePlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A20B5D019F1056000D72911 /* btnSavePlay@2x.png */; };
+		6A20B5D419F1078500D72911 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A20B5D319F1078500D72911 /* PreviewViewController.m */; };
 		6A254D4219D50DDC0079B61F /* ExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D3D19D50DDC0079B61F /* ExportViewController.m */; };
 		6A254D4319D50DDC0079B61F /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A254D3F19D50DDC0079B61F /* squarePNG.png */; };
 		6A254D4419D50DDC0079B61F /* SquareCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D4119D50DDC0079B61F /* SquareCamViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -143,6 +145,9 @@
 		6A20B5C719F0FA9100D72911 /* UIViewController+ADFlipTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ADFlipTransition.m"; sourceTree = "<group>"; };
 		6A20B5CD19F0FC1100D72911 /* DrawerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerViewController.h; sourceTree = "<group>"; };
 		6A20B5CE19F0FC1100D72911 /* DrawerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerViewController.m; sourceTree = "<group>"; };
+		6A20B5D019F1056000D72911 /* btnSavePlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnSavePlay@2x.png"; sourceTree = "<group>"; };
+		6A20B5D219F1078500D72911 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		6A20B5D319F1078500D72911 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
 		6A254D3C19D50DDC0079B61F /* ExportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportViewController.h; sourceTree = "<group>"; };
 		6A254D3D19D50DDC0079B61F /* ExportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportViewController.m; sourceTree = "<group>"; };
 		6A254D3F19D50DDC0079B61F /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
@@ -314,6 +319,7 @@
 				6A20B5BA19F0EDE300D72911 /* close2@2x.png */,
 				6A20B5B819F0EBE400D72911 /* close@2x.png */,
 				6A08D2A819EFB22900E07E2E /* pause@2x.png */,
+				6A20B5D019F1056000D72911 /* btnSavePlay@2x.png */,
 				0215CF3919DCE3240049B09B /* done@2x.png */,
 				0215CF3719DCE2C70049B09B /* view_bkg@2x.png */,
 				02F6E86219D64D5F005AFFE4 /* off@2x.png */,
@@ -367,8 +373,8 @@
 		6AA1E33E19D4202600F0CA9D /* GifMaker */ = {
 			isa = PBXGroup;
 			children = (
-				6A20B5BC19F0FA9100D72911 /* ADFlipTransition */,
 				6A254D3E19D50DDC0079B61F /* Pictures */,
+				6A20B5BC19F0FA9100D72911 /* ADFlipTransition */,
 				0215CF4619DCEBE20049B09B /* HWExpand */,
 				6AA1E37019D420B100F0CA9D /* ANGif */,
 				6AA1E39719D420B100F0CA9D /* ANImageBitmapRep */,
@@ -384,6 +390,8 @@
 				6A08D2AB19EFCCB200E07E2E /* EditorViewController.m */,
 				6A20B5CD19F0FC1100D72911 /* DrawerViewController.h */,
 				6A20B5CE19F0FC1100D72911 /* DrawerViewController.m */,
+				6A20B5D219F1078500D72911 /* PreviewViewController.h */,
+				6A20B5D319F1078500D72911 /* PreviewViewController.m */,
 				6A254D5319D518E40079B61F /* UIStoryboard+Main.h */,
 				6A254D5419D518E40079B61F /* UIStoryboard+Main.m */,
 				6A254D3C19D50DDC0079B61F /* ExportViewController.h */,
@@ -649,6 +657,7 @@
 				0215CF3A19DCE3240049B09B /* done@2x.png in Resources */,
 				02F6E85D19D64B57005AFFE4 /* cut@2x.png in Resources */,
 				02F6E85B19D64B57005AFFE4 /* back_front@2x.png in Resources */,
+				6A20B5D119F1056000D72911 /* btnSavePlay@2x.png in Resources */,
 				02F6E85C19D64B57005AFFE4 /* camera@2x.png in Resources */,
 				6AA1E34C19D4202600F0CA9D /* Main_iPhone.storyboard in Resources */,
 				02F6E85F19D64B57005AFFE4 /* video@2x.png in Resources */,
@@ -719,6 +728,7 @@
 				6AA1E34519D4202600F0CA9D /* main.m in Sources */,
 				6AA1E3C719D420B100F0CA9D /* CGImageContainer.m in Sources */,
 				6A254D4219D50DDC0079B61F /* ExportViewController.m in Sources */,
+				6A20B5D419F1078500D72911 /* PreviewViewController.m in Sources */,
 				6AA1E3B919D420B100F0CA9D /* ANMutableColorArray.m in Sources */,
 				6A20B5CC19F0FA9100D72911 /* UIViewController+ADFlipTransition.m in Sources */,
 				6AA1E3C519D420B100F0CA9D /* UIImage+ANImageBitmapRep.m in Sources */,

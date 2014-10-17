@@ -723,6 +723,10 @@ bail:
 #pragma mark - 完成
 - (IBAction)btnDoneTap:(id)sender
 {
+    if (self.videoTimer) {
+        [self.videoTimer invalidate];
+        self.videoTimer = nil;
+    }
     EditorViewController *editor = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"EditorViewController"];
     [editor initImgNameArray:self.tmpImgNameArray];
     [self.navigationController pushViewController:editor animated:YES];

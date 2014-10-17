@@ -11,7 +11,10 @@
 #import "DrawerViewController.h"
 #import "UIStoryboard+Main.h"
 #import "UIViewController+ADFlipTransition.h"
+#import "PreviewViewController.h"
 
+
+#pragma mark - EditorViewController
 @interface EditorViewController ()
 
 @end
@@ -43,9 +46,11 @@
     self.imgNameArray = [NSMutableArray arrayWithArray:aArr];
 }
 
-- (UICollectionView *)collectionView
+
+- (IBAction)btnPreviewTap:(id)sender
 {
-    return collctionImgView;
+    PreviewViewController *preview = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"PreviewViewController"];
+    [self.navigationController pushViewController:preview animated:YES];
 }
 
 /*
@@ -92,9 +97,21 @@
 }
 
 
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    UICollectionReusableView *reusableview = nil;
+    if (kind == UICollectionElementKindSectionFooter) {
+        UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"EditorFooterView" forIndexPath:indexPath];
+        reusableview = footerView;
+    }
+    return reusableview;
+}
+
 @end
 
 
+
+#pragma mark - ImgEditorCell
 @implementation ImgEditorCell
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -114,19 +131,13 @@
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-    NSLog(@"%s -> %d", __FUNCTION__, selected);
-}
-
-
-- (void)setHighlighted:(BOOL)highlighted
-{
-    [super setHighlighted:highlighted];
-    NSLog(@"%s -> %d", __FUNCTION__, highlighted);
-    if (highlighted) {
-        self.backgroundColor = [UIColor blackColor];
-    } else {
+    /*
+    if (selected) {
         self.backgroundColor = [UIColor redColor];
+    } else {
+        self.backgroundColor = [UIColor clearColor];
     }
+     */
 }
 
 @end
