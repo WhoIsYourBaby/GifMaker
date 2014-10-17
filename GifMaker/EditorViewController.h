@@ -8,6 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EditorViewController : UIViewController
+
+#pragma mark - EditorViewController
+@interface EditorViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+{
+    IBOutlet UICollectionView *collctionImgView;
+}
+
+@property (strong, nonatomic) NSMutableArray *imgNameArray;
+
+
+- (UICollectionView *)collectionView;
+
+- (void)initImgNameArray:(NSArray *)aArr;
+
+@end
+
+
+#pragma mark - ImgEditorCell
+@interface ImgEditorCell : UICollectionViewCell
+
+@property (weak, nonatomic) IBOutlet UIImageView *imgView;
+
 
 @end

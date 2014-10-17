@@ -68,6 +68,8 @@
 
 @property (retain, nonatomic) NSTimer *videoTimer;
 
+@property (retain, nonatomic) NSMutableArray *tmpImgNameArray;
+
 - (IBAction)dismissVC:(id)sender;
 - (IBAction)takePicture:(id)sender;
 - (IBAction)takeVideo:(id)sender;

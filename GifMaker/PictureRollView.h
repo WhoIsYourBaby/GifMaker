@@ -13,6 +13,8 @@
     int countOfPic;
 }
 
+@property (readonly) NSMutableArray *imgArray;
+
 - (void)addPicture:(UIImage *)aImg;
 
 @end

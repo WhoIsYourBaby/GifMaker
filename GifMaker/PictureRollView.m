@@ -20,10 +20,22 @@
     if (self) {
         // Initialization code
         countOfPic = 0;
+        [self customInit];
     }
     return self;
 }
 
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self customInit];
+}
+
+- (void)customInit
+{
+    _imgArray = [[NSMutableArray alloc] initWithCapacity:100];
+}
 
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -49,19 +61,19 @@
 - (void)addPicture:(UIImage *)aImg
 {
     UIImageView *imgView = [[UIImageView alloc] initWithImage:aImg];
-    imgView.frame = CGRectOffset(imgView.frame, countOfPic * k_Size_little.width, litRectWidth);
+    imgView.frame = CGRectOffset(imgView.frame, [_imgArray count] * k_Size_little.width, litRectWidth);
     [self addSubview:imgView];
-    countOfPic ++;
+    [_imgArray addObject:aImg];
     [self resetContentSize];
     [self flipAnimationOnView:imgView];
-    if ((countOfPic + 1) * k_Size_little.width - self.frame.size.width > 0) {
-        [self setContentOffset:CGPointMake((countOfPic + 1) * k_Size_little.width - self.frame.size.width, 0) animated:YES];
+    if (([_imgArray count] + 1) * k_Size_little.width - self.frame.size.width > 0) {
+        [self setContentOffset:CGPointMake(([_imgArray count] + 1) * k_Size_little.width - self.frame.size.width, 0) animated:YES];
     }
 }
 
 - (void)resetContentSize
 {
-    self.contentSize = CGSizeMake((countOfPic + 1) * k_Size_little.width, self.frame.size.height);
+    self.contentSize = CGSizeMake(([_imgArray count] + 1) * k_Size_little.width, self.frame.size.height);
 }
 
 

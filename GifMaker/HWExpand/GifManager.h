@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define k_Size_little CGSizeMake(57.f, 70.f)    //小图片size
+#define k_Size_little CGSizeMake(60.f, 70.f)    //小图片size
 
 
 @interface GifManager : NSObject

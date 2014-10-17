@@ -246,7 +246,6 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	[rootLayer setMasksToBounds:YES];
 	[previewLayer setFrame:[rootLayer bounds]];
 	[rootLayer addSublayer:previewLayer];
-	[session startRunning];
 
 bail:
 	[session release];
@@ -579,6 +578,7 @@ bail:
 - (void)dealloc
 {
     NSLog(@"%s -> ", __FUNCTION__);
+    self.tmpImgNameArray = nil;
     self.videoDeviceInput= nil;
 	[self teardownAVCapture];
 	[faceDetector release];
@@ -616,6 +616,7 @@ bail:
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.tmpImgNameArray = [NSMutableArray arrayWithCapacity:100];
 	// Do any additional setup after loading the view, typically from a nib.
 	[self setupAVCapture];
 	square = [[UIImage imageNamed:@"squarePNG"] retain];
@@ -636,6 +637,7 @@ bail:
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
+    [[previewLayer session] startRunning];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -646,6 +648,7 @@ bail:
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
+    [[previewLayer session] stopRunning];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -666,6 +669,7 @@ bail:
     if (picRoll.hidden == YES) {
         picRoll.hidden = NO;
     }
+    [self.tmpImgNameArray addObject:aName];
     UIImage *img = [[GifManager shareInterface] littleTempImageWithName:aName];
     [picRoll addPicture:img];
 }
@@ -720,8 +724,8 @@ bail:
 - (IBAction)btnDoneTap:(id)sender
 {
     EditorViewController *editor = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"EditorViewController"];
+    [editor initImgNameArray:self.tmpImgNameArray];
     [self.navigationController pushViewController:editor animated:YES];
-    [editor autorelease];
 }
 
 

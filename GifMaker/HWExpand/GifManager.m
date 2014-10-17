@@ -89,7 +89,8 @@ static GifManager *interface = nil;
 
 - (NSString *)saveTempImageJEPG:(NSData *)imgData
 {
-    NSString *jpgName = [[HWDevice uuidString] stringByAppendingPathExtension:@".jpg"];
+    double time = [[NSDate date] timeIntervalSince1970];
+    NSString *jpgName = [NSString stringWithFormat:@"%f.jpg", time];
     
     NSString *jpgBigPath = [[self docTempBig] stringByAppendingPathComponent:jpgName];
     UIImage *bigImg = [UIImage imageWithData:imgData];
