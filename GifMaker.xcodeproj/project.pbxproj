@@ -35,6 +35,7 @@
 		6A20B5CF19F0FC1100D72911 /* DrawerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A20B5CE19F0FC1100D72911 /* DrawerViewController.m */; };
 		6A20B5D119F1056000D72911 /* btnSavePlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A20B5D019F1056000D72911 /* btnSavePlay@2x.png */; };
 		6A20B5D419F1078500D72911 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A20B5D319F1078500D72911 /* PreviewViewController.m */; };
+		6A20B5D719F10CEA00D72911 /* DrawerToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A20B5D619F10CEA00D72911 /* DrawerToolView.m */; };
 		6A254D4219D50DDC0079B61F /* ExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D3D19D50DDC0079B61F /* ExportViewController.m */; };
 		6A254D4319D50DDC0079B61F /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A254D3F19D50DDC0079B61F /* squarePNG.png */; };
 		6A254D4419D50DDC0079B61F /* SquareCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D4119D50DDC0079B61F /* SquareCamViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -148,6 +149,8 @@
 		6A20B5D019F1056000D72911 /* btnSavePlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btnSavePlay@2x.png"; sourceTree = "<group>"; };
 		6A20B5D219F1078500D72911 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
 		6A20B5D319F1078500D72911 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		6A20B5D519F10CEA00D72911 /* DrawerToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawerToolView.h; sourceTree = "<group>"; };
+		6A20B5D619F10CEA00D72911 /* DrawerToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerToolView.m; sourceTree = "<group>"; };
 		6A254D3C19D50DDC0079B61F /* ExportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportViewController.h; sourceTree = "<group>"; };
 		6A254D3D19D50DDC0079B61F /* ExportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportViewController.m; sourceTree = "<group>"; };
 		6A254D3F19D50DDC0079B61F /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
@@ -390,6 +393,8 @@
 				6A08D2AB19EFCCB200E07E2E /* EditorViewController.m */,
 				6A20B5CD19F0FC1100D72911 /* DrawerViewController.h */,
 				6A20B5CE19F0FC1100D72911 /* DrawerViewController.m */,
+				6A20B5D519F10CEA00D72911 /* DrawerToolView.h */,
+				6A20B5D619F10CEA00D72911 /* DrawerToolView.m */,
 				6A20B5D219F1078500D72911 /* PreviewViewController.h */,
 				6A20B5D319F1078500D72911 /* PreviewViewController.m */,
 				6A254D5319D518E40079B61F /* UIStoryboard+Main.h */,
@@ -730,6 +735,7 @@
 				6A254D4219D50DDC0079B61F /* ExportViewController.m in Sources */,
 				6A20B5D419F1078500D72911 /* PreviewViewController.m in Sources */,
 				6AA1E3B919D420B100F0CA9D /* ANMutableColorArray.m in Sources */,
+				6A20B5D719F10CEA00D72911 /* DrawerToolView.m in Sources */,
 				6A20B5CC19F0FA9100D72911 /* UIViewController+ADFlipTransition.m in Sources */,
 				6AA1E3C519D420B100F0CA9D /* UIImage+ANImageBitmapRep.m in Sources */,
 			);
