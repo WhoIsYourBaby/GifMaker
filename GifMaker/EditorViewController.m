@@ -8,6 +8,9 @@
 
 #import "EditorViewController.h"
 #import "GifManager.h"
+#import "DrawerViewController.h"
+#import "UIStoryboard+Main.h"
+#import "UIViewController+ADFlipTransition.h"
 
 @interface EditorViewController ()
 
@@ -81,9 +84,12 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%s -> ", __FUNCTION__);
+    ImgEditorCell *cell = (ImgEditorCell *)[collctionImgView cellForItemAtIndexPath:indexPath];
+    DrawerViewController *drawer = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"DrawerViewController"];
+    [self flipToViewController:drawer fromView:cell.imgView withCompletion:^{
+        NSLog(@"%s -> ", __FUNCTION__);
+    }];
 }
-
 
 
 @end
