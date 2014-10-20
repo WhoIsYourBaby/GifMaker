@@ -13,9 +13,11 @@
 @interface EditorViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     IBOutlet UICollectionView *collctionImgView;
+    
 }
 
 @property (strong, nonatomic) NSMutableArray *imgNameArray;
+
 
 - (void)initImgNameArray:(NSArray *)aArr;
 

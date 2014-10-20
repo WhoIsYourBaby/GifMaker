@@ -103,6 +103,11 @@
     if (kind == UICollectionElementKindSectionFooter) {
         UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"EditorFooterView" forIndexPath:indexPath];
         reusableview = footerView;
+        for (id subv in [footerView subviews]) {
+            if ([subv isMemberOfClass:[UIButton class]]) {
+                [subv setTitle:NSLocalizedString(@"preview", nil) forState:UIControlStateNormal];
+            }
+        }
     }
     return reusableview;
 }
