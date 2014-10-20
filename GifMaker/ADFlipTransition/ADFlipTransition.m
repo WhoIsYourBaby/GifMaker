@@ -376,6 +376,8 @@
 		destFrame = [[[self destinationViewController] view] frame];
 	}
 	CGRect srcFrame = [self actualRectInView:[self sourceView]];
+    //add by ligun
+    srcFrame = CGRectOffset(srcFrame, 0, 64);
 	
 	//create the destination animation view
 	UIImage *destImage = [self destinationImage]?[self destinationImage]:[[[self destinationViewController] view] captureImage];

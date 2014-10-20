@@ -1,22 +1,22 @@
 //
-//  MyView.m
+//  PaintView.m
 //  画图
 //
 //  Created by mj on 14-9-4.
 //  Copyright (c) 2014年 Mr.Li. All rights reserved.
 //
 
-#import "MyView.h"
-#import "MyViewModel.h"
+#import "PaintView.h"
+#import "PaintViewModel.h"
 
-@interface MyView ()
+@interface PaintView ()
 
 @property (assign, nonatomic) CGMutablePathRef path;
 @property (strong, nonatomic) NSMutableArray *pathArray;
 @property (assign, nonatomic) BOOL isHavePath;
 @end
 
-@implementation MyView
+@implementation PaintView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -36,10 +36,10 @@
 }
 - (void)drawView:(CGContextRef)context
 {
-    for (MyViewModel *myViewModel in _pathArray) {
-        CGContextAddPath(context, myViewModel.path.CGPath);
-        [myViewModel.color set];
-        CGContextSetLineWidth(context, myViewModel.width);
+    for (PaintViewModel *PaintViewModel in _pathArray) {
+        CGContextAddPath(context, PaintViewModel.path.CGPath);
+        [PaintViewModel.color set];
+        CGContextSetLineWidth(context, PaintViewModel.width);
         CGContextSetLineCap(context, kCGLineCapRound);
         CGContextDrawPath(context, kCGPathStroke);
     }
@@ -73,12 +73,13 @@
     }
  
     UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:_path];
-    MyViewModel *myViewModel = [MyViewModel viewModelWithColor:_lineColor Path:path Width:_lineWidth];
-    [_pathArray addObject:myViewModel];
+    PaintViewModel *model = [PaintViewModel viewModelWithColor:_lineColor Path:path Width:_lineWidth];
+    [_pathArray addObject:model];
     
     CGPathRelease(_path);
     _isHavePath = NO;
 }
+
 @end
 
 // 版权属于原作者

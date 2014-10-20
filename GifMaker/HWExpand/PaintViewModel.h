@@ -2,12 +2,12 @@
  作者: 羊羊羊
  描述: 
  时间:
- 文件名: MyViewModel.h
+ 文件名: PaintViewModel.h
  */
 
 #import <Foundation/Foundation.h>
 
-@interface MyViewModel : NSObject
+@interface PaintViewModel : NSObject
 
 + (id)viewModelWithColor:(UIColor *)color Path:(UIBezierPath *)path Width:(CGFloat)width;
 

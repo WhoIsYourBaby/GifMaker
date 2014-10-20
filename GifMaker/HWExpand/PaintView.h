@@ -1,5 +1,5 @@
 //
-//  MyView.h
+//  PaintView.h
 //  画图
 //
 //  Created by mj on 14-9-4.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyView : UIView
+@interface PaintView : UIView
 
 @property (assign, nonatomic) CGFloat lineWidth;
 @property (strong, nonatomic) UIColor *lineColor;

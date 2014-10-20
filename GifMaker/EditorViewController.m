@@ -91,9 +91,9 @@
 {
     ImgEditorCell *cell = (ImgEditorCell *)[collctionImgView cellForItemAtIndexPath:indexPath];
     DrawerViewController *drawer = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"DrawerViewController"];
-    [self flipToViewController:drawer fromView:cell.imgView withCompletion:^{
-        NSLog(@"%s -> ", __FUNCTION__);
-    }];
+    NSString *srcImgName = self.imgNameArray[indexPath.row];
+    drawer.srcImgName = srcImgName;
+    [self flipToViewController:drawer fromView:cell.imgView withCompletion:nil];
 }
 
 
