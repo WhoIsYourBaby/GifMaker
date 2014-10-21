@@ -113,14 +113,14 @@ static GifManager *interface = nil;
     UIImage *bigImg = [UIImage imageWithData:imgData];
     bigImg = [HWDevice fixOrientation:bigImg];
     
-    NSData *bigImgData = UIImageJPEGRepresentation(bigImg, 0.5);
+    NSData *bigImgData = UIImageJPEGRepresentation(bigImg, 0.8);
     if (![bigImgData writeToFile:jpgBigPath atomically:NO]) {
         NSLog(@"%s -> %@", __FUNCTION__, jpgBigPath);
     }
     
     NSString *jpgLitPath = [[self docTempLittle] stringByAppendingPathComponent:jpgName];
     UIImage *litImg = [bigImg imageByScalingToCustomSize:k_Size_little];
-    NSData *litImgData = UIImageJPEGRepresentation(litImg, 0.5);
+    NSData *litImgData = UIImageJPEGRepresentation(litImg, 0.8);
     if (![litImgData writeToFile:jpgLitPath atomically:NO]) {
         NSLog(@"%s -> %@", __FUNCTION__, litImgData);
     }
