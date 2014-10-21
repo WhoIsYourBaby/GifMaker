@@ -22,4 +22,5 @@
 
 + (NSString *)uuidString;
 
++ (UIImage *)fixOrientation:(UIImage *)aImage;
 @end

@@ -64,6 +64,7 @@
     [self.navigationController presentViewController:export animated:YES completion:nil];
     [export encodeToFile:fp callback:^(NSString *file) {
         NSLog(@"%s -> %@", __FUNCTION__, file);
+        [export dismissViewControllerAnimated:YES completion:nil];
     }];
 }
 

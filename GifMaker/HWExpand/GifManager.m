@@ -111,6 +111,7 @@ static GifManager *interface = nil;
     
     NSString *jpgBigPath = [[self docTempBig] stringByAppendingPathComponent:jpgName];
     UIImage *bigImg = [UIImage imageWithData:imgData];
+    bigImg = [HWDevice fixOrientation:bigImg];
     
     NSData *bigImgData = UIImageJPEGRepresentation(bigImg, 0.5);
     if (![bigImgData writeToFile:jpgBigPath atomically:NO]) {
