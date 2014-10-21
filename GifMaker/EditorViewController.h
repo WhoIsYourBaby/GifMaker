@@ -13,7 +13,7 @@
 @interface EditorViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     IBOutlet UICollectionView *collctionImgView;
-    
+    NSIndexPath *editIndexPath;
 }
 
 @property (strong, nonatomic) NSMutableArray *imgNameArray;

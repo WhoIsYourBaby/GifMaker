@@ -87,6 +87,23 @@ static GifManager *interface = nil;
 }
 
 
+- (void)saveEditImage:(UIImage *)bigImg withImgName:(NSString *)name;
+{
+    NSString *jpgBigPath = [[self docTempBig] stringByAppendingPathComponent:name];
+    
+    NSData *bigImgData = UIImageJPEGRepresentation(bigImg, 1.0);
+    if (![bigImgData writeToFile:jpgBigPath atomically:NO]) {
+        NSLog(@"%s -> %@", __FUNCTION__, jpgBigPath);
+    }
+    
+    NSString *jpgLitPath = [[self docTempLittle] stringByAppendingPathComponent:name];
+    UIImage *litImg = [bigImg imageByScalingToCustomSize:k_Size_little];
+    NSData *litImgData = UIImageJPEGRepresentation(litImg, 1.0);
+    if (![litImgData writeToFile:jpgLitPath atomically:NO]) {
+        NSLog(@"%s -> %@", __FUNCTION__, litImgData);
+    }
+}
+
 - (NSString *)saveTempImageJEPG:(NSData *)imgData
 {
     double time = [[NSDate date] timeIntervalSince1970];
@@ -95,17 +112,15 @@ static GifManager *interface = nil;
     NSString *jpgBigPath = [[self docTempBig] stringByAppendingPathComponent:jpgName];
     UIImage *bigImg = [UIImage imageWithData:imgData];
     
-//    bigImg = [self bestImage:bigImg];
-    
     NSData *bigImgData = UIImageJPEGRepresentation(bigImg, 0.5);
-    if (![bigImgData writeToFile:jpgBigPath atomically:YES]) {
+    if (![bigImgData writeToFile:jpgBigPath atomically:NO]) {
         NSLog(@"%s -> %@", __FUNCTION__, jpgBigPath);
     }
     
     NSString *jpgLitPath = [[self docTempLittle] stringByAppendingPathComponent:jpgName];
     UIImage *litImg = [bigImg imageByScalingToCustomSize:k_Size_little];
     NSData *litImgData = UIImageJPEGRepresentation(litImg, 0.5);
-    if (![litImgData writeToFile:jpgLitPath atomically:YES]) {
+    if (![litImgData writeToFile:jpgLitPath atomically:NO]) {
         NSLog(@"%s -> %@", __FUNCTION__, litImgData);
     }
     return jpgName;
@@ -145,6 +160,30 @@ static GifManager *interface = nil;
 {
     NSString *filePath = [[self docTempBig] stringByAppendingPathComponent:aName];
     return [UIImage imageWithContentsOfFile:filePath];
+}
+
+- (NSArray *)previewImageArray
+{
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSArray *fNameArr = [fm subpathsAtPath:[self docTempBig]];
+    NSArray *stArr = [fNameArr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSString *name1 = (NSString *)obj1;
+        NSString *name2 = (NSString *)obj2;
+        double dt1 = [[name1 stringByDeletingPathExtension] doubleValue];
+        double dt2 = [[name2 stringByDeletingPathExtension] doubleValue];
+        if (dt1 < dt2) {
+            return NSOrderedAscending;
+        } else {
+            return NSOrderedDescending;
+        }
+    }];
+    
+    NSMutableArray *imgArr = [NSMutableArray arrayWithCapacity:256];
+    for (int i = 0; i < [stArr count]; i ++) {
+        UIImage *img = [[GifManager shareInterface] bigTempImageWithName:stArr[i]];
+        [imgArr addObject:img];
+    }
+    return imgArr;
 }
 
 

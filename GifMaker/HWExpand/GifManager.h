@@ -19,8 +19,11 @@
 - (void)cleanTempDir;
 
 - (NSString *)saveTempImageJEPG:(NSData *)imgData;
+- (void)saveEditImage:(UIImage *)bigImg withImgName:(NSString *)name;
 
 - (UIImage *)littleTempImageWithName:(NSString *)aName;
 - (UIImage *)bigTempImageWithName:(NSString *)aName;
+
+- (NSArray *)previewImageArray;
 
 @end

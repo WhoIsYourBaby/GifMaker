@@ -9,7 +9,6 @@
 #import "DrawerViewController.h"
 #import "GifManager.h"
 #import "PaintView.h"
-#import "PaintViewModel.h"
 #import "UIViewController+ADFlipTransition.h"
 
 #define k_toolbar_height 40
@@ -18,7 +17,6 @@
 {
     UIImageView *imgView;
     PaintView *ptView;
-    PaintViewModel *ptModel;
     UIButton *btnDone;
     UIButton *btnGoback;
     UIButton *btnCancel;
@@ -60,6 +58,9 @@
         ToolItemView *item = [ToolItemView toolItemViewWithObjc:lw];
         [toolbar addItem:item];
     }
+    [toolbar setCallbackBlock:^(id objc) {
+        ptView.lineWidth = [objc floatValue];
+    }];
 }
 
 - (void)initColorToolbar
@@ -86,6 +87,9 @@
         ToolItemView *item = [ToolItemView toolItemViewWithObjc:clr];
         [toolbar addItem:item];
     }
+    [toolbar setCallbackBlock:^(id objc) {
+        ptView.lineColor = objc;
+    }];
 }
 
 - (void)viewDidLayoutSubviews
@@ -104,6 +108,8 @@
         ptView = [[PaintView alloc] initWithFrame:imgView.frame];
         [self.view addSubview:ptView];
         btnOriginY = imgView.frame.size.height + imgView.frame.origin.y + 7;
+        ptView.lineColor = [UIColor redColor];
+        ptView.lineWidth = 3.f;
     }
     
     if (btnDone == nil) {
@@ -178,14 +184,27 @@
 
 #pragma mark - Actions
 
+- (void)saveBackImage
+{
+    UIGraphicsBeginImageContext(imgView.frame.size);
+    [imgView.image drawAtPoint:CGPointZero];
+    [ptView.layer drawInContext:UIGraphicsGetCurrentContext()];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    [[GifManager shareInterface] saveEditImage:img withImgName:self.srcImgName];
+}
+
 - (void)btnDoneTap:(id)sender
 {
+    [self saveBackImage];
     [self dismissFlipWithCompletion:nil];
 }
 
 
 - (void)btnGobackTap:(id)sender
-{}
+{
+    [ptView reverse];
+}
 
 
 - (void)btnCancelTap:(id)sender

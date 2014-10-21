@@ -11,6 +11,8 @@
 
 #define k_rect_button CGRectMake(0, 0, 36, 36)
 
+typedef void(^ToolViewItemSelect)(id objc);
+
 #pragma mark - DrawerToolView
 @class ToolItemView;
 @protocol ToolItemProtocol;
@@ -18,6 +20,8 @@
 {
     int itemCount;
 }
+
+@property (copy, nonatomic) ToolViewItemSelect callbackBlock;
 
 - (void)addItems:(NSArray *)aArr;
 
@@ -31,6 +35,7 @@
 @interface ToolItemView : UIView
 {
     __strong id SrcObjc;
+    BOOL selected;
 }
 
 @property (weak, nonatomic) id<ToolItemProtocol> delegate;
@@ -40,6 +45,9 @@
 - (instancetype)initWithObjc:(id)objc;
 
 - (id)SrcObjc;
+
+- (void)setSelected:(BOOL)bSlctd;
+- (BOOL)isSelected;
 
 @end
 

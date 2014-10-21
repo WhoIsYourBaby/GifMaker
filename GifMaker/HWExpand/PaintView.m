@@ -14,6 +14,7 @@
 @property (assign, nonatomic) CGMutablePathRef path;
 @property (strong, nonatomic) NSMutableArray *pathArray;
 @property (assign, nonatomic) BOOL isHavePath;
+
 @end
 
 @implementation PaintView
@@ -23,10 +24,18 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor clearColor];
-        _lineWidth = 10.0f;
+        _lineWidth = 3.f;
         _lineColor = [UIColor redColor];
     }
     return self;
+}
+
+- (void)reverse
+{
+    if ([_pathArray count] > 0) {
+        [_pathArray removeLastObject];
+        [self setNeedsDisplay];
+    }
 }
 
 - (void)drawRect:(CGRect)rect

@@ -7,6 +7,7 @@
 //
 
 #import "PreviewViewController.h"
+#import "GifManager.h"
 
 @interface PreviewViewController ()
 
@@ -17,6 +18,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
+    [previewImgView setAnimationImages:self.imgArray];
+    [previewImgView setAnimationDuration:1.0];
+    [previewImgView startAnimating];
+    
+    [speedSlider setMaximumValue:3.f];
+    speedSlider.popUpViewColor = [UIColor colorWithHue:0.55 saturation:0.8 brightness:0.9 alpha:0.7];
+    speedSlider.popUpViewAnimatedColors = @[[UIColor orangeColor], [UIColor magentaColor], [UIColor redColor]];
+    speedSlider.textColor = [UIColor colorWithHue:0.55 saturation:1.0 brightness:0.5 alpha:1];
+}
+
+- (NSArray *)imgArray
+{
+    if (_imgArray == nil) {
+        return [[GifManager shareInterface] previewImageArray];
+    } else {
+        return _imgArray;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

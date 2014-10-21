@@ -59,6 +59,8 @@
 {
     aItem.frame = CGRectOffset(aItem.frame, itemCount * aItem.frame.size.width, (self.frame.size.height - aItem.frame.size.height) / 2);
     [self addSubview:aItem];
+    aItem.delegate = self;
+    if (itemCount == 0) [aItem setSelected:YES];
     itemCount ++;
     int totalWidth = aItem.frame.size.width * itemCount;
     if (totalWidth > self.contentSize.width) {
@@ -68,7 +70,19 @@
 
 - (void)toolItemTaped:(ToolItemView *)aItem
 {
-    NSLog(@"%s -> %@", __FUNCTION__, NSStringFromClass([[aItem SrcObjc] class]));
+    if (![aItem isSelected]) {
+        for (ToolItemView *it in [self subviews]) {
+            if ([it isKindOfClass:[ToolItemView class]]) {
+                if ([it isSelected]) {
+                    [it setSelected:NO];
+                }
+            }
+        }
+        [aItem setSelected:YES];
+    }
+    if (_callbackBlock) {
+        _callbackBlock([aItem SrcObjc]);
+    }
 }
 
 @end
@@ -93,6 +107,22 @@
         [self addGestureRecognizer:tap];
     }
     return self;
+}
+
+- (void)setSelected:(BOOL)bSlctd
+{
+    selected = bSlctd;
+    if (selected) {
+        self.layer.borderColor = [UIColor whiteColor].CGColor;
+        self.layer.borderWidth = 3;
+    } else {
+        self.layer.borderWidth = 0;
+    }
+}
+
+- (BOOL)isSelected
+{
+    return selected;
 }
 
 - (void)singleTap:(id)sender

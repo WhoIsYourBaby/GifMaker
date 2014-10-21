@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ASValueTrackingSlider.h"
 
 @interface PreviewViewController : UIViewController
+{
+    IBOutlet UIImageView *previewImgView;
+    IBOutlet ASValueTrackingSlider *speedSlider;
+}
+
+@property (strong, nonatomic) NSArray *imgArray;
 
 @end

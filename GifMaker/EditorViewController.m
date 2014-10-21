@@ -12,6 +12,7 @@
 #import "UIStoryboard+Main.h"
 #import "UIViewController+ADFlipTransition.h"
 #import "PreviewViewController.h"
+#import "ExportViewController.h"
 
 
 #pragma mark - EditorViewController
@@ -36,6 +37,10 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
+    if (editIndexPath) {
+        [collctionImgView reloadItemsAtIndexPaths:@[editIndexPath]];
+        editIndexPath = nil;
+    }
 }
 
 
@@ -49,8 +54,17 @@
 
 - (IBAction)btnPreviewTap:(id)sender
 {
+    /*
     PreviewViewController *preview = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"PreviewViewController"];
     [self.navigationController pushViewController:preview animated:YES];
+     */
+    NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    fp = [fp stringByAppendingPathComponent:@"test.gif"];
+    ExportViewController *export = [[ExportViewController alloc] initWithImages:[[GifManager shareInterface] previewImageArray]];
+    [self.navigationController presentViewController:export animated:YES completion:nil];
+    [export encodeToFile:fp callback:^(NSString *file) {
+        NSLog(@"%s -> %@", __FUNCTION__, file);
+    }];
 }
 
 /*
@@ -94,6 +108,7 @@
     NSString *srcImgName = self.imgNameArray[indexPath.row];
     drawer.srcImgName = srcImgName;
     [self flipToViewController:drawer fromView:cell.imgView withCompletion:nil];
+    editIndexPath = indexPath;
 }
 
 

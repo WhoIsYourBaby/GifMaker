@@ -13,6 +13,8 @@
 @property (assign, nonatomic) CGFloat lineWidth;
 @property (strong, nonatomic) UIColor *lineColor;
 
+- (void)reverse;
+
 @end
 
 // 版权属于原作者
