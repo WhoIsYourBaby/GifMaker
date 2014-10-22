@@ -104,13 +104,14 @@ static GifManager *interface = nil;
     }
 }
 
-- (NSString *)saveTempImageJEPG:(NSData *)imgData
+
+- (NSString *)saveTempImage:(UIImage *)bigImg
 {
     double time = [[NSDate date] timeIntervalSince1970];
     NSString *jpgName = [NSString stringWithFormat:@"%f.jpg", time];
     
     NSString *jpgBigPath = [[self docTempBig] stringByAppendingPathComponent:jpgName];
-    UIImage *bigImg = [UIImage imageWithData:imgData];
+    
     bigImg = [HWDevice fixOrientation:bigImg];
     
     NSData *bigImgData = UIImageJPEGRepresentation(bigImg, 0.8);
@@ -125,6 +126,12 @@ static GifManager *interface = nil;
         NSLog(@"%s -> %@", __FUNCTION__, litImgData);
     }
     return jpgName;
+}
+
+- (NSString *)saveTempImageJEPG:(NSData *)imgData
+{
+    UIImage *bigImg = [UIImage imageWithData:imgData];
+    return [self saveTempImage:bigImg];
 }
 
 

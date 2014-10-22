@@ -64,6 +64,7 @@
 	CGFloat beginGestureScale;
 	CGFloat effectiveScale;
     IBOutlet PictureRollView *picRoll;
+    IBOutlet UIButton *btnVideo;
 }
 
 @property (retain, nonatomic) NSTimer *videoTimer;

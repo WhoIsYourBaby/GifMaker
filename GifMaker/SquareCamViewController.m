@@ -65,7 +65,8 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 
 static void ReleaseCVPixelBuffer(void *pixel, const void *data, size_t size);
 static void ReleaseCVPixelBuffer(void *pixel, const void *data, size_t size) 
-{	
+{
+    NSLog(@"%s -> ", __FUNCTION__);
 	CVPixelBufferRef pixelBuffer = (CVPixelBufferRef)pixel;
 	CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
 	CVPixelBufferRelease( pixelBuffer );
@@ -110,9 +111,11 @@ bail:
 		CGImageRelease( image );
 		image = NULL;
 	}
+    CVPixelBufferRelease(pixelBuffer);
 	if ( provider ) CGDataProviderRelease( provider );
 	if ( colorspace ) CGColorSpaceRelease( colorspace );
 	*imageOut = image;
+    
 	return err;
 }
 
@@ -227,7 +230,6 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	NSDictionary *rgbOutputSettings = @{(id)kCVPixelBufferPixelFormatTypeKey : [NSNumber numberWithInt:kCMPixelFormat_32BGRA]};
 	[videoDataOutput setVideoSettings:rgbOutputSettings];
 	[videoDataOutput setAlwaysDiscardsLateVideoFrames:YES]; // discard if the data output queue is blocked (as we process the still image)
-    
     // create a serial dispatch queue used for the sample buffer delegate as well as when a still image is captured
     // a serial dispatch queue must be used to guarantee that video frames will be delivered in order
     // see the header doc for setSampleBufferDelegate:queue: for more information
@@ -236,7 +238,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	
     if ( [session canAddOutput:videoDataOutput] )
 		[session addOutput:videoDataOutput];
-	[[videoDataOutput connectionWithMediaType:AVMediaTypeVideo] setEnabled:NO];
+	[[videoDataOutput connectionWithMediaType:AVMediaTypeVideo] setEnabled:YES];
 	
 	effectiveScale = 1.0;
 	previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
@@ -245,7 +247,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 	CALayer *rootLayer = [previewView layer];
 	[rootLayer setMasksToBounds:YES];
 	[previewLayer setFrame:[rootLayer bounds]];
-	[rootLayer addSublayer:previewLayer];
+	[rootLayer insertSublayer:previewLayer atIndex:0];
 
 bail:
 	[session release];
@@ -575,6 +577,22 @@ bail:
 	[CATransaction commit];
 }
 
+
+
+- (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
+{
+    /*
+    NSLog(@"%s -> %f", __FUNCTION__, [[NSDate date] timeIntervalSince1970]);
+    // got an image
+    CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+    CGImageRef srcImage = NULL;
+    OSStatus status = CreateCGImageFromCVPixelBuffer(pixelBuffer, &srcImage);
+    UIImage *img = [UIImage imageWithCGImage:srcImage scale:1.0 orientation:UIImageOrientationRight];
+    [[GifManager shareInterface] saveTempImage:img];
+     */
+}
+
+
 - (void)dealloc
 {
     NSLog(@"%s -> ", __FUNCTION__);
@@ -588,7 +606,6 @@ bail:
 
 
 //自动聚焦和连续聚焦：
-
 - (void)autoFocusAtPoint:(CGPoint)point
 {
     AVCaptureDevice *device = [[self videoDeviceInput] device];
@@ -624,6 +641,9 @@ bail:
 	faceDetector = [[CIDetector detectorOfType:CIDetectorTypeFace context:nil options:detectorOptions] retain];
 	[detectorOptions release];
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
+    if (!isUsingFrontFacingCamera) {
+        [self switchCameras:nil];
+    }
 }
 
 - (void)viewDidUnload
@@ -772,6 +792,7 @@ bail:
 - (IBAction)takeVideo:(id)sender
 {
     [sender setSelected:![sender isSelected]];
+    /*
     BOOL isSelect = [sender isSelected];
     if (isSelect) {
         self.videoTimer = [NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(videoScheduledTimer:) userInfo:nil repeats:YES];
@@ -779,6 +800,7 @@ bail:
         [self.videoTimer invalidate];
         self.videoTimer = nil;
     }
+     */
 }
 
 - (void)videoScheduledTimer:(NSTimer *)aTimer
@@ -830,6 +852,10 @@ bail:
 			}
 			[[previewLayer session] addInput:input];
             [self setVideoDeviceInput:input];
+            [d lockForConfiguration:nil];
+            [d setActiveVideoMinFrameDuration:CMTimeMake(1, 10)];
+            [d setActiveVideoMaxFrameDuration:CMTimeMake(1, 10)];
+            [d unlockForConfiguration];
 			[[previewLayer session] commitConfiguration];
 			break;
 		}
