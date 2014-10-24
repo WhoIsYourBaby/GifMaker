@@ -25,6 +25,7 @@
 		6A08D2AC19EFCCB200E07E2E /* EditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A08D2AB19EFCCB200E07E2E /* EditorViewController.m */; };
 		6A08D2B119EFD72E00E07E2E /* PaintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A08D2AE19EFD72E00E07E2E /* PaintView.m */; };
 		6A08D2B219EFD72E00E07E2E /* PaintViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A08D2B019EFD72E00E07E2E /* PaintViewModel.m */; };
+		6A1EAABF19F9F9000005943D /* setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A1EAABE19F9F9000005943D /* setting@2x.png */; };
 		6A20B5B919F0EBE400D72911 /* close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A20B5B819F0EBE400D72911 /* close@2x.png */; };
 		6A20B5BB19F0EDE300D72911 /* close2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A20B5BA19F0EDE300D72911 /* close2@2x.png */; };
 		6A20B5C819F0FA9100D72911 /* ADFlipTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A20B5BF19F0FA9100D72911 /* ADFlipTransition.m */; };
@@ -37,7 +38,6 @@
 		6A20B5D419F1078500D72911 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A20B5D319F1078500D72911 /* PreviewViewController.m */; };
 		6A20B5D719F10CEA00D72911 /* DrawerToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A20B5D619F10CEA00D72911 /* DrawerToolView.m */; };
 		6A254D4219D50DDC0079B61F /* ExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D3D19D50DDC0079B61F /* ExportViewController.m */; };
-		6A254D4319D50DDC0079B61F /* squarePNG.png in Resources */ = {isa = PBXBuildFile; fileRef = 6A254D3F19D50DDC0079B61F /* squarePNG.png */; };
 		6A254D4419D50DDC0079B61F /* SquareCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A254D4119D50DDC0079B61F /* SquareCamViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6A254D4719D50E700079B61F /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A254D4519D50E700079B61F /* CoreImage.framework */; };
 		6A254D4819D50E700079B61F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A254D4619D50E700079B61F /* ImageIO.framework */; };
@@ -138,6 +138,7 @@
 		6A08D2AE19EFD72E00E07E2E /* PaintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintView.m; sourceTree = "<group>"; };
 		6A08D2AF19EFD72E00E07E2E /* PaintViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintViewModel.h; sourceTree = "<group>"; };
 		6A08D2B019EFD72E00E07E2E /* PaintViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaintViewModel.m; sourceTree = "<group>"; };
+		6A1EAABE19F9F9000005943D /* setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "setting@2x.png"; sourceTree = "<group>"; };
 		6A20B5B819F0EBE400D72911 /* close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close@2x.png"; sourceTree = "<group>"; };
 		6A20B5BA19F0EDE300D72911 /* close2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close2@2x.png"; sourceTree = "<group>"; };
 		6A20B5BE19F0FA9100D72911 /* ADFlipTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADFlipTransition.h; sourceTree = "<group>"; };
@@ -159,7 +160,6 @@
 		6A20B5D619F10CEA00D72911 /* DrawerToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawerToolView.m; sourceTree = "<group>"; };
 		6A254D3C19D50DDC0079B61F /* ExportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExportViewController.h; sourceTree = "<group>"; };
 		6A254D3D19D50DDC0079B61F /* ExportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExportViewController.m; sourceTree = "<group>"; };
-		6A254D3F19D50DDC0079B61F /* squarePNG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = squarePNG.png; sourceTree = "<group>"; };
 		6A254D4019D50DDC0079B61F /* SquareCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquareCamViewController.h; sourceTree = "<group>"; };
 		6A254D4119D50DDC0079B61F /* SquareCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquareCamViewController.m; sourceTree = "<group>"; };
 		6A254D4519D50E700079B61F /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
@@ -350,7 +350,7 @@
 				02F6E85819D64B57005AFFE4 /* cut@2x.png */,
 				02F6E85919D64B57005AFFE4 /* shop@2x.png */,
 				02F6E85A19D64B57005AFFE4 /* video@2x.png */,
-				6A254D3F19D50DDC0079B61F /* squarePNG.png */,
+				6A1EAABE19F9F9000005943D /* setting@2x.png */,
 			);
 			path = Pictures;
 			sourceTree = "<group>";
@@ -687,6 +687,7 @@
 			files = (
 				6A20B5B919F0EBE400D72911 /* close@2x.png in Resources */,
 				6AA1E34F19D4202600F0CA9D /* Main_iPad.storyboard in Resources */,
+				6A1EAABF19F9F9000005943D /* setting@2x.png in Resources */,
 				6A20B5BB19F0EDE300D72911 /* close2@2x.png in Resources */,
 				02F6E85E19D64B57005AFFE4 /* shop@2x.png in Resources */,
 				0215CF3819DCE2C70049B09B /* view_bkg@2x.png in Resources */,
@@ -694,7 +695,6 @@
 				6A50D2B119F7978200EC5942 /* capture_swapcamerabtn@2x.png in Resources */,
 				6A9054F219F5125400B3C739 /* goback@2x.png in Resources */,
 				6A50D2B019F7978200EC5942 /* capture_swapcamerabtn.png in Resources */,
-				6A254D4319D50DDC0079B61F /* squarePNG.png in Resources */,
 				02F6E86319D64D5F005AFFE4 /* off@2x.png in Resources */,
 				0215CF3A19DCE3240049B09B /* done@2x.png in Resources */,
 				02F6E85D19D64B57005AFFE4 /* cut@2x.png in Resources */,

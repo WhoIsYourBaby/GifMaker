@@ -94,44 +94,18 @@
                                     <action selector="dismissVC:" destination="c8i-2z-qLc" eventType="touchUpInside" id="wac-4O-Ykh"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="PmF-1h-3CK">
-                                <rect key="frame" x="142" y="521" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <state key="normal" image="video.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="pause.png"/>
-                                <connections>
-                                    <action selector="takeVideo:" destination="c8i-2z-qLc" eventType="touchUpInside" id="1N8-nI-zqc"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zUU-Sc-yVT">
-                                <rect key="frame" x="202" y="521" width="37" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <state key="normal" image="camera.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="takePicture:" destination="c8i-2z-qLc" eventType="touchUpInside" id="Eyy-lf-Vbc"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4ZD-3u-g3k">
                                 <rect key="frame" x="262" y="521" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <state key="normal" image="done.png">
+                                <state key="normal" image="setting.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="btnDoneTap:" destination="c8i-2z-qLc" eventType="touchUpInside" id="3DD-8R-0Tx"/>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="ymw-fy-pOr" customClass="PictureRollView">
-                                <rect key="frame" x="16" y="438" width="288" height="80"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </scrollView>
                             <view contentMode="scaleToFill" id="UqY-uR-1Pi">
-                                <rect key="frame" x="16" y="23" width="288" height="410"/>
+                                <rect key="frame" x="16" y="20" width="288" height="477"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fkU-vQ-beg">
@@ -152,6 +126,16 @@
                                     <outletCollection property="gestureRecognizers" destination="bYz-7v-oDl" appends="YES" id="J5Q-4r-ikh"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hDf-Tp-SP0">
+                                <rect key="frame" x="142" y="522" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <state key="normal" image="camera.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="takePicture:" destination="c8i-2z-qLc" eventType="touchUpInside" id="fFq-2X-Pfe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.64937842150000002" green="1" blue="0.66930885039999999" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -159,8 +143,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
-                        <outlet property="btnVideo" destination="PmF-1h-3CK" id="a2q-9p-dQk"/>
-                        <outlet property="picRoll" destination="ymw-fy-pOr" id="Lza-a4-M4Q"/>
+                        <outlet property="btnTakePic" destination="hDf-Tp-SP0" id="Prl-t8-tCb"/>
                         <outlet property="previewView" destination="UqY-uR-1Pi" id="3yU-fQ-F4q"/>
                     </connections>
                 </viewController>
@@ -295,10 +278,8 @@
         <image name="btnSavePlay.png" width="76" height="18"/>
         <image name="camera.png" width="29" height="23"/>
         <image name="capture_swapcamerabtn.png" width="62" height="33"/>
-        <image name="done.png" width="26" height="24"/>
         <image name="off.png" width="24" height="27"/>
-        <image name="pause.png" width="20" height="23"/>
-        <image name="video.png" width="30" height="26"/>
+        <image name="setting.png" width="28" height="28"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

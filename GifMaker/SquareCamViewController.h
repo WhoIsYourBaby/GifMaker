@@ -63,11 +63,10 @@
 	CIDetector *faceDetector;
 	CGFloat beginGestureScale;
 	CGFloat effectiveScale;
-    IBOutlet PictureRollView *picRoll;
     IBOutlet UIButton *btnVideo;
+    IBOutlet UIButton *btnTakePic;
 }
 
-@property (retain, nonatomic) NSTimer *videoTimer;
 
 @property (retain, nonatomic) NSMutableArray *tmpImgNameArray;
 

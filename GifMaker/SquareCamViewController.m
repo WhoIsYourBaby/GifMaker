@@ -581,6 +581,18 @@ bail:
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
+    if (![btnTakePic isHidden] && [btnTakePic isSelected]) {
+        // got an image
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self cameraFlash];
+        });
+        CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+        CGImageRef srcImage = NULL;
+        OSStatus status = CreateCGImageFromCVPixelBuffer(pixelBuffer, &srcImage);
+        UIImage *img = [UIImage imageWithCGImage:srcImage scale:1.0 orientation:UIImageOrientationRight];
+        [[GifManager shareInterface] saveTempImage:img];
+        [btnTakePic setSelected:NO];
+    }
     /*
     NSLog(@"%s -> %f", __FUNCTION__, [[NSDate date] timeIntervalSince1970]);
     // got an image
@@ -644,6 +656,7 @@ bail:
     if (!isUsingFrontFacingCamera) {
         [self switchCameras:nil];
     }
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(btnDoneTap:)] autorelease];
 }
 
 - (void)viewDidUnload
@@ -656,7 +669,7 @@ bail:
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.navigationController.navigationBarHidden = YES;
+//    self.navigationController.navigationBarHidden = YES;
     [[previewLayer session] startRunning];
 }
 
@@ -683,17 +696,6 @@ bail:
 }
 
 #pragma mark - Actions
-
-- (void)didSaveImageName:(NSString *)aName
-{
-    if (picRoll.hidden == YES) {
-        picRoll.hidden = NO;
-    }
-    [self.tmpImgNameArray addObject:aName];
-    UIImage *img = [[GifManager shareInterface] littleTempImageWithName:aName];
-    [picRoll addPicture:img];
-}
-
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
@@ -743,10 +745,6 @@ bail:
 #pragma mark - 完成
 - (IBAction)btnDoneTap:(id)sender
 {
-    if (self.videoTimer) {
-        [self.videoTimer invalidate];
-        self.videoTimer = nil;
-    }
     EditorViewController *editor = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"EditorViewController"];
     [editor initImgNameArray:self.tmpImgNameArray];
     [self.navigationController pushViewController:editor animated:YES];
@@ -758,56 +756,30 @@ bail:
 // the square overlay will be composited on top of the captured image and saved to the camera roll
 - (IBAction)takePicture:(id)sender
 {
-	// Find out the current orientation and tell the still image output.
-	AVCaptureConnection *stillImageConnection = [stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
-	UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
-	AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
-	[stillImageConnection setVideoOrientation:avcaptureOrientation];
-	[stillImageConnection setVideoScaleAndCropFactor:effectiveScale];
-	
-    BOOL doingFaceDetection = detectFaces && (effectiveScale == 1.0);
-	
-    [stillImageOutput setOutputSettings:@{(id)AVVideoCodecKey : AVVideoCodecJPEG}];
-	
-	[stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection
-                                                  completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-                                                      if (error) {
-                                                          NSLog(@"%s -> Take picture failed", __FUNCTION__);
-                                                      }
-                                                      else {
-                                                          // trivial simple JPEG case
-                                                          NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                                                          dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                                                              NSString *jpgName = [[GifManager shareInterface] saveTempImageJEPG:jpegData];
-                                                              dispatch_async(dispatch_get_main_queue(), ^{
-                                                                  [self didSaveImageName:jpgName];
-                                                              });
-                                                          });
-                                                      }
-                                                  }
-	 ];
+    [btnTakePic setSelected:YES];
+}
+
+//拍照动画
+- (void)cameraFlash
+{
+    flashView = [[UIView alloc] initWithFrame:[previewView frame]];
+    [flashView setBackgroundColor:[UIColor whiteColor]];
+    [flashView setAlpha:1.0];
+    [[self view] addSubview:flashView];
+    
+    [UIView animateWithDuration:0.35f animations:^{
+        [flashView setAlpha:0.f];
+    } completion:^(BOOL finished) {
+        [flashView removeFromSuperview];
+        [flashView release];
+        flashView = nil;
+    }];
 }
 
 
 - (IBAction)takeVideo:(id)sender
 {
-    [sender setSelected:![sender isSelected]];
-    /*
-    BOOL isSelect = [sender isSelected];
-    if (isSelect) {
-        self.videoTimer = [NSTimer scheduledTimerWithTimeInterval:0.7 target:self selector:@selector(videoScheduledTimer:) userInfo:nil repeats:YES];
-    } else {
-        [self.videoTimer invalidate];
-        self.videoTimer = nil;
-    }
-     */
 }
-
-- (void)videoScheduledTimer:(NSTimer *)aTimer
-{
-    [self takePicture:nil];
-}
-
 
 // turn on/off face detection
 //取消使用
@@ -827,9 +799,6 @@ bail:
 #pragma mark - dismiss
 - (IBAction)dismissVC:(id)sender
 {
-    /*
-    [self dismissViewControllerAnimated:YES completion:nil];
-     */
     [self.navigationController popViewControllerAnimated:YES];
 }
 
