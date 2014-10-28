@@ -7,6 +7,7 @@
 //
 
 #import "HWActionSheet.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation HWActionSheet
 
@@ -19,19 +20,14 @@
 */
 
 
-- (instancetype)initWithHeight:(CGFloat)height
+- (instancetype)initWithHeight:(HWActionSheetHeight)hEnum
 {
     self = [super init];
     if (self) {
-        //init
-        int btnCount = height / 50 + 1;
-        for (int i = 0; i < btnCount; i ++) {
+        for (int i = 0; i < hEnum; i ++) {
             [self addButtonWithTitle:@""];
         }
     }
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, height)];
-//    view.backgroundColor = [UIColor redColor];
-//    [self addSubview:view];
     return self;
 }
 
@@ -39,7 +35,29 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    NSLog(@"%s -> %@", __FUNCTION__, NSStringFromCGRect(self.bounds));
+    for (id subbtn in [self subviews]) {
+        if ([subbtn isKindOfClass:NSClassFromString(@"UIAlertButton")]) {
+            [subbtn removeFromSuperview];
+        }
+    }
+    [self initCustomView];
+}
+
+- (void)initCustomView
+{
+    UIButton *btnDone = [UIButton buttonWithType:UIButtonTypeCustom];
+    btnDone.frame = CGRectMake(50, self.frame.size.height - 52, 220, 36);
+    [btnDone setTitle:NSLocalizedString(@"OK", nil) forState:UIControlStateNormal];
+    btnDone.layer.borderWidth = 1.3;
+    btnDone.layer.borderColor = [UIColor blueColor].CGColor;
+    [btnDone setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [btnDone addTarget:self action:@selector(btnDoneTap:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:btnDone];
+}
+
+- (void)btnDoneTap:(id)sender
+{
+    [self dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 @end

@@ -852,7 +852,7 @@ bail:
 
 - (IBAction)btnSettingTap:(id)sender
 {
-    HWActionSheet *sheet = [[HWActionSheet alloc] initWithHeight:165];
+    HWActionSheet *sheet = [[HWActionSheet alloc] initWithHeight:HWActionSheetHeightD];
     [sheet showInView:self.view];
     [sheet release];
 }

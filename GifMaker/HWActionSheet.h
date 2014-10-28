@@ -7,16 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef enum {
+    HWActionSheetHeightA = 1,
+    HWActionSheetHeightB,
+    HWActionSheetHeightC,
+    HWActionSheetHeightD,
+    HWActionSheetHeightE,
+    HWActionSheetHeightF
+} HWActionSheetHeight;
 
 @interface HWActionSheet : UIActionSheet
 
 /*因为是通过给ActionSheet 加 Button来改变ActionSheet, 所以大小要与actionsheet的button数有关
  
- count*height = 84, 134, 184, 234, 284, 334, 384, 434, 484
+ height = 52 + 44 * (hEnum - 1);  //52,96,140,184,228...
  
  *如果要用self.view = anotherview.  那么another的大小也必须与view的大小一样
  
  */
-- (instancetype)initWithHeight:(CGFloat)height;
+- (instancetype)initWithHeight:(HWActionSheetHeight)hEnum;
 
 @end
