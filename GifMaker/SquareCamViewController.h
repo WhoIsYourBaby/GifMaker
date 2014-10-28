@@ -47,7 +47,7 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
-@class CIDetector, PictureRollView;
+@class CIDetector, PictureRollView, HWVideoButton;
 
 @interface SquareCamViewController : UIViewController <UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 {
@@ -63,8 +63,11 @@
 	CIDetector *faceDetector;
 	CGFloat beginGestureScale;
 	CGFloat effectiveScale;
-    IBOutlet UIButton *btnVideo;
+    
+    IBOutlet HWVideoButton *btnVideo;
     IBOutlet UIButton *btnTakePic;
+    NSUInteger countOfPicTaked;
+    NSUInteger maxCountOfPic;
 }
 
 
@@ -74,8 +77,19 @@
 - (IBAction)takePicture:(id)sender;
 - (IBAction)takeVideo:(id)sender;
 - (IBAction)switchCameras:(id)sender;
+- (IBAction)btnSettingTap:(id)sender;
 - (IBAction)handlePinchGesture:(UIGestureRecognizer *)sender;
 - (IBAction)handleFocusGesture:(UIGestureRecognizer *)sender;
 - (IBAction)btnDoneTap:(id)sender;
+
+@end
+
+
+@interface HWVideoButton : UIButton
+{
+    CGFloat persent;
+}
+
+- (void)setPersent:(float)pst;    /* 0~maxCountOfPic */
 
 @end

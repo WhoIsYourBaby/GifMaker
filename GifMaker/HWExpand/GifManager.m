@@ -170,11 +170,23 @@ static GifManager *interface = nil;
     return [UIImage imageWithContentsOfFile:filePath];
 }
 
-- (NSArray *)previewImageArray
+- (NSArray *)imageArrayInTemp
+{
+    NSArray *stArr = [self imageNameArrayInTemp];
+    NSMutableArray *imgArr = [NSMutableArray arrayWithCapacity:256];
+    for (int i = 0; i < [stArr count]; i ++) {
+        UIImage *img = [[GifManager shareInterface] bigTempImageWithName:stArr[i]];
+        [imgArr addObject:img];
+    }
+    return imgArr;
+}
+
+
+- (NSArray *)imageNameArrayInTemp
 {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSArray *fNameArr = [fm subpathsAtPath:[self docTempBig]];
-    NSArray *stArr = [fNameArr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+    NSArray *stNameArr = [fNameArr sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
         NSString *name1 = (NSString *)obj1;
         NSString *name2 = (NSString *)obj2;
         double dt1 = [[name1 stringByDeletingPathExtension] doubleValue];
@@ -185,14 +197,7 @@ static GifManager *interface = nil;
             return NSOrderedDescending;
         }
     }];
-    
-    NSMutableArray *imgArr = [NSMutableArray arrayWithCapacity:256];
-    for (int i = 0; i < [stArr count]; i ++) {
-        UIImage *img = [[GifManager shareInterface] bigTempImageWithName:stArr[i]];
-        [imgArr addObject:img];
-    }
-    return imgArr;
+    return stNameArr;
 }
-
 
 @end

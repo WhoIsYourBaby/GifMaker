@@ -101,7 +101,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="btnDoneTap:" destination="c8i-2z-qLc" eventType="touchUpInside" id="3DD-8R-0Tx"/>
+                                    <action selector="btnSettingTap:" destination="c8i-2z-qLc" eventType="touchUpInside" id="JBX-YG-Ces"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" id="UqY-uR-1Pi">
@@ -127,13 +127,24 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hDf-Tp-SP0">
-                                <rect key="frame" x="142" y="522" width="37" height="37"/>
+                                <rect key="frame" x="94" y="521" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <state key="normal" image="camera.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="takePicture:" destination="c8i-2z-qLc" eventType="touchUpInside" id="fFq-2X-Pfe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="efi-Ml-TIx" customClass="HWVideoButton">
+                                <rect key="frame" x="138" y="515" width="45" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <state key="normal" image="video.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" image="pause.png"/>
+                                <connections>
+                                    <action selector="takeVideo:" destination="c8i-2z-qLc" eventType="touchUpInside" id="NcR-X7-vSh"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -144,6 +155,7 @@
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
                         <outlet property="btnTakePic" destination="hDf-Tp-SP0" id="Prl-t8-tCb"/>
+                        <outlet property="btnVideo" destination="efi-Ml-TIx" id="94a-Mb-pSh"/>
                         <outlet property="previewView" destination="UqY-uR-1Pi" id="3yU-fQ-F4q"/>
                     </connections>
                 </viewController>
@@ -161,6 +173,40 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="279" y="826"/>
+        </scene>
+        <!--Square Set View Controller-->
+        <scene sceneID="mzq-1D-nH8">
+            <objects>
+                <viewController restorationIdentifier="SquareSetViewController" storyboardIdentifier="SquareSetViewController" id="BPt-FX-dZb" customClass="SquareSetViewController" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" contentMode="bottom" id="UAN-a3-fNo">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="360"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="h7d-fX-rRB">
+                                <rect key="frame" x="43" y="165" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="TI5-LA-NMm">
+                                <rect key="frame" x="161" y="167" width="123" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="360"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uZ9-vz-2dy" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="280" y="1522"/>
         </scene>
         <!--Drawer View Controller-->
         <scene sceneID="JUp-cu-07n">
@@ -279,7 +325,9 @@
         <image name="camera.png" width="29" height="23"/>
         <image name="capture_swapcamerabtn.png" width="62" height="33"/>
         <image name="off.png" width="24" height="27"/>
+        <image name="pause.png" width="28" height="28"/>
         <image name="setting.png" width="28" height="28"/>
+        <image name="video.png" width="28" height="28"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

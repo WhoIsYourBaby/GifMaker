@@ -55,6 +55,7 @@
 #import "PictureRollView.h"
 #import "EditorViewController.h"
 #import "UIStoryboard+Main.h"
+#import "HWActionSheet.h"
 
 #pragma mark-
 
@@ -66,7 +67,6 @@ static CGFloat DegreesToRadians(CGFloat degrees) {return degrees * M_PI / 180;};
 static void ReleaseCVPixelBuffer(void *pixel, const void *data, size_t size);
 static void ReleaseCVPixelBuffer(void *pixel, const void *data, size_t size) 
 {
-    NSLog(@"%s -> ", __FUNCTION__);
 	CVPixelBufferRef pixelBuffer = (CVPixelBufferRef)pixel;
 	CVPixelBufferUnlockBaseAddress( pixelBuffer, 0 );
 	CVPixelBufferRelease( pixelBuffer );
@@ -581,27 +581,24 @@ bail:
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
-    if (![btnTakePic isHidden] && [btnTakePic isSelected]) {
-        // got an image
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self cameraFlash];
-        });
-        CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-        CGImageRef srcImage = NULL;
-        OSStatus status = CreateCGImageFromCVPixelBuffer(pixelBuffer, &srcImage);
-        UIImage *img = [UIImage imageWithCGImage:srcImage scale:1.0 orientation:UIImageOrientationRight];
-        [[GifManager shareInterface] saveTempImage:img];
-        [btnTakePic setSelected:NO];
+    if (![btnVideo isHidden] && [btnVideo isSelected] && countOfPicTaked <= maxCountOfPic) {
+        if (countOfPicTaked == maxCountOfPic) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [btnVideo setSelected:NO];
+                [self btnDoneTap:nil];
+            });
+        } else {
+            CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+            CGImageRef srcImage = NULL;
+            OSStatus status = CreateCGImageFromCVPixelBuffer(pixelBuffer, &srcImage);
+            UIImage *img = [UIImage imageWithCGImage:srcImage scale:1.0 orientation:UIImageOrientationRight];
+            [[GifManager shareInterface] saveTempImage:img];
+            countOfPicTaked ++;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [btnVideo setPersent:(float)countOfPicTaked / maxCountOfPic];
+            });
+        }
     }
-    /*
-    NSLog(@"%s -> %f", __FUNCTION__, [[NSDate date] timeIntervalSince1970]);
-    // got an image
-    CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-    CGImageRef srcImage = NULL;
-    OSStatus status = CreateCGImageFromCVPixelBuffer(pixelBuffer, &srcImage);
-    UIImage *img = [UIImage imageWithCGImage:srcImage scale:1.0 orientation:UIImageOrientationRight];
-    [[GifManager shareInterface] saveTempImage:img];
-     */
 }
 
 
@@ -657,6 +654,9 @@ bail:
         [self switchCameras:nil];
     }
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(btnDoneTap:)] autorelease];
+    
+    countOfPicTaked = 0;
+    maxCountOfPic = 30;
 }
 
 - (void)viewDidUnload
@@ -746,7 +746,7 @@ bail:
 - (IBAction)btnDoneTap:(id)sender
 {
     EditorViewController *editor = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"EditorViewController"];
-    [editor initImgNameArray:self.tmpImgNameArray];
+    [editor initImgNameArray:[[GifManager shareInterface] imageNameArrayInTemp]];
     [self.navigationController pushViewController:editor animated:YES];
 }
 
@@ -756,7 +756,23 @@ bail:
 // the square overlay will be composited on top of the captured image and saved to the camera roll
 - (IBAction)takePicture:(id)sender
 {
-    [btnTakePic setSelected:YES];
+    AVCaptureConnection *stillImageConnection = [stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+    UIDeviceOrientation curDeviceOrientation = [[UIDevice currentDevice] orientation];
+    AVCaptureVideoOrientation avcaptureOrientation = [self avOrientationForDeviceOrientation:curDeviceOrientation];
+    [stillImageConnection setVideoOrientation:avcaptureOrientation];
+    [stillImageConnection setVideoScaleAndCropFactor:effectiveScale];
+    [stillImageOutput setOutputSettings:@{(id)AVVideoCodecKey : AVVideoCodecJPEG}];
+    [stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
+        if (error) {
+            NSLog(@"%s -> Take picture failed", __FUNCTION__);
+        } else {
+            NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+            NSString *jpgName = [[GifManager shareInterface] saveTempImageJEPG:jpegData];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self cameraFlash];
+            });
+        }
+    }];
 }
 
 //拍照动画
@@ -779,6 +795,7 @@ bail:
 
 - (IBAction)takeVideo:(id)sender
 {
+    [sender setSelected:![sender isSelected]];
 }
 
 // turn on/off face detection
@@ -832,5 +849,55 @@ bail:
 	isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
 }
 
+
+- (IBAction)btnSettingTap:(id)sender
+{
+    HWActionSheet *sheet = [[HWActionSheet alloc] initWithHeight:165];
+    [sheet showInView:self.view];
+    [sheet release];
+}
+
+@end
+
+
+@implementation HWVideoButton
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    persent = 0.f;
+}
+
+- (void)setPersent:(float)pst
+{
+    persent = pst;
+    [self setNeedsDisplay];
+}
+
+
+- (void)setSelected:(BOOL)selected
+{
+    [super setSelected:selected];
+    [self setPersent:0];
+}
+
+- (CGRect)imageRectForContentRect:(CGRect)contentRect
+{
+    float inset = contentRect.size.width - contentRect.size.width / 1.25;
+    return CGRectInset(contentRect, inset, inset);
+}
+
+- (void)drawRect:(CGRect)rect
+{
+    [super drawRect:rect];
+    if ([self isSelected]) {
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        CGContextSetLineWidth(ctx, 3.f);
+        [[UIColor redColor] setStroke];
+        CGContextAddArc(ctx, rect.size.width/2, rect.size.height/2, rect.size.width/2-2, -M_PI_2, -M_PI_2 + M_PI * 2 * persent, 0);
+        CGContextStrokePath(ctx);
+        CGContextFillPath(ctx);
+    }
+}
 
 @end

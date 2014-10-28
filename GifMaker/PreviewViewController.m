@@ -32,7 +32,7 @@
 - (NSArray *)imgArray
 {
     if (_imgArray == nil) {
-        return [[GifManager shareInterface] previewImageArray];
+        return [[GifManager shareInterface] imageArrayInTemp];
     } else {
         return _imgArray;
     }

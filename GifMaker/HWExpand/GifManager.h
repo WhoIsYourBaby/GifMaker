@@ -25,6 +25,8 @@
 - (UIImage *)littleTempImageWithName:(NSString *)aName;
 - (UIImage *)bigTempImageWithName:(NSString *)aName;
 
-- (NSArray *)previewImageArray;
+- (NSArray *)imageArrayInTemp;
+
+- (NSArray *)imageNameArrayInTemp;
 
 @end

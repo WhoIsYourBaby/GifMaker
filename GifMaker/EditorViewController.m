@@ -60,7 +60,7 @@
      */
     NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     fp = [fp stringByAppendingPathComponent:@"test.gif"];
-    ExportViewController *export = [[ExportViewController alloc] initWithImages:[[GifManager shareInterface] previewImageArray]];
+    ExportViewController *export = [[ExportViewController alloc] initWithImages:[[GifManager shareInterface] imageArrayInTemp]];
     [self.navigationController presentViewController:export animated:YES completion:nil];
     [export encodeToFile:fp callback:^(NSString *file) {
         NSLog(@"%s -> %@", __FUNCTION__, file);
