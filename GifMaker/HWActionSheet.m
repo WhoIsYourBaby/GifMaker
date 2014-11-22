@@ -66,25 +66,43 @@
 - (void)initSubViews
 {
     UISegmentedControl *countSeg = [[UISegmentedControl alloc] initWithItems:@[@"16", @"24", @"32"]];
-    countSeg.frame = CGRectMake(0.15 * self.frame.size.width, 10, 0.7 * self.frame.size.width, 30);
+    countSeg.frame = CGRectMake(0.3 * self.frame.size.width, 10, 0.6 * self.frame.size.width, 30);
     [countSeg setSelectedSegmentIndex:0];
     [countSeg addTarget:self action:@selector(countSegmentChange:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:countSeg];
     
+    UILabel *countLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.05 * self.frame.size.width, countSeg.frame.origin.y, 0.2 * self.frame.size.width, countSeg.frame.size.height)];
+    countLabel.backgroundColor = [UIColor clearColor];
+    countLabel.text = NSLocalizedString(@"采像数", nil);
+    countLabel.font = [UIFont systemFontOfSize:16];
+    [self addSubview:countLabel];
+    
     UISegmentedControl *methodSeg = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"camera"], [UIImage imageNamed:@"video"]]];
-    methodSeg.frame = CGRectMake(0.15 * self.frame.size.width, 50, 0.7 * self.frame.size.width, 36);
+    methodSeg.frame = CGRectMake(0.3 * self.frame.size.width, 50, 0.6 * self.frame.size.width, 36);
     [methodSeg setSelectedSegmentIndex:0];
     [methodSeg addTarget:self action:@selector(methodSegmentChange:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:methodSeg];
     
-    ASValueTrackingSlider *timeSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(0.15 * self.frame.size.width, 110, 0.7 * self.frame.size.width, 5)];
+    UILabel *methodLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.05 * self.frame.size.width, methodSeg.frame.origin.y, 0.2 * self.frame.size.width, methodSeg.frame.size.height)];
+    methodLabel.backgroundColor = [UIColor clearColor];
+    methodLabel.text = NSLocalizedString(@"采像方式", nil);
+    methodLabel.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+    [self addSubview:methodLabel];
+    
+    ASValueTrackingSlider *timeSlider = [[ASValueTrackingSlider alloc] initWithFrame:CGRectMake(0.3 * self.frame.size.width, 110, 0.6 * self.frame.size.width, 5)];
     timeSlider.popUpViewCornerRadius = 2.f;
     NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
     [fmt setNumberStyle:NSNumberFormatterDecimalStyle];
-    timeSlider.maximumValue = 16;
-    timeSlider.minimumValue = 1.6;
+    timeSlider.maximumValue = 1.0;
+    timeSlider.minimumValue = 0.1;
     [timeSlider setMaxFractionDigitsDisplayed:1];
     [self addSubview:timeSlider];
+    
+    UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.05 * self.frame.size.width, timeSlider.frame.origin.y - 12, 0.2 * self.frame.size.width, 30)];
+    timeLabel.backgroundColor = [UIColor clearColor];
+    timeLabel.text = NSLocalizedString(@"采像间隔", nil);
+    timeLabel.font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+    [self addSubview:timeLabel];
 }
 
 
