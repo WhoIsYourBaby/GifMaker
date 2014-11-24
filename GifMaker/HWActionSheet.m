@@ -9,6 +9,7 @@
 #import "HWActionSheet.h"
 #import <QuartzCore/QuartzCore.h>
 #import "ASValueTrackingSlider.h"
+#import "SettingBundle.h"
 
 @implementation HWActionSheet
 
@@ -21,13 +22,14 @@
 */
 
 
-- (instancetype)initWithHeight:(HWActionSheetHeight)hEnum
+- (instancetype)initWithHeight:(HWActionSheetHeight)hEnum withSetting:(SettingBundle *)aSB
 {
     self = [super init];
     if (self) {
         for (int i = 0; i < hEnum; i ++) {
             [self addButtonWithTitle:@""];
         }
+        self.setBundle = aSB;
     }
     return self;
 }
@@ -65,9 +67,16 @@
 
 - (void)initSubViews
 {
-    UISegmentedControl *countSeg = [[UISegmentedControl alloc] initWithItems:@[@"16", @"24", @"32"]];
+    NSArray *ctItemArr = @[@"16", @"24", @"32"];
+    int SlctSeg = 0;
+    for (int i = 0; i < [ctItemArr count]; i ++) {
+        if ([ctItemArr[i] intValue] == self.setBundle.countOfImage) {
+            SlctSeg = i;
+        }
+    }
+    UISegmentedControl *countSeg = [[UISegmentedControl alloc] initWithItems:ctItemArr];
     countSeg.frame = CGRectMake(0.3 * self.frame.size.width, 10, 0.6 * self.frame.size.width, 30);
-    [countSeg setSelectedSegmentIndex:0];
+    [countSeg setSelectedSegmentIndex:SlctSeg];
     [countSeg addTarget:self action:@selector(countSegmentChange:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:countSeg];
     
@@ -79,7 +88,7 @@
     
     UISegmentedControl *methodSeg = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"camera"], [UIImage imageNamed:@"video"]]];
     methodSeg.frame = CGRectMake(0.3 * self.frame.size.width, 50, 0.6 * self.frame.size.width, 36);
-    [methodSeg setSelectedSegmentIndex:0];
+    [methodSeg setSelectedSegmentIndex:self.setBundle.methodCate];
     [methodSeg addTarget:self action:@selector(methodSegmentChange:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:methodSeg];
     
@@ -96,6 +105,8 @@
     timeSlider.maximumValue = 1.0;
     timeSlider.minimumValue = 0.1;
     [timeSlider setMaxFractionDigitsDisplayed:1];
+    [timeSlider setValue:self.setBundle.timeInterval];
+    [timeSlider addTarget:self action:@selector(timeSliderChange:) forControlEvents:UIControlEventValueChanged];
     [self addSubview:timeSlider];
     
     UILabel *timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.05 * self.frame.size.width, timeSlider.frame.origin.y - 12, 0.2 * self.frame.size.width, 30)];
@@ -105,15 +116,27 @@
     [self addSubview:timeLabel];
 }
 
+- (SettingBundle *)setBundle
+{
+    if (_setBundle == nil) {
+        _setBundle = [SettingBundle defaultSetting];
+    }
+    return _setBundle;
+}
 
-- (void)countSegmentChange:(id)sender
+- (void)countSegmentChange:(UISegmentedControl *)sender
 {
     NSLog(@"%s", __func__);
 }
 
-- (void)methodSegmentChange:(id)sender
+- (void)methodSegmentChange:(UISegmentedControl *)sender
 {
     NSLog(@"%s", __func__);
 }
+
+- (void)timeSliderChange:(UISlider *)sender
+{
+}
+
 
 @end

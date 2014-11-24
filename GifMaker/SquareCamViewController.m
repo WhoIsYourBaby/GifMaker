@@ -56,6 +56,7 @@
 #import "EditorViewController.h"
 #import "UIStoryboard+Main.h"
 #import "HWActionSheet.h"
+#import "SettingBundle.h"
 
 #pragma mark-
 
@@ -186,6 +187,7 @@ static CGContextRef CreateCGBitmapContextForSize(CGSize size)
 @interface SquareCamViewController ()
 
 @property (nonatomic) AVCaptureDeviceInput *videoDeviceInput;
+@property (nonatomic, strong) SettingBundle *setBundle;
 
 - (void)setupAVCapture;
 - (void)teardownAVCapture;
@@ -852,9 +854,17 @@ bail:
 
 - (IBAction)btnSettingTap:(id)sender
 {
-    HWActionSheet *sheet = [[HWActionSheet alloc] initWithHeight:HWActionSheetHeightD];
+    HWActionSheet *sheet = [[HWActionSheet alloc] initWithHeight:HWActionSheetHeightD withSetting:self.setBundle];
     [sheet showInView:self.view];
     [sheet release];
+}
+
+- (SettingBundle *)setBundle
+{
+    if (_setBundle == nil) {
+        _setBundle = [SettingBundle defaultSetting];
+    }
+    return _setBundle;
 }
 
 @end

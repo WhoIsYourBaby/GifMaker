@@ -16,6 +16,7 @@ typedef enum {
     HWActionSheetHeightF
 } HWActionSheetHeight;
 
+@class SettingBundle;
 @interface HWActionSheet : UIActionSheet
 
 /*因为是通过给ActionSheet 加 Button来改变ActionSheet, 所以大小要与actionsheet的button数有关
@@ -25,6 +26,8 @@ typedef enum {
  *如果要用self.view = anotherview.  那么another的大小也必须与view的大小一样
  
  */
-- (instancetype)initWithHeight:(HWActionSheetHeight)hEnum;
+- (instancetype)initWithHeight:(HWActionSheetHeight)hEnum withSetting:(SettingBundle *)aSB;
+
+@property (nonatomic, strong) SettingBundle *setBundle;
 
 @end
