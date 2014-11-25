@@ -11,6 +11,12 @@
 #import "ASValueTrackingSlider.h"
 #import "SettingBundle.h"
 
+@interface HWActionSheet ()
+
+@property (strong, nonatomic) NSArray *countSegArray;
+
+@end
+
 @implementation HWActionSheet
 
 /*
@@ -30,6 +36,7 @@
             [self addButtonWithTitle:@""];
         }
         self.setBundle = aSB;
+        self.countSegArray = @[@"16", @"24", @"32"];
     }
     return self;
 }
@@ -60,21 +67,15 @@
     [self initSubViews];
 }
 
-- (void)btnDoneTap:(id)sender
-{
-    [self dismissWithClickedButtonIndex:0 animated:YES];
-}
-
 - (void)initSubViews
 {
-    NSArray *ctItemArr = @[@"16", @"24", @"32"];
     int SlctSeg = 0;
-    for (int i = 0; i < [ctItemArr count]; i ++) {
-        if ([ctItemArr[i] intValue] == self.setBundle.countOfImage) {
+    for (int i = 0; i < [self.countSegArray count]; i ++) {
+        if ([self.countSegArray[i] intValue] == self.setBundle.countOfImage) {
             SlctSeg = i;
         }
     }
-    UISegmentedControl *countSeg = [[UISegmentedControl alloc] initWithItems:ctItemArr];
+    UISegmentedControl *countSeg = [[UISegmentedControl alloc] initWithItems:self.countSegArray];
     countSeg.frame = CGRectMake(0.3 * self.frame.size.width, 10, 0.6 * self.frame.size.width, 30);
     [countSeg setSelectedSegmentIndex:SlctSeg];
     [countSeg addTarget:self action:@selector(countSegmentChange:) forControlEvents:UIControlEventValueChanged];
@@ -86,7 +87,7 @@
     countLabel.font = [UIFont systemFontOfSize:16];
     [self addSubview:countLabel];
     
-    UISegmentedControl *methodSeg = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"camera"], [UIImage imageNamed:@"video"]]];
+    UISegmentedControl *methodSeg = [[UISegmentedControl alloc] initWithItems:@[[UIImage imageNamed:@"video"], [UIImage imageNamed:@"camera"]]];
     methodSeg.frame = CGRectMake(0.3 * self.frame.size.width, 50, 0.6 * self.frame.size.width, 36);
     [methodSeg setSelectedSegmentIndex:self.setBundle.methodCate];
     [methodSeg addTarget:self action:@selector(methodSegmentChange:) forControlEvents:UIControlEventValueChanged];
@@ -126,16 +127,26 @@
 
 - (void)countSegmentChange:(UISegmentedControl *)sender
 {
-    NSLog(@"%s", __func__);
+    NSInteger sltInd = [sender selectedSegmentIndex];
+    self.setBundle.countOfImage = [self.countSegArray[sltInd] intValue];
 }
 
 - (void)methodSegmentChange:(UISegmentedControl *)sender
 {
-    NSLog(@"%s", __func__);
+    self.setBundle.methodCate = (SettingMethodEnum)[sender selectedSegmentIndex];
 }
 
 - (void)timeSliderChange:(UISlider *)sender
 {
+    self.setBundle.timeInterval = sender.value;
+}
+
+- (void)btnDoneTap:(id)sender
+{
+    if (_callback) {
+        _callback(self.setBundle);
+    }
+    [self dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 

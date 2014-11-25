@@ -67,7 +67,8 @@
     IBOutlet HWVideoButton *btnVideo;
     IBOutlet UIButton *btnTakePic;
     NSUInteger countOfPicTaked;
-    NSUInteger maxCountOfPic;
+    
+    NSTimeInterval timeIndicator;
 }
 
 

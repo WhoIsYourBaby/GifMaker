@@ -17,6 +17,9 @@ typedef enum {
 } HWActionSheetHeight;
 
 @class SettingBundle;
+
+typedef void(^HWActionSheetCallback)(SettingBundle *aSet);
+
 @interface HWActionSheet : UIActionSheet
 
 /*因为是通过给ActionSheet 加 Button来改变ActionSheet, 所以大小要与actionsheet的button数有关
@@ -28,6 +31,8 @@ typedef enum {
  */
 - (instancetype)initWithHeight:(HWActionSheetHeight)hEnum withSetting:(SettingBundle *)aSB;
 
-@property (nonatomic, strong) SettingBundle *setBundle;
+@property (nonatomic, weak) SettingBundle *setBundle;
+
+@property (copy, nonatomic) HWActionSheetCallback callback;
 
 @end

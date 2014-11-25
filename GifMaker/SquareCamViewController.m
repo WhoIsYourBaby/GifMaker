@@ -583,30 +583,45 @@ bail:
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection
 {
-    if (![btnVideo isHidden] && [btnVideo isSelected] && countOfPicTaked <= maxCountOfPic) {
-        if (countOfPicTaked == maxCountOfPic) {
+    if (![btnVideo isHidden] && [btnVideo isSelected] && countOfPicTaked <= self.setBundle.countOfImage) {
+        if (countOfPicTaked == self.setBundle.countOfImage) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [btnVideo setSelected:NO];
                 [self btnDoneTap:nil];
+                countOfPicTaked = 0;
             });
         } else {
-            CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
-            CGImageRef srcImage = NULL;
-            OSStatus status = CreateCGImageFromCVPixelBuffer(pixelBuffer, &srcImage);
-            UIImage *img = [UIImage imageWithCGImage:srcImage scale:1.0 orientation:UIImageOrientationRight];
-            [[GifManager shareInterface] saveTempImage:img];
-            countOfPicTaked ++;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [btnVideo setPersent:(float)countOfPicTaked / maxCountOfPic];
-            });
+            if ([self shouldTakePicAuto]) {
+                CVPixelBufferRef pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
+                CGImageRef srcImage = NULL;
+                OSStatus status = CreateCGImageFromCVPixelBuffer(pixelBuffer, &srcImage);
+                UIImage *img = [UIImage imageWithCGImage:srcImage scale:1.0 orientation:UIImageOrientationRight];
+                [[GifManager shareInterface] saveTempImage:img];
+                countOfPicTaked ++;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [btnVideo setPersent:(float)countOfPicTaked / self.setBundle.countOfImage];
+                });
+            }
         }
     }
+}
+
+
+- (BOOL)shouldTakePicAuto
+{
+    NSTimeInterval ttt = [[NSDate date] timeIntervalSince1970];
+    if ((ttt - timeIndicator) > self.setBundle.timeInterval) {
+        timeIndicator = ttt;
+        return YES;
+    }
+    return NO;
 }
 
 
 - (void)dealloc
 {
     NSLog(@"%s -> ", __FUNCTION__);
+    self.setBundle = nil;
     self.tmpImgNameArray = nil;
     self.videoDeviceInput= nil;
 	[self teardownAVCapture];
@@ -655,10 +670,23 @@ bail:
     if (!isUsingFrontFacingCamera) {
         [self switchCameras:nil];
     }
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(btnDoneTap:)] autorelease];
     
     countOfPicTaked = 0;
-    maxCountOfPic = 30;
+    
+    [self updateMethodUI];
+}
+
+- (void)updateMethodUI
+{
+    if (self.setBundle.methodCate == SettingMethodAuto) {
+        btnVideo.hidden = NO;
+        btnTakePic.hidden = YES;
+        self.navigationItem.rightBarButtonItem = nil;
+    } else {
+        btnTakePic.hidden = NO;
+        btnVideo.hidden = YES;
+        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(btnDoneTap:)] autorelease];
+    }
 }
 
 - (void)viewDidUnload
@@ -797,6 +825,7 @@ bail:
 
 - (IBAction)takeVideo:(id)sender
 {
+    timeIndicator = [[NSDate date] timeIntervalSince1970];
     [sender setSelected:![sender isSelected]];
 }
 
@@ -855,6 +884,9 @@ bail:
 - (IBAction)btnSettingTap:(id)sender
 {
     HWActionSheet *sheet = [[HWActionSheet alloc] initWithHeight:HWActionSheetHeightD withSetting:self.setBundle];
+    [sheet setCallback:^(SettingBundle *aSet) {
+        [self updateMethodUI];
+    }];
     [sheet showInView:self.view];
     [sheet release];
 }
@@ -862,7 +894,7 @@ bail:
 - (SettingBundle *)setBundle
 {
     if (_setBundle == nil) {
-        _setBundle = [SettingBundle defaultSetting];
+        _setBundle = [[SettingBundle defaultSetting] retain];
     }
     return _setBundle;
 }
