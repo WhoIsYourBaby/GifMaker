@@ -10,7 +10,7 @@
 
 
 #pragma mark - EditorViewController
-@interface EditorViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface EditorViewController : HWViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     IBOutlet UICollectionView *collctionImgView;
     NSIndexPath *editIndexPath;
@@ -30,6 +30,10 @@
 @interface ImgEditorCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imgView;
+
++ (NSString *)identifier;
+
++ (UINib *)nib;
 
 
 @end

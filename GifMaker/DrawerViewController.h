@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DrawerToolView.h"
 
-@interface DrawerViewController : UIViewController
+@interface DrawerViewController : HWViewController
 
 @property (copy, nonatomic) NSString *srcImgName;
 

@@ -26,6 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     collctionImgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
+    [collctionImgView registerNib:[ImgEditorCell nib] forCellWithReuseIdentifier:[ImgEditorCell identifier]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -159,6 +160,17 @@
         self.backgroundColor = [UIColor clearColor];
     }
      */
+}
+
++ (NSString *)identifier
+{
+    static NSString *ImgEditorCellIdentifier = @"ImgEditorCell";
+    return ImgEditorCellIdentifier;
+}
+
++ (UINib *)nib
+{
+    return [UINib nibWithNibName:@"ImgEditorCell" bundle:nil];
 }
 
 @end
