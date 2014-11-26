@@ -102,6 +102,9 @@
 		6AA1E3CA19D420B100F0CA9D /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA1E3AE19D420B100F0CA9D /* BitmapRotationManipulator.m */; };
 		6AA1E3CB19D420B100F0CA9D /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA1E3B019D420B100F0CA9D /* BitmapScaleManipulator.m */; };
 		7D1D24D61A232BA00030C981 /* SettingBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1D24D51A232BA00030C981 /* SettingBundle.m */; };
+		7DD6F9B01A257C2100A1EF58 /* HWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6F9AF1A257C2100A1EF58 /* HWViewController.m */; };
+		7DD6F9B21A25A83900A1EF58 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DD6F9B11A25A83900A1EF58 /* ViewController.xib */; };
+		7DD6F9B41A25AD6B00A1EF58 /* SquareCamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DD6F9B31A25AD6B00A1EF58 /* SquareCamViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,6 +276,10 @@
 		6AA1E3B019D420B100F0CA9D /* BitmapScaleManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapScaleManipulator.m; sourceTree = "<group>"; };
 		7D1D24D41A232BA00030C981 /* SettingBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingBundle.h; sourceTree = "<group>"; };
 		7D1D24D51A232BA00030C981 /* SettingBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingBundle.m; sourceTree = "<group>"; };
+		7DD6F9AE1A257C2100A1EF58 /* HWViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWViewController.h; sourceTree = "<group>"; };
+		7DD6F9AF1A257C2100A1EF58 /* HWViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWViewController.m; sourceTree = "<group>"; };
+		7DD6F9B11A25A83900A1EF58 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		7DD6F9B31A25AD6B00A1EF58 /* SquareCamViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SquareCamViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -429,12 +436,16 @@
 				6AA1E39719D420B100F0CA9D /* ANImageBitmapRep */,
 				6AA1E34719D4202600F0CA9D /* AppDelegate.h */,
 				6AA1E34819D4202600F0CA9D /* AppDelegate.m */,
+				7DD6F9AE1A257C2100A1EF58 /* HWViewController.h */,
+				7DD6F9AF1A257C2100A1EF58 /* HWViewController.m */,
 				6AA1E34A19D4202600F0CA9D /* Main_iPhone.storyboard */,
 				6AA1E34D19D4202600F0CA9D /* Main_iPad.storyboard */,
 				6AA1E35019D4202600F0CA9D /* ViewController.h */,
 				6AA1E35119D4202600F0CA9D /* ViewController.m */,
+				7DD6F9B11A25A83900A1EF58 /* ViewController.xib */,
 				6A254D4019D50DDC0079B61F /* SquareCamViewController.h */,
 				6A254D4119D50DDC0079B61F /* SquareCamViewController.m */,
+				7DD6F9B31A25AD6B00A1EF58 /* SquareCamViewController.xib */,
 				6A70BE4219FF431900C63FAD /* SquareSetViewController.h */,
 				6A70BE4319FF431900C63FAD /* SquareSetViewController.m */,
 				6A08D2AA19EFCCB200E07E2E /* EditorViewController.h */,
@@ -716,6 +727,7 @@
 				6AA1E35419D4202600F0CA9D /* Images.xcassets in Resources */,
 				6A50D2B119F7978200EC5942 /* capture_swapcamerabtn@2x.png in Resources */,
 				6A9054F219F5125400B3C739 /* goback@2x.png in Resources */,
+				7DD6F9B21A25A83900A1EF58 /* ViewController.xib in Resources */,
 				6A1EAAC319FA4D3A0005943D /* play_btn@2x.png in Resources */,
 				6A50D2B019F7978200EC5942 /* capture_swapcamerabtn.png in Resources */,
 				02F6E86319D64D5F005AFFE4 /* off@2x.png in Resources */,
@@ -725,6 +737,7 @@
 				6A20B5D119F1056000D72911 /* btnSavePlay@2x.png in Resources */,
 				02F6E85C19D64B57005AFFE4 /* camera@2x.png in Resources */,
 				6A9054EC19F4A47A00B3C739 /* Localizable.strings in Resources */,
+				7DD6F9B41A25AD6B00A1EF58 /* SquareCamViewController.xib in Resources */,
 				6AA1E34C19D4202600F0CA9D /* Main_iPhone.storyboard in Resources */,
 				02F6E85F19D64B57005AFFE4 /* video@2x.png in Resources */,
 				6AA1E34319D4202600F0CA9D /* InfoPlist.strings in Resources */,
@@ -778,6 +791,7 @@
 				0215CF4F19DCEBE20049B09B /* Matrix.m in Sources */,
 				6A20B5CB19F0FA9100D72911 /* UIView+CaptureImage.m in Sources */,
 				02A78F0219E14044004A2B9B /* PictureRollView.m in Sources */,
+				7DD6F9B01A257C2100A1EF58 /* HWViewController.m in Sources */,
 				6AA1E3BB19D420B100F0CA9D /* ANGifImageDescriptor.m in Sources */,
 				6AA1E3C319D420B100F0CA9D /* NSImage+ANImageBitmapRep.m in Sources */,
 				6AA1E3BD19D420B100F0CA9D /* LZWSpoof.m in Sources */,
@@ -951,7 +965,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GifMaker/GifMaker-Prefix.pch";
 				INFOPLIST_FILE = "GifMaker/GifMaker-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -965,7 +979,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GifMaker/GifMaker-Prefix.pch";
 				INFOPLIST_FILE = "GifMaker/GifMaker-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

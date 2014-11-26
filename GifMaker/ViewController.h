@@ -15,7 +15,7 @@
 @end
 
 
-@interface ViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface ViewController : HWViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     IBOutlet UICollectionView *gifCollectView;
 }

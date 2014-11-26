@@ -11,9 +11,10 @@
 #endif
 
 #ifdef __OBJC__
+
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
-
+    #import "HWViewController.h"
     #define kGifGroupName @"GifMaker"
 
 #endif

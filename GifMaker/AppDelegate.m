@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
 @implementation AppDelegate
 
@@ -14,6 +15,13 @@
 {
     application.statusBarStyle = UIStatusBarStyleDefault;
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    // Override point for customization after application launch.
+    self.window.backgroundColor = [UIColor whiteColor];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[ViewController quickInstance]];
+    self.window.rootViewController = nav;
+    self.rootViewController = nav;
+    [self.window makeKeyAndVisible];
     return YES;
 }
 							

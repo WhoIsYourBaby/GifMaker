@@ -49,7 +49,7 @@
 #import <AVFoundation/AVFoundation.h>
 @class CIDetector, PictureRollView, HWVideoButton;
 
-@interface SquareCamViewController : UIViewController <UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface SquareCamViewController : HWViewController <UIGestureRecognizerDelegate, AVCaptureVideoDataOutputSampleBufferDelegate>
 {
 	IBOutlet UIView *previewView;
 	AVCaptureVideoPreviewLayer *previewLayer;
