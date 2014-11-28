@@ -10,7 +10,7 @@
 
 @implementation SettingBundle
 
-+ (instancetype)defaultSetting
++ (instancetype)globalSetting
 {
     return [[SettingBundle alloc] init];
 }
@@ -33,13 +33,18 @@
     return self;
 }
 
-- (void)dealloc
+- (void)synchronize
 {
     NSDictionary *dic = @{@"timeInterval" : [NSNumber numberWithFloat:self.timeInterval],
                           @"methodCate" : [NSNumber numberWithInt:self.methodCate],
                           @"countOfImage" : [NSNumber numberWithInt:self.countOfImage]};
     [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"SettingBundle"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)dealloc
+{
+    [self synchronize];
 }
 
 @end

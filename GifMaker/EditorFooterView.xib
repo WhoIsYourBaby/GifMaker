@@ -10,6 +10,38 @@
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9a0-fH-d7m" customClass="EditorFooterView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lAi-ha-aFs">
+                    <rect key="frame" x="23" y="15" width="46" height="30"/>
+                    <state key="normal" title="全选">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="av5-7n-xA8">
+                    <rect key="frame" x="91" y="15" width="46" height="30"/>
+                    <state key="normal" title="反选">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gx-3s-etE">
+                    <rect key="frame" x="169" y="15" width="46" height="30"/>
+                    <state key="normal" title="涂鸦">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kmK-Qm-qo5">
+                    <rect key="frame" x="251" y="15" width="46" height="30"/>
+                    <state key="normal" title="完成">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <connections>
+                <outlet property="btnDoodle" destination="8gx-3s-etE" id="RGS-JS-Fpv"/>
+                <outlet property="btnMakeGif" destination="kmK-Qm-qo5" id="sg5-sC-qA6"/>
+                <outlet property="btnSelectAll" destination="lAi-ha-aFs" id="OKj-fZ-mBE"/>
+                <outlet property="btnSelectReverse" destination="av5-7n-xA8" id="qPZ-Cn-fUG"/>
+            </connections>
             <point key="canvasLocation" x="274" y="123"/>
         </collectionReusableView>
     </objects>

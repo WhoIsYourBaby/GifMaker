@@ -11,6 +11,6 @@
 
 @interface DrawerViewController : HWViewController
 
-@property (copy, nonatomic) NSString *srcImgName;
+- (void)setDoodleImgNames:(NSArray *)aNameArr;
 
 @end

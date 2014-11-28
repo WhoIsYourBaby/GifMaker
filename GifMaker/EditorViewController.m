@@ -19,6 +19,8 @@
 #pragma mark - EditorViewController
 @interface EditorViewController ()
 
+@property (strong, nonatomic) NSMutableArray *selectedIndexArray;
+
 @end
 
 @implementation EditorViewController
@@ -28,7 +30,9 @@
     // Do any additional setup after loading the view.
     collctionImgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
     [collctionImgView registerNib:[ImgEditorCell nib] forCellWithReuseIdentifier:[ImgEditorCell identifier]];
-    [collctionImgView registerNib:[UINib nibWithNibName:@"EditorFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"EditorFooterView"];
+    [collctionImgView registerNib:[EditorFooterView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[EditorFooterView identifier]];
+    
+    self.selectedIndexArray = [NSMutableArray arrayWithCapacity:64];
 }
 
 
@@ -60,18 +64,6 @@
 
 - (IBAction)btnPreviewTap:(id)sender
 {
-    /*
-    PreviewViewController *preview = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"PreviewViewController"];
-    [self.navigationController pushViewController:preview animated:YES];
-     */
-    NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    fp = [fp stringByAppendingPathComponent:@"test.gif"];
-    ExportViewController *export = [[ExportViewController alloc] initWithImages:[[GifManager shareInterface] imageArrayInTemp]];
-    [self.navigationController presentViewController:export animated:YES completion:nil];
-    [export encodeToFile:fp callback:^(NSString *file) {
-        NSLog(@"%s -> %@", __FUNCTION__, file);
-        [export dismissViewControllerAnimated:YES completion:nil];
-    }];
 }
 
 /*
@@ -98,6 +90,14 @@
     NSString *jpgName = self.imgNameArray[indexPath.row];
     UIImage *img = [[GifManager shareInterface] littleTempImageWithName:jpgName];
     [cell.imgView setImage:img];
+    BOOL isSelected = NO;
+    for (NSIndexPath *path in self.selectedIndexArray) {
+        if (path.section == indexPath.section && path.row == indexPath.row) {
+            isSelected = YES;
+            break;
+        }
+    }
+    [cell setSelected:isSelected];
     return cell;
 }
 
@@ -110,12 +110,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ImgEditorCell *cell = (ImgEditorCell *)[collctionImgView cellForItemAtIndexPath:indexPath];
-    DrawerViewController *drawer = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"DrawerViewController"];
-    NSString *srcImgName = self.imgNameArray[indexPath.row];
-    drawer.srcImgName = srcImgName;
-    [self flipToViewController:drawer fromView:cell.imgView withCompletion:nil];
-    editIndexPath = indexPath;
+    NSLog(@"%s", __func__);
 }
 
 
@@ -123,15 +118,79 @@
 {
     UICollectionReusableView *reusableview = nil;
     if (kind == UICollectionElementKindSectionFooter) {
-        UICollectionReusableView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"EditorFooterView" forIndexPath:indexPath];
+        EditorFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[EditorFooterView identifier] forIndexPath:indexPath];
+        [footerView.btnSelectAll addTarget:self action:@selector(btnSelectAllTap:) forControlEvents:UIControlEventTouchUpInside];
+        [footerView.btnSelectReverse addTarget:self action:@selector(btnSelectReverseTap:) forControlEvents:UIControlEventTouchUpInside];
+        [footerView.btnDoodle addTarget:self action:@selector(btnDoodleTap:) forControlEvents:UIControlEventTouchUpInside];
+        [footerView.btnMakeGif addTarget:self action:@selector(btnMakeGifTap:) forControlEvents:UIControlEventTouchUpInside];
         reusableview = footerView;
-        for (id subv in [footerView subviews]) {
-            if ([subv isMemberOfClass:[UIButton class]]) {
-                [subv setTitle:NSLocalizedString(@"preview", nil) forState:UIControlStateNormal];
-            }
-        }
     }
     return reusableview;
+}
+
+- (void)btnSelectAllTap:(id)sender
+{
+    [self.selectedIndexArray removeAllObjects];
+    for (int i = 0; i < self.imgNameArray.count; i ++) {
+        [self.selectedIndexArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
+    [collctionImgView reloadData];
+}
+
+
+- (void)btnSelectReverseTap:(id)sender
+{
+    int arrLongth = self.imgNameArray.count;
+    int *indexArr = (int *)calloc(arrLongth, sizeof(int));
+    for (int i = 0; i < self.imgNameArray.count; i ++) {
+        indexArr[i] = i;
+    }
+    //indexArr中将被选中的下标的值设为为-1
+    for (int i = 0; i < self.selectedIndexArray.count; i ++) {
+        int row = [self.selectedIndexArray[i] row];
+        indexArr[row] = -1;
+    }
+    
+    //indexArr中值不等于-1的下标是未被选中的
+    [self.selectedIndexArray removeAllObjects];
+    for (int i = 0; i < arrLongth; i ++) {
+        if (indexArr[i] != -1) {
+            [self.selectedIndexArray addObject:[NSIndexPath indexPathForRow:indexArr[i] inSection:0]];
+        }
+    }
+    free(indexArr);
+    
+    [collctionImgView reloadData];
+}
+
+- (void)btnDoodleTap:(id)sender
+{
+    if ([self.selectedIndexArray count] == 0) {
+        //提示--先选中一些图片
+        return ;
+    }
+    DrawerViewController *drawer = [DrawerViewController quickInstance];
+    NSMutableArray *tempNameArr = [NSMutableArray arrayWithCapacity:100];
+    for (int i = 0; i < self.selectedIndexArray.count; i ++) {
+        int index = [self.selectedIndexArray[i] row];
+        NSString *name = self.imgNameArray[index];
+        [tempNameArr addObject:name];
+    }
+    [drawer setDoodleImgNames:tempNameArr];
+    [self flipToViewController:drawer fromView:self.view withCompletion:nil];
+}
+
+
+- (void)btnMakeGifTap:(id)sender
+{
+    NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    fp = [fp stringByAppendingPathComponent:@"test.gif"];
+    ExportViewController *export = [[ExportViewController alloc] initWithImages:[[GifManager shareInterface] imageArrayInTemp]];
+    [self.navigationController presentViewController:export animated:YES completion:nil];
+    [export encodeToFile:fp callback:^(NSString *file) {
+        NSLog(@"%s -> %@", __FUNCTION__, file);
+        [export dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 @end
@@ -158,13 +217,11 @@
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-    /*
     if (selected) {
         self.backgroundColor = [UIColor redColor];
     } else {
         self.backgroundColor = [UIColor clearColor];
     }
-     */
 }
 
 + (NSString *)identifier

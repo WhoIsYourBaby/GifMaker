@@ -10,6 +10,7 @@
 #import "GifManager.h"
 #import "PaintView.h"
 #import "UIViewController+ADFlipTransition.h"
+#import "SettingBundle.h"
 
 #define k_toolbar_height 40
 
@@ -158,15 +159,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setSrcImgName:(NSString *)srcImgName
-{
-    _srcImgName = [srcImgName copy];
-    self.srcImage = [[GifManager shareInterface] bigTempImageWithName:_srcImgName];
-}
 
-- (void)dealloc
+- (void)setDoodleImgNames:(NSArray *)aNameArr
 {
-    NSLog(@"%s -> ", __FUNCTION__);
+    NSArray *imgArr = [[GifManager shareInterface] bigTempImageArrayWithNames:aNameArr];
+    self.srcImage = [UIImage animatedImageWithImages:imgArr duration:[SettingBundle globalSetting].timeInterval];
 }
 
 
@@ -186,12 +183,14 @@
 
 - (void)saveBackImage
 {
+    /*
     UIGraphicsBeginImageContext(imgView.frame.size);
     [imgView.image drawAtPoint:CGPointZero];
     [ptView.layer drawInContext:UIGraphicsGetCurrentContext()];
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     [[GifManager shareInterface] saveEditImage:img withImgName:self.srcImgName];
+     */
 }
 
 - (void)btnDoneTap:(id)sender

@@ -120,7 +120,7 @@
 - (SettingBundle *)setBundle
 {
     if (_setBundle == nil) {
-        _setBundle = [SettingBundle defaultSetting];
+        _setBundle = [SettingBundle globalSetting];
     }
     return _setBundle;
 }
@@ -143,6 +143,7 @@
 
 - (void)btnDoneTap:(id)sender
 {
+    [self.setBundle synchronize];
     if (_callback) {
         _callback(self.setBundle);
     }

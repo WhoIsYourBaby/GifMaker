@@ -16,10 +16,12 @@ typedef enum {
 
 @interface SettingBundle : NSObject
 
-+ (instancetype)defaultSetting;
++ (instancetype)globalSetting;
 
 @property CGFloat timeInterval;
 @property int countOfImage;
 @property SettingMethodEnum methodCate;
+
+- (void)synchronize;
 
 @end

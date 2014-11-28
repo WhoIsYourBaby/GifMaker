@@ -170,6 +170,16 @@ static GifManager *interface = nil;
     return [UIImage imageWithContentsOfFile:filePath];
 }
 
+- (NSArray *)bigTempImageArrayWithNames:(NSArray *)aNameArr
+{
+    NSMutableArray *arr = [NSMutableArray arrayWithCapacity:100];
+    for (int i = 0; i < aNameArr.count; i ++) {
+        UIImage *img = [self bigTempImageWithName:aNameArr[i]];
+        [arr addObject:img];
+    }
+    return arr;
+}
+
 - (NSArray *)imageArrayInTemp
 {
     NSArray *stArr = [self imageNameArrayInTemp];

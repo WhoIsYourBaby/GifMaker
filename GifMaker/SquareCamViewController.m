@@ -895,7 +895,7 @@ bail:
 - (SettingBundle *)setBundle
 {
     if (_setBundle == nil) {
-        _setBundle = [[SettingBundle defaultSetting] retain];
+        _setBundle = [[SettingBundle globalSetting] retain];
     }
     return _setBundle;
 }
