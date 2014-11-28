@@ -149,15 +149,6 @@
 - (void)btnCameraTap
 {
     [[GifManager shareInterface] cleanTempDir];
-    /*
-    SquareCamViewController *square = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"SquareCamViewController"];
-     */
-    /*
-    UINavigationController *squareNav = [[UINavigationController alloc] initWithRootViewController:square];
-    squareNav.navigationBarHidden = YES;
-    square.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentViewController:squareNav animated:YES completion:nil];
-     */
     SquareCamViewController *square = [SquareCamViewController quickInstance];
     [self.navigationController pushViewController:square animated:YES];
 }

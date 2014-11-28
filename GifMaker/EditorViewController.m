@@ -13,6 +13,7 @@
 #import "UIViewController+ADFlipTransition.h"
 #import "PreviewViewController.h"
 #import "ExportViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 
 #pragma mark - EditorViewController
@@ -27,7 +28,10 @@
     // Do any additional setup after loading the view.
     collctionImgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
     [collctionImgView registerNib:[ImgEditorCell nib] forCellWithReuseIdentifier:[ImgEditorCell identifier]];
+    [collctionImgView registerNib:[UINib nibWithNibName:@"EditorFooterView" bundle:nil] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:@"EditorFooterView"];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -43,6 +47,7 @@
         editIndexPath = nil;
     }
 }
+
 
 
 #pragma mark - Actions
@@ -172,5 +177,35 @@
 {
     return [UINib nibWithNibName:@"ImgEditorCell" bundle:nil];
 }
+
+@end
+
+
+@implementation EditorFooterView
+
++ (NSString *)identifier
+{
+    static NSString *EditorFooterViewIdentifier = @"EditorFooterView";
+    return EditorFooterViewIdentifier;
+}
+
+
++ (UINib *)nib
+{
+    return [UINib nibWithNibName:@"EditorFooterView" bundle:nil];
+}
+
+
++ (NSString *)kind
+{
+    return UICollectionElementKindSectionFooter;
+}
+
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+}
+
 
 @end

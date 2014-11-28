@@ -102,6 +102,7 @@
 		6AA1E3CA19D420B100F0CA9D /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA1E3AE19D420B100F0CA9D /* BitmapRotationManipulator.m */; };
 		6AA1E3CB19D420B100F0CA9D /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AA1E3B019D420B100F0CA9D /* BitmapScaleManipulator.m */; };
 		7D1D24D61A232BA00030C981 /* SettingBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1D24D51A232BA00030C981 /* SettingBundle.m */; };
+		7D765F271A2823EB00232E28 /* EditorFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D765F261A2823EB00232E28 /* EditorFooterView.xib */; };
 		7DD6F9B01A257C2100A1EF58 /* HWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6F9AF1A257C2100A1EF58 /* HWViewController.m */; };
 		7DD6F9B21A25A83900A1EF58 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DD6F9B11A25A83900A1EF58 /* ViewController.xib */; };
 		7DD6F9B41A25AD6B00A1EF58 /* SquareCamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DD6F9B31A25AD6B00A1EF58 /* SquareCamViewController.xib */; };
@@ -279,6 +280,7 @@
 		6AA1E3B019D420B100F0CA9D /* BitmapScaleManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapScaleManipulator.m; sourceTree = "<group>"; };
 		7D1D24D41A232BA00030C981 /* SettingBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingBundle.h; sourceTree = "<group>"; };
 		7D1D24D51A232BA00030C981 /* SettingBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingBundle.m; sourceTree = "<group>"; };
+		7D765F261A2823EB00232E28 /* EditorFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditorFooterView.xib; sourceTree = "<group>"; };
 		7DD6F9AE1A257C2100A1EF58 /* HWViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWViewController.h; sourceTree = "<group>"; };
 		7DD6F9AF1A257C2100A1EF58 /* HWViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWViewController.m; sourceTree = "<group>"; };
 		7DD6F9B11A25A83900A1EF58 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
@@ -458,6 +460,7 @@
 				6A08D2AB19EFCCB200E07E2E /* EditorViewController.m */,
 				7DD6F9B51A25C20900A1EF58 /* EditorViewController.xib */,
 				7DD6F9B91A25CA8600A1EF58 /* ImgEditorCell.xib */,
+				7D765F261A2823EB00232E28 /* EditorFooterView.xib */,
 				6A20B5CD19F0FC1100D72911 /* DrawerViewController.h */,
 				6A20B5CE19F0FC1100D72911 /* DrawerViewController.m */,
 				7DD6F9B71A25C4F700A1EF58 /* DrawerViewController.xib */,
@@ -730,6 +733,7 @@
 				6A20B5B919F0EBE400D72911 /* close@2x.png in Resources */,
 				6AA1E34F19D4202600F0CA9D /* Main_iPad.storyboard in Resources */,
 				6A1EAAC219FA4D3A0005943D /* play_btn.png in Resources */,
+				7D765F271A2823EB00232E28 /* EditorFooterView.xib in Resources */,
 				6A1EAABF19F9F9000005943D /* setting@2x.png in Resources */,
 				6A20B5BB19F0EDE300D72911 /* close2@2x.png in Resources */,
 				02F6E85E19D64B57005AFFE4 /* shop@2x.png in Resources */,

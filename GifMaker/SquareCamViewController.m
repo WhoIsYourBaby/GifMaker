@@ -776,7 +776,7 @@ bail:
 #pragma mark - 完成
 - (IBAction)btnDoneTap:(id)sender
 {
-    EditorViewController *editor = [[UIStoryboard mainStoryBoard] instantiateViewControllerWithIdentifier:@"EditorViewController"];
+    EditorViewController *editor = [EditorViewController quickInstance];
     [editor initImgNameArray:[[GifManager shareInterface] imageNameArrayInTemp]];
     [self.navigationController pushViewController:editor animated:YES];
 }

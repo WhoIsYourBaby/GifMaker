@@ -14,12 +14,18 @@
                 <rect key="frame" x="0.0" y="0.0" width="70" height="80"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cD4-cy-eru">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cD4-cy-eru">
                         <rect key="frame" x="5" y="5" width="60" height="70"/>
                     </imageView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="cD4-cy-eru" secondAttribute="bottom" constant="5" id="6d5-mV-0LY"/>
+                <constraint firstItem="cD4-cy-eru" firstAttribute="leading" secondItem="UgK-kx-oEn" secondAttribute="leading" constant="5" id="HFP-46-D1q"/>
+                <constraint firstAttribute="trailing" secondItem="cD4-cy-eru" secondAttribute="trailing" constant="5" id="bSV-g8-upp"/>
+                <constraint firstItem="cD4-cy-eru" firstAttribute="top" secondItem="UgK-kx-oEn" secondAttribute="top" constant="5" id="lem-qd-uGv"/>
+            </constraints>
             <connections>
                 <outlet property="imgView" destination="cD4-cy-eru" id="OJL-87-cFH"/>
             </connections>

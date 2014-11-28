@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="XQM-Wx-CWG">
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="XQM-Wx-CWG">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="5" id="yI7-HJ-0yj">
                         <size key="itemSize" width="70" height="80"/>
@@ -32,6 +32,12 @@
                 </collectionView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="XQM-Wx-CWG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="f85-U4-F8h"/>
+                <constraint firstAttribute="trailing" secondItem="XQM-Wx-CWG" secondAttribute="trailing" id="rNi-ic-TJE"/>
+                <constraint firstAttribute="bottom" secondItem="XQM-Wx-CWG" secondAttribute="bottom" id="unD-xl-dV3"/>
+                <constraint firstItem="XQM-Wx-CWG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xNE-Nk-gQ2"/>
+            </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <point key="canvasLocation" x="273" y="308"/>
         </view>

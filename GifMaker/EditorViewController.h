@@ -38,3 +38,21 @@
 
 @end
 
+
+
+#pragma mark - EditorFooterView
+
+@interface EditorFooterView : UICollectionReusableView
+
+@property (nonatomic, weak) IBOutlet UIButton *btnSelectAll;
+@property (nonatomic, weak) IBOutlet UIButton *btnSelectReverse;
+@property (nonatomic, weak) IBOutlet UIButton *btnDoodle;
+@property (nonatomic, weak) IBOutlet UIButton *btnMakeGif;
+
++ (NSString *)identifier;
+
++ (UINib *)nib;
+
++ (NSString *)kind;
+
+@end
