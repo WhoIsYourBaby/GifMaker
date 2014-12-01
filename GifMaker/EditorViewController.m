@@ -18,8 +18,9 @@
 
 #pragma mark - EditorViewController
 @interface EditorViewController ()
-
-@property (strong, nonatomic) NSMutableArray *selectedIndexArray;
+{
+    int *selectIndexArr;    //值为1的index为选中
+}
 
 @end
 
@@ -31,8 +32,8 @@
     collctionImgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
     [collctionImgView registerNib:[ImgEditorCell nib] forCellWithReuseIdentifier:[ImgEditorCell identifier]];
     [collctionImgView registerNib:[EditorFooterView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[EditorFooterView identifier]];
-    
-    self.selectedIndexArray = [NSMutableArray arrayWithCapacity:64];
+    selectIndexArr = (int *)calloc(self.imgNameArray.count, sizeof(int));
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(btnTrashTap:)];
 }
 
 
@@ -54,6 +55,11 @@
 
 
 
+- (void)dealloc
+{
+    free(selectIndexArr);
+}
+
 #pragma mark - Actions
 
 - (void)initImgNameArray:(NSArray *)aArr
@@ -65,6 +71,99 @@
 - (IBAction)btnPreviewTap:(id)sender
 {
 }
+
+
+/**
+ *  删除、垃圾箱
+ *
+ */
+- (void)btnTrashTap:(id)sender
+{
+    int length = self.imgNameArray.count;
+    for (int i = 0; i < length; i ++) {
+        if (selectIndexArr[i] == 1) {
+            NSString *name = self.imgNameArray[i];
+            [[GifManager shareInterface] removeImageWithName:name];
+        }
+    }
+    
+    self.imgNameArray = [NSMutableArray arrayWithArray:[[GifManager shareInterface] imageNameArrayInTemp]];
+    
+    memset(selectIndexArr, 0, length);
+    [collctionImgView reloadData];
+}
+
+
+/**
+ *  全选
+ *
+ */
+- (void)btnSelectAllTap:(id)sender
+{
+    int length = self.imgNameArray.count;
+    for (int i = 0; i < length; i ++) {
+        selectIndexArr[i] = 1;
+    }
+    
+    [collctionImgView reloadData];
+}
+
+
+/**
+ *  反选
+ *
+ */
+- (void)btnSelectReverseTap:(id)sender
+{
+    int arrLongth = self.imgNameArray.count;
+    for (int i = 0; i < arrLongth; i ++) {
+        int v = selectIndexArr[i];
+        selectIndexArr[i] = !v;
+    }
+    [collctionImgView reloadData];
+}
+
+/**
+ *  涂鸦
+ *
+ */
+- (void)btnDoodleTap:(id)sender
+{
+    int length = self.imgNameArray.count;
+    NSMutableArray *tempNameArr = [NSMutableArray arrayWithCapacity:100];
+    for (int i = 0; i < length; i ++) {
+        if (selectIndexArr[i] == 1) {
+            NSString *name = self.imgNameArray[i];
+            [tempNameArr addObject:name];
+        }
+    }
+    if ([tempNameArr count] == 0) {
+        //提示--先选中一些图片
+        return ;
+    }
+    
+    DrawerViewController *drawer = [DrawerViewController quickInstance];
+    [drawer setDoodleImgNames:tempNameArr];
+    [self flipToViewController:drawer fromView:self.view withCompletion:nil];
+}
+
+
+/**
+ *  制作GIF
+ */
+- (void)btnMakeGifTap:(id)sender
+{
+    NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    fp = [fp stringByAppendingPathComponent:@"test.gif"];
+    ExportViewController *export = [[ExportViewController alloc] initWithImages:[[GifManager shareInterface] imageArrayInTemp]];
+    [self.navigationController presentViewController:export animated:YES completion:nil];
+    [export encodeToFile:fp callback:^(NSString *file) {
+        NSLog(@"%s -> %@", __FUNCTION__, file);
+        [export dismissViewControllerAnimated:YES completion:nil];
+    }];
+}
+
+
 
 /*
 #pragma mark - Navigation
@@ -90,13 +189,7 @@
     NSString *jpgName = self.imgNameArray[indexPath.row];
     UIImage *img = [[GifManager shareInterface] littleTempImageWithName:jpgName];
     [cell.imgView setImage:img];
-    BOOL isSelected = NO;
-    for (NSIndexPath *path in self.selectedIndexArray) {
-        if (path.section == indexPath.section && path.row == indexPath.row) {
-            isSelected = YES;
-            break;
-        }
-    }
+    BOOL isSelected = selectIndexArr[indexPath.row];
     [cell setSelected:isSelected];
     return cell;
 }
@@ -110,7 +203,11 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%s", __func__);
+    int slctd = !(selectIndexArr[indexPath.row]);
+    selectIndexArr[indexPath.row] = slctd;
+    ImgEditorCell *cell = (ImgEditorCell *)[collectionView cellForItemAtIndexPath:indexPath];
+    [cell setSelected:slctd];
+    [collctionImgView reloadData];
 }
 
 
@@ -128,70 +225,6 @@
     return reusableview;
 }
 
-- (void)btnSelectAllTap:(id)sender
-{
-    [self.selectedIndexArray removeAllObjects];
-    for (int i = 0; i < self.imgNameArray.count; i ++) {
-        [self.selectedIndexArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
-    }
-    [collctionImgView reloadData];
-}
-
-
-- (void)btnSelectReverseTap:(id)sender
-{
-    int arrLongth = self.imgNameArray.count;
-    int *indexArr = (int *)calloc(arrLongth, sizeof(int));
-    for (int i = 0; i < self.imgNameArray.count; i ++) {
-        indexArr[i] = i;
-    }
-    //indexArr中将被选中的下标的值设为为-1
-    for (int i = 0; i < self.selectedIndexArray.count; i ++) {
-        int row = [self.selectedIndexArray[i] row];
-        indexArr[row] = -1;
-    }
-    
-    //indexArr中值不等于-1的下标是未被选中的
-    [self.selectedIndexArray removeAllObjects];
-    for (int i = 0; i < arrLongth; i ++) {
-        if (indexArr[i] != -1) {
-            [self.selectedIndexArray addObject:[NSIndexPath indexPathForRow:indexArr[i] inSection:0]];
-        }
-    }
-    free(indexArr);
-    
-    [collctionImgView reloadData];
-}
-
-- (void)btnDoodleTap:(id)sender
-{
-    if ([self.selectedIndexArray count] == 0) {
-        //提示--先选中一些图片
-        return ;
-    }
-    DrawerViewController *drawer = [DrawerViewController quickInstance];
-    NSMutableArray *tempNameArr = [NSMutableArray arrayWithCapacity:100];
-    for (int i = 0; i < self.selectedIndexArray.count; i ++) {
-        int index = [self.selectedIndexArray[i] row];
-        NSString *name = self.imgNameArray[index];
-        [tempNameArr addObject:name];
-    }
-    [drawer setDoodleImgNames:tempNameArr];
-    [self flipToViewController:drawer fromView:self.view withCompletion:nil];
-}
-
-
-- (void)btnMakeGifTap:(id)sender
-{
-    NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    fp = [fp stringByAppendingPathComponent:@"test.gif"];
-    ExportViewController *export = [[ExportViewController alloc] initWithImages:[[GifManager shareInterface] imageArrayInTemp]];
-    [self.navigationController presentViewController:export animated:YES completion:nil];
-    [export encodeToFile:fp callback:^(NSString *file) {
-        NSLog(@"%s -> %@", __FUNCTION__, file);
-        [export dismissViewControllerAnimated:YES completion:nil];
-    }];
-}
 
 @end
 

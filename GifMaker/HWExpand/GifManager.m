@@ -105,6 +105,20 @@ static GifManager *interface = nil;
 }
 
 
+- (void)removeImageWithName:(NSString *)name
+{
+    NSString *jpgBigPath = [[self docTempBig] stringByAppendingPathComponent:name];
+    NSError *err = nil;
+    if (![[NSFileManager defaultManager] removeItemAtPath:jpgBigPath error:&err]) {
+        [err alert];
+    }
+    NSString *jpgLitPath = [[self docTempLittle] stringByAppendingPathComponent:name];
+    if (![[NSFileManager defaultManager] removeItemAtPath:jpgLitPath error:&err]) {
+        [err alert];
+    }
+}
+
+
 - (NSString *)saveTempImage:(UIImage *)bigImg
 {
     double time = [[NSDate date] timeIntervalSince1970];

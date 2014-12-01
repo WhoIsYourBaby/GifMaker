@@ -23,4 +23,11 @@
 + (NSString *)uuidString;
 
 + (UIImage *)fixOrientation:(UIImage *)aImage;
+
+@end
+
+@interface NSError (HWDevice)
+
+- (void)alert;
+
 @end

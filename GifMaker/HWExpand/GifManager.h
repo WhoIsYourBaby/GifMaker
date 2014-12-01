@@ -21,6 +21,7 @@
 - (NSString *)saveTempImageJEPG:(NSData *)imgData;
 - (NSString *)saveTempImage:(UIImage *)img;
 - (void)saveEditImage:(UIImage *)bigImg withImgName:(NSString *)name;
+- (void)removeImageWithName:(NSString *)name;
 
 - (UIImage *)littleTempImageWithName:(NSString *)aName;
 - (UIImage *)bigTempImageWithName:(NSString *)aName;

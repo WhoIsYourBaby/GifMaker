@@ -112,3 +112,13 @@
 
 
 @end
+
+
+@implementation NSError (HWDevice)
+
+- (void)alert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:[self domain] message:[self description] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+}
+
+@end
