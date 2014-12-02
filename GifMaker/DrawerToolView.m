@@ -11,7 +11,6 @@
 #pragma mark - DrawerToolView
 @implementation DrawerToolView
 
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -20,6 +19,12 @@
         [self customInit];
     }
     return self;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self customInit];
 }
 
 - (void)customInit
@@ -36,23 +41,6 @@
     // Drawing code
 }
 */
-
-- (void)addItems:(NSArray *)aArr
-{
-    if (aArr == nil || [aArr count] == 0) {
-        return ;
-    }
-    UIView *sv = aArr[0];
-    int totalWidth = sv.frame.size.width * [aArr count];
-    if (self.frame.size.width < totalWidth) {
-        self.contentSize = CGSizeMake(totalWidth, self.frame.size.height);
-    }
-    for (int i = 0; i < [aArr count]; i ++) {
-        UIView *vw = aArr[i];
-        vw.frame = CGRectOffset(vw.frame, i * vw.frame.size.width, 0);
-        [self addSubview:vw];
-    }
-}
 
 
 - (void)addItem:(ToolItemView *)aItem

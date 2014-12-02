@@ -7,6 +7,13 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DrawerViewController">
             <connections>
+                <outlet property="btnCancel" destination="lZo-fm-5U5" id="PR3-Z6-bml"/>
+                <outlet property="btnDone" destination="dBN-Uq-2j7" id="nex-G6-p0J"/>
+                <outlet property="btnGoback" destination="PBa-Du-6X0" id="jjx-VR-Uu7"/>
+                <outlet property="colorToolbar" destination="ouE-Mi-Ad1" id="ykw-i9-prq"/>
+                <outlet property="imgView" destination="UVV-Kc-sob" id="FiF-i2-JGv"/>
+                <outlet property="lineToolbar" destination="6MF-kD-oZr" id="1kb-JV-3W2"/>
+                <outlet property="ptView" destination="Bun-lo-dTr" id="45J-Lp-3Xd"/>
                 <outlet property="view" destination="iN0-l3-epB" id="eaB-Lq-3RE"/>
             </connections>
         </placeholder>
@@ -14,11 +21,109 @@
         <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ouE-Mi-Ad1" customClass="DrawerToolView">
+                    <rect key="frame" x="0.0" y="20" width="320" height="30"/>
+                    <color key="backgroundColor" red="0.74151932570000001" green="0.72579152960000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="M0d-BT-K6y"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6MF-kD-oZr" customClass="DrawerToolView">
+                    <rect key="frame" x="0.0" y="50" width="320" height="30"/>
+                    <color key="backgroundColor" red="0.60258567100000004" green="0.66666666669999997" blue="0.12067833040000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="q4R-Mm-FuB"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dBN-Uq-2j7">
+                    <rect key="frame" x="145" y="466" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="ma6-m4-lvU"/>
+                        <constraint firstAttribute="width" constant="30" id="ogR-ah-WJ4"/>
+                    </constraints>
+                    <state key="normal" image="done.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnDoneTap:" destination="-1" eventType="touchUpInside" id="erP-Av-Ctf"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PBa-Du-6X0">
+                    <rect key="frame" x="218" y="466" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="NJe-19-jPv"/>
+                        <constraint firstAttribute="width" constant="30" id="qsV-SB-34r"/>
+                    </constraints>
+                    <state key="normal" image="goback.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnGobackTap:" destination="-1" eventType="touchUpInside" id="HxE-aC-drh"/>
+                    </connections>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UVV-Kc-sob">
+                    <rect key="frame" x="16" y="88" width="288" height="352"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="288" id="ZCO-Ez-8Pg"/>
+                        <constraint firstAttribute="height" constant="352" id="mpD-qs-eNo"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bun-lo-dTr" customClass="PaintView">
+                    <rect key="frame" x="16" y="88" width="288" height="352"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lZo-fm-5U5">
+                    <rect key="frame" x="72" y="466" width="30" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="3b0-A0-bwq"/>
+                        <constraint firstAttribute="width" constant="30" id="QU0-af-1ky"/>
+                    </constraints>
+                    <state key="normal" image="off.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnCancelTap:" destination="-1" eventType="touchUpInside" id="fbK-LL-iPG"/>
+                    </connections>
+                </button>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="dBN-Uq-2j7" secondAttribute="bottom" constant="8" id="4Lr-D1-Tks"/>
+                <constraint firstItem="Bun-lo-dTr" firstAttribute="top" secondItem="6MF-kD-oZr" secondAttribute="bottom" constant="8" id="5NY-gb-VR1"/>
+                <constraint firstAttribute="trailing" secondItem="ouE-Mi-Ad1" secondAttribute="trailing" id="5VX-WC-28X"/>
+                <constraint firstItem="lZo-fm-5U5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="72" id="92H-0t-iin"/>
+                <constraint firstAttribute="trailing" secondItem="6MF-kD-oZr" secondAttribute="trailing" id="Bax-bx-iFe"/>
+                <constraint firstAttribute="trailing" secondItem="UVV-Kc-sob" secondAttribute="trailing" constant="16" id="CL3-fS-Zb6"/>
+                <constraint firstItem="ouE-Mi-Ad1" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="EXw-o0-EPu"/>
+                <constraint firstAttribute="bottom" secondItem="PBa-Du-6X0" secondAttribute="bottom" constant="8" id="EZh-vH-mDl"/>
+                <constraint firstAttribute="trailing" secondItem="Bun-lo-dTr" secondAttribute="trailing" constant="16" id="Frf-4k-isY"/>
+                <constraint firstItem="ouE-Mi-Ad1" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="HMG-Uf-jxo"/>
+                <constraint firstAttribute="bottom" secondItem="lZo-fm-5U5" secondAttribute="bottom" constant="8" id="Ika-12-fdd"/>
+                <constraint firstAttribute="trailing" secondItem="PBa-Du-6X0" secondAttribute="trailing" constant="72" id="JWf-Bx-4oO"/>
+                <constraint firstItem="Bun-lo-dTr" firstAttribute="width" secondItem="UVV-Kc-sob" secondAttribute="width" id="Ojm-9Y-7k7"/>
+                <constraint firstItem="6MF-kD-oZr" firstAttribute="top" secondItem="ouE-Mi-Ad1" secondAttribute="bottom" id="Pp0-DR-2yf"/>
+                <constraint firstItem="UVV-Kc-sob" firstAttribute="top" secondItem="6MF-kD-oZr" secondAttribute="bottom" constant="8" id="VZ7-Fv-kK6"/>
+                <constraint firstItem="Bun-lo-dTr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="Vkb-mi-8gY"/>
+                <constraint firstItem="6MF-kD-oZr" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Xkd-V3-Uuo"/>
+                <constraint firstItem="UVV-Kc-sob" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="ZNh-pe-jB4"/>
+                <constraint firstItem="lZo-fm-5U5" firstAttribute="height" secondItem="PBa-Du-6X0" secondAttribute="height" id="dH1-mv-rSb"/>
+                <constraint firstItem="Bun-lo-dTr" firstAttribute="height" secondItem="UVV-Kc-sob" secondAttribute="height" id="gk2-H5-mPD"/>
+                <constraint firstItem="lZo-fm-5U5" firstAttribute="height" secondItem="dBN-Uq-2j7" secondAttribute="height" id="hU5-Yf-2S4"/>
+                <constraint firstAttribute="centerX" secondItem="dBN-Uq-2j7" secondAttribute="centerX" id="hgd-On-pxg"/>
+                <constraint firstAttribute="centerX" secondItem="UVV-Kc-sob" secondAttribute="centerX" id="kuU-Nj-DKk"/>
+                <constraint firstItem="lZo-fm-5U5" firstAttribute="width" secondItem="PBa-Du-6X0" secondAttribute="width" id="qNB-py-oWy"/>
+                <constraint firstItem="lZo-fm-5U5" firstAttribute="width" secondItem="dBN-Uq-2j7" secondAttribute="width" id="r7o-LV-3So"/>
+            </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
             <point key="canvasLocation" x="273" y="297"/>
         </view>
     </objects>
+    <resources>
+        <image name="done.png" width="26" height="24"/>
+        <image name="goback.png" width="25" height="21"/>
+        <image name="off.png" width="24" height="27"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

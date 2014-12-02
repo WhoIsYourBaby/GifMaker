@@ -15,6 +15,8 @@
 
 - (void)reverse;
 
+- (BOOL)isPaintEmpty;
+
 @end
 
 // 版权属于原作者

@@ -23,8 +23,6 @@ typedef void(^ToolViewItemSelect)(id objc);
 
 @property (copy, nonatomic) ToolViewItemSelect callbackBlock;
 
-- (void)addItems:(NSArray *)aArr;
-
 - (void)addItem:(ToolItemView *)aItem;
 
 @end

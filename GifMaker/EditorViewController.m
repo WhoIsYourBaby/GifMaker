@@ -14,7 +14,8 @@
 #import "PreviewViewController.h"
 #import "ExportViewController.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "SettingBundle.h"
+#import "AnimatedGIFImageSerialization.h"
 
 #pragma mark - EditorViewController
 @interface EditorViewController ()
@@ -31,9 +32,10 @@
     // Do any additional setup after loading the view.
     collctionImgView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
     [collctionImgView registerNib:[ImgEditorCell nib] forCellWithReuseIdentifier:[ImgEditorCell identifier]];
-    [collctionImgView registerNib:[EditorFooterView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[EditorFooterView identifier]];
+//    [collctionImgView registerNib:[EditorFooterView nib] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[EditorFooterView identifier]];
     selectIndexArr = (int *)calloc(self.imgNameArray.count, sizeof(int));
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(btnTrashTap:)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(btnBackTap:)];
 }
 
 
@@ -47,10 +49,7 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = NO;
-    if (editIndexPath) {
-        [collctionImgView reloadItemsAtIndexPaths:@[editIndexPath]];
-        editIndexPath = nil;
-    }
+    [collctionImgView reloadData];
 }
 
 
@@ -70,8 +69,22 @@
 
 - (IBAction)btnPreviewTap:(id)sender
 {
+    PreviewViewController *pre = [PreviewViewController quickInstance];
+    [self.navigationController pushViewController:pre animated:YES];
 }
 
+
+- (void)btnBackTap:(id)sender
+{
+    if ([[SettingBundle globalSetting] methodCate] == SettingMethodManual) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"DeleteTempDir", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"Delete", nil) , nil];
+        alert.tag = 1001;
+        [alert show];
+    } else {
+        [[GifManager shareInterface] cleanTempDir];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+}
 
 /**
  *  删除、垃圾箱
@@ -98,7 +111,7 @@
  *  全选
  *
  */
-- (void)btnSelectAllTap:(id)sender
+- (IBAction)btnSelectAllTap:(id)sender
 {
     int length = self.imgNameArray.count;
     for (int i = 0; i < length; i ++) {
@@ -113,7 +126,7 @@
  *  反选
  *
  */
-- (void)btnSelectReverseTap:(id)sender
+- (IBAction)btnSelectReverseTap:(id)sender
 {
     int arrLongth = self.imgNameArray.count;
     for (int i = 0; i < arrLongth; i ++) {
@@ -127,7 +140,7 @@
  *  涂鸦
  *
  */
-- (void)btnDoodleTap:(id)sender
+- (IBAction)btnDoodleTap:(id)sender
 {
     int length = self.imgNameArray.count;
     NSMutableArray *tempNameArr = [NSMutableArray arrayWithCapacity:100];
@@ -144,23 +157,26 @@
     
     DrawerViewController *drawer = [DrawerViewController quickInstance];
     [drawer setDoodleImgNames:tempNameArr];
-    [self flipToViewController:drawer fromView:self.view withCompletion:nil];
+    [drawer setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    [self.navigationController presentViewController:drawer animated:YES completion:nil];
 }
 
 
 /**
  *  制作GIF
  */
-- (void)btnMakeGifTap:(id)sender
+- (IBAction)btnMakeGifTap:(id)sender
 {
     NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     fp = [fp stringByAppendingPathComponent:@"test.gif"];
-    ExportViewController *export = [[ExportViewController alloc] initWithImages:[[GifManager shareInterface] imageArrayInTemp]];
-    [self.navigationController presentViewController:export animated:YES completion:nil];
-    [export encodeToFile:fp callback:^(NSString *file) {
-        NSLog(@"%s -> %@", __FUNCTION__, file);
-        [export dismissViewControllerAnimated:YES completion:nil];
-    }];
+    
+    NSArray *imgArr = [[GifManager shareInterface] imageArrayInTemp];
+    NSTimeInterval duration = [[SettingBundle globalSetting] timeInterval] * imgArr.count;
+    UIImage *gifImage = [UIImage animatedImageWithImages:imgArr duration:duration];
+    NSError *err = nil;
+    NSData *gifData = [AnimatedGIFImageSerialization animatedGIFDataWithImage:gifImage duration:duration loopCount:0 error:&err];
+    [gifData writeToFile:fp atomically:YES];
+    NSLog(@"%s", __func__);
 }
 
 
@@ -211,18 +227,14 @@
 }
 
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+#pragma - mark UIAlertView
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    UICollectionReusableView *reusableview = nil;
-    if (kind == UICollectionElementKindSectionFooter) {
-        EditorFooterView *footerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:[EditorFooterView identifier] forIndexPath:indexPath];
-        [footerView.btnSelectAll addTarget:self action:@selector(btnSelectAllTap:) forControlEvents:UIControlEventTouchUpInside];
-        [footerView.btnSelectReverse addTarget:self action:@selector(btnSelectReverseTap:) forControlEvents:UIControlEventTouchUpInside];
-        [footerView.btnDoodle addTarget:self action:@selector(btnDoodleTap:) forControlEvents:UIControlEventTouchUpInside];
-        [footerView.btnMakeGif addTarget:self action:@selector(btnMakeGifTap:) forControlEvents:UIControlEventTouchUpInside];
-        reusableview = footerView;
+    if (buttonIndex == 1) {
+        [[GifManager shareInterface] cleanTempDir];
     }
-    return reusableview;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

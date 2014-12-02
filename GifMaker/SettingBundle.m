@@ -35,9 +35,10 @@
 
 - (void)synchronize
 {
-    NSDictionary *dic = @{@"timeInterval" : [NSNumber numberWithFloat:self.timeInterval],
+    NSDictionary *dic = @{@"timeInterval" : [NSString stringWithFormat:@"%.1f", self.timeInterval],
                           @"methodCate" : [NSNumber numberWithInt:self.methodCate],
                           @"countOfImage" : [NSNumber numberWithInt:self.countOfImage]};
+    NSLog(@"%s  -->  %@", __func__, dic);
     [[NSUserDefaults standardUserDefaults] setObject:dic forKey:@"SettingBundle"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

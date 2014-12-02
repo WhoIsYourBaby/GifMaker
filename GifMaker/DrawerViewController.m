@@ -12,18 +12,21 @@
 #import "UIViewController+ADFlipTransition.h"
 #import "SettingBundle.h"
 
-#define k_toolbar_height 40
+#define k_toolbar_height 30
 
 @interface DrawerViewController ()
 {
-    UIImageView *imgView;
-    PaintView *ptView;
-    UIButton *btnDone;
-    UIButton *btnGoback;
-    UIButton *btnCancel;
+    IBOutlet UIImageView *imgView;
+    IBOutlet PaintView *ptView;
+    IBOutlet UIButton *btnDone;
+    IBOutlet UIButton *btnGoback;
+    IBOutlet UIButton *btnCancel;
+    IBOutlet DrawerToolView *lineToolbar;
+    IBOutlet DrawerToolView *colorToolbar;
 }
 
 @property (strong, nonatomic) UIImage *srcImage;
+@property (strong, nonatomic) NSArray *srcNameArray;
 
 @end
 
@@ -35,13 +38,17 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
     [self initColorToolbar];
     [self initLineWidthToolbar];
+    ptView.lineColor = [UIColor redColor];
+    ptView.lineWidth = 3.f;
+    
+    NSArray *imgArr = [[GifManager shareInterface] bigTempImageArrayWithNames:self.srcNameArray];
+    self.srcImage = [UIImage animatedImageWithImages:imgArr duration:[SettingBundle globalSetting].timeInterval * self.srcNameArray.count];
+    [imgView setImage:self.srcImage];
 }
 
 - (void)initLineWidthToolbar
 {
     //初始化线宽toolbar
-    DrawerToolView *toolbar = [[DrawerToolView alloc] initWithFrame:CGRectMake(0, k_toolbar_height, self.view.frame.size.width, k_toolbar_height + 3)];
-    [self.view addSubview:toolbar];
     NSArray *lines = @[[NSNumber numberWithInt:3],
                         [NSNumber numberWithInt:5],
                         [NSNumber numberWithInt:7],
@@ -57,18 +64,19 @@
                         ];
     for (NSNumber *lw in lines) {
         ToolItemView *item = [ToolItemView toolItemViewWithObjc:lw];
-        [toolbar addItem:item];
+        [lineToolbar addItem:item];
     }
-    [toolbar setCallbackBlock:^(id objc) {
-        ptView.lineWidth = [objc floatValue];
+    
+    __weak PaintView *pt = ptView;
+    [lineToolbar setCallbackBlock:^(id objc) {
+        __strong PaintView *bValue = pt;
+        bValue.lineWidth = [objc floatValue];
     }];
 }
 
 - (void)initColorToolbar
 {
     //初始化toolbar
-    DrawerToolView *toolbar = [[DrawerToolView alloc] initWithFrame:CGRectMake(0, 3, self.view.frame.size.width, k_toolbar_height)];
-    [self.view addSubview:toolbar];
     NSArray *colors = @[[UIColor redColor],
                         [UIColor greenColor],
                         [UIColor blueColor],
@@ -86,72 +94,15 @@
                         ];
     for (UIColor *clr in colors) {
         ToolItemView *item = [ToolItemView toolItemViewWithObjc:clr];
-        [toolbar addItem:item];
+        [colorToolbar addItem:item];
     }
-    [toolbar setCallbackBlock:^(id objc) {
-        ptView.lineColor = objc;
+    __weak PaintView *pt = ptView;
+    [colorToolbar setCallbackBlock:^(id objc) {
+        __strong PaintView *bValue = pt;
+        bValue.lineColor = objc;
     }];
 }
 
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    float btnOriginY = k_toolbar_height * 2;
-    float btnOriginX = 140;
-    
-    if (imgView == nil) {
-        //生成imgView和ptView
-        imgView = [[UIImageView alloc] initWithImage:self.srcImage];
-        [self.view addSubview:imgView];
-        imgView.center = self.view.center;
-        imgView.frame = CGRectOffset(imgView.frame, 0, 20);
-        
-        ptView = [[PaintView alloc] initWithFrame:imgView.frame];
-        [self.view addSubview:ptView];
-        btnOriginY = imgView.frame.size.height + imgView.frame.origin.y + 7;
-        ptView.lineColor = [UIColor redColor];
-        ptView.lineWidth = 3.f;
-    }
-    
-    if (btnDone == nil) {
-        btnDone = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btnDone setFrame:CGRectMake(btnOriginX, btnOriginY, 30, 30)];
-        [btnDone setImage:[UIImage imageNamed:@"done"] forState:UIControlStateNormal];
-        [self.view addSubview:btnDone];
-        [btnDone addTarget:self action:@selector(btnDoneTap:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    if (btnGoback == nil) {
-        btnGoback = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btnGoback setFrame:CGRectMake(btnOriginX + 60, btnOriginY, 30, 30)];
-        [btnGoback setImage:[UIImage imageNamed:@"goback"] forState:UIControlStateNormal];
-        [self.view addSubview:btnGoback];
-        [btnGoback addTarget:self action:@selector(btnGobackTap:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    if (btnCancel == nil) {
-        btnCancel = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btnCancel setFrame:CGRectMake(btnOriginX + 120, btnOriginY, 30, 30)];
-        [btnCancel setImage:[UIImage imageNamed:@"off"] forState:UIControlStateNormal];
-        [self.view addSubview:btnCancel];
-        [btnCancel addTarget:self action:@selector(btnCancelTap:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-}
-
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-}
 
 
 - (void)didReceiveMemoryWarning {
@@ -162,8 +113,7 @@
 
 - (void)setDoodleImgNames:(NSArray *)aNameArr
 {
-    NSArray *imgArr = [[GifManager shareInterface] bigTempImageArrayWithNames:aNameArr];
-    self.srcImage = [UIImage animatedImageWithImages:imgArr duration:[SettingBundle globalSetting].timeInterval];
+    self.srcNameArray = aNameArr;
 }
 
 
@@ -183,33 +133,41 @@
 
 - (void)saveBackImage
 {
-    /*
-    UIGraphicsBeginImageContext(imgView.frame.size);
-    [imgView.image drawAtPoint:CGPointZero];
-    [ptView.layer drawInContext:UIGraphicsGetCurrentContext()];
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    [[GifManager shareInterface] saveEditImage:img withImgName:self.srcImgName];
-     */
+    if (![ptView isPaintEmpty]) {
+        CGRect rect = imgView.bounds;
+        UIGraphicsBeginImageContext(rect.size);
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        NSArray *imgs = [self.srcImage images];
+        for (int i = 0; i < imgs.count; i ++) {
+//            CGContextClearRect(ctx, rect);
+            UIImage *aImg = imgs[i];
+            [aImg drawAtPoint:CGPointZero];
+            [ptView.layer drawInContext:UIGraphicsGetCurrentContext()];
+            UIImage *resultImg = UIGraphicsGetImageFromCurrentImageContext();
+            [[GifManager shareInterface] saveEditImage:resultImg withImgName:self.srcNameArray[i]];
+        }
+        UIGraphicsEndImageContext();
+    }
 }
 
-- (void)btnDoneTap:(id)sender
+- (IBAction)btnDoneTap:(id)sender
 {
     [self saveBackImage];
-    [self dismissFlipWithCompletion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
-- (void)btnGobackTap:(id)sender
+- (IBAction)btnGobackTap:(id)sender
 {
     [ptView reverse];
 }
 
 
-- (void)btnCancelTap:(id)sender
+- (IBAction)btnCancelTap:(id)sender
 {
-    [self dismissFlipWithCompletion:nil];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 @end
+

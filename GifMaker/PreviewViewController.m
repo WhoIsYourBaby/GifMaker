@@ -8,6 +8,8 @@
 
 #import "PreviewViewController.h"
 #import "GifManager.h"
+#import "SettingBundle.h"
+#import "AnimatedGIFImageSerialization.h"
 
 @interface PreviewViewController ()
 
@@ -19,23 +21,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
-    [previewImgView setAnimationImages:self.imgArray];
-    [previewImgView setAnimationDuration:1.0];
-    [previewImgView startAnimating];
     
-    [speedSlider setMaximumValue:3.f];
-    speedSlider.popUpViewColor = [UIColor colorWithHue:0.55 saturation:0.8 brightness:0.9 alpha:0.7];
-    speedSlider.popUpViewAnimatedColors = @[[UIColor orangeColor], [UIColor magentaColor], [UIColor redColor]];
-    speedSlider.textColor = [UIColor colorWithHue:0.55 saturation:1.0 brightness:0.5 alpha:1];
-}
-
-- (NSArray *)imgArray
-{
-    if (_imgArray == nil) {
-        return [[GifManager shareInterface] imageArrayInTemp];
-    } else {
-        return _imgArray;
-    }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(btnDoneTap:)];
+    NSArray *arr = [[GifManager shareInterface] imageArrayInTemp];
+    UIImage *img = [UIImage animatedImageWithImages:arr duration:arr.count * [SettingBundle globalSetting].timeInterval];
+    [previewImgView setImage:img];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,5 +42,21 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (void)btnDoneTap:(id)sender
+{
+    NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+    NSString *name = [NSString stringWithFormat:@"%d.gif", (int)time];
+    fp = [fp stringByAppendingPathComponent:name];
+    
+    NSArray *imgArr = [[GifManager shareInterface] imageArrayInTemp];
+    NSTimeInterval duration = [[SettingBundle globalSetting] timeInterval] * imgArr.count;
+    UIImage *gifImage = [UIImage animatedImageWithImages:imgArr duration:duration];
+    NSError *err = nil;
+    NSData *gifData = [AnimatedGIFImageSerialization animatedGIFDataWithImage:gifImage duration:duration loopCount:0 error:&err];
+    [gifData writeToFile:fp atomically:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 @end

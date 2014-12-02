@@ -10,7 +10,7 @@
 
 
 #pragma mark - EditorViewController
-@interface EditorViewController : HWViewController <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface EditorViewController : HWViewController <UICollectionViewDataSource, UICollectionViewDelegate, UIAlertViewDelegate>
 {
     IBOutlet UICollectionView *collctionImgView;
     NSIndexPath *editIndexPath;

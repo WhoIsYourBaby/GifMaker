@@ -17,11 +17,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="XQM-Wx-CWG">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
-                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="5" id="yI7-HJ-0yj">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="464"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="yI7-HJ-0yj">
                         <size key="itemSize" width="70" height="80"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="320" height="60"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                     </collectionViewFlowLayout>
                     <cells/>
@@ -30,12 +30,63 @@
                         <outlet property="delegate" destination="-1" id="NkK-Wm-Xe1"/>
                     </connections>
                 </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qK5-JJ-ryb">
+                    <rect key="frame" x="31" y="469" width="46" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="O8j-zb-ucS"/>
+                    </constraints>
+                    <state key="normal" title="全选">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnSelectAllTap:" destination="-1" eventType="touchUpInside" id="mLA-ny-XEm"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Pf-Hc-n0Q">
+                    <rect key="frame" x="102" y="469" width="46" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="ePI-9u-Ejw"/>
+                    </constraints>
+                    <state key="normal" title="反选">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnSelectReverseTap:" destination="-1" eventType="touchUpInside" id="jM9-SC-tVn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7m-OV-g3C">
+                    <rect key="frame" x="173" y="469" width="46" height="30"/>
+                    <state key="normal" title="涂鸦">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnDoodleTap:" destination="-1" eventType="touchUpInside" id="gaN-0v-Xh3"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uX-by-jqz">
+                    <rect key="frame" x="244" y="469" width="46" height="30"/>
+                    <state key="normal" title="预览">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="btnPreviewTap:" destination="-1" eventType="touchUpInside" id="2o3-47-9He"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="3uX-by-jqz" secondAttribute="bottom" constant="5" id="9n4-5w-OIg"/>
+                <constraint firstItem="3uX-by-jqz" firstAttribute="leading" secondItem="x7m-OV-g3C" secondAttribute="trailing" constant="25" id="BU6-oo-1fZ"/>
+                <constraint firstItem="5Pf-Hc-n0Q" firstAttribute="leading" secondItem="qK5-JJ-ryb" secondAttribute="trailing" constant="25" id="Pvy-RY-hUU"/>
+                <constraint firstItem="qK5-JJ-ryb" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="31" id="av2-E2-AQQ"/>
                 <constraint firstItem="XQM-Wx-CWG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="f85-U4-F8h"/>
+                <constraint firstItem="x7m-OV-g3C" firstAttribute="leading" secondItem="5Pf-Hc-n0Q" secondAttribute="trailing" constant="25" id="ffz-cM-vrH"/>
+                <constraint firstAttribute="bottom" secondItem="5Pf-Hc-n0Q" secondAttribute="bottom" constant="5" id="ftB-OR-BRh"/>
+                <constraint firstAttribute="bottom" secondItem="x7m-OV-g3C" secondAttribute="bottom" constant="5" id="kfu-QK-3Is"/>
                 <constraint firstAttribute="trailing" secondItem="XQM-Wx-CWG" secondAttribute="trailing" id="rNi-ic-TJE"/>
-                <constraint firstAttribute="bottom" secondItem="XQM-Wx-CWG" secondAttribute="bottom" id="unD-xl-dV3"/>
+                <constraint firstAttribute="bottom" secondItem="qK5-JJ-ryb" secondAttribute="bottom" constant="5" id="sV6-jM-KH3"/>
+                <constraint firstAttribute="trailing" secondItem="3uX-by-jqz" secondAttribute="trailing" constant="30" id="u2s-7k-BrP"/>
+                <constraint firstAttribute="bottom" secondItem="XQM-Wx-CWG" secondAttribute="bottom" constant="40" id="unD-xl-dV3"/>
                 <constraint firstItem="XQM-Wx-CWG" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="xNE-Nk-gQ2"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>

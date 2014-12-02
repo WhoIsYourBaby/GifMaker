@@ -30,12 +30,22 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+}
+
 - (void)reverse
 {
     if ([_pathArray count] > 0) {
         [_pathArray removeLastObject];
         [self setNeedsDisplay];
     }
+}
+
+- (BOOL)isPaintEmpty
+{
+    return ![_pathArray count];
 }
 
 - (void)drawRect:(CGRect)rect
