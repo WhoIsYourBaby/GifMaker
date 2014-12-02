@@ -64,6 +64,7 @@
                 </button>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="UVV-Kc-sob">
                     <rect key="frame" x="16" y="88" width="288" height="352"/>
+                    <color key="backgroundColor" red="0.60258567100000004" green="0.66666666669999997" blue="0.12067833040000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="288" id="ZCO-Ez-8Pg"/>
                         <constraint firstAttribute="height" constant="352" id="mpD-qs-eNo"/>

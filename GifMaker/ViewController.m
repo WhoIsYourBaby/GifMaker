@@ -11,6 +11,9 @@
 #import "UIStoryboard+Main.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "GifManager.h"
+#import "EditorViewController.h"
+#import "DrawerViewController.h"
+#import "PreviewViewController.h"
 
 @implementation GifPlayerCell
 
@@ -158,7 +161,19 @@
 {
 }
 
+- (IBAction)test1:(id)sender {
+    EditorViewController *test = [EditorViewController quickInstance];
+    [self.navigationController pushViewController:test animated:YES];
+}
+- (IBAction)test2:(id)sender {
+    DrawerViewController *test = [DrawerViewController quickInstance];
+    [self.navigationController presentViewController:test animated:YES completion:nil];
+}
 
+- (IBAction)test3:(id)sender {
+    PreviewViewController *test = [PreviewViewController quickInstance];
+    [self.navigationController pushViewController:test animated:YES];
+}
 #pragma mark - Coleect View Delegate
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section

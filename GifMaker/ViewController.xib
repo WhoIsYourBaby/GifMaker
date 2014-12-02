@@ -17,21 +17,30 @@
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saT-w5-pav">
                     <rect key="frame" x="50" y="169" width="46" height="30"/>
-                    <state key="normal" title="Test2">
+                    <state key="normal" title="Test1">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="test1:" destination="-1" eventType="touchUpInside" id="Awv-IC-G1x"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7nC-GY-UxR">
                     <rect key="frame" x="194" y="169" width="46" height="30"/>
                     <state key="normal" title="Test3">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="test3:" destination="-1" eventType="touchUpInside" id="K4g-0h-oML"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RgG-8I-bzO">
                     <rect key="frame" x="125" y="142" width="46" height="30"/>
-                    <state key="normal" title="Test1">
+                    <state key="normal" title="Test2">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="test2:" destination="-1" eventType="touchUpInside" id="rOv-ho-CqZ"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
