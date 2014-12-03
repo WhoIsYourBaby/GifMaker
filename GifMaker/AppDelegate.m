@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import "HWDevice.h"
 
 @implementation AppDelegate
 
@@ -22,6 +23,7 @@
     self.window.rootViewController = nav;
     self.rootViewController = nav;
     [self.window makeKeyAndVisible];
+    NSLog(@"%@", [HWDevice getDeviceName]);
     return YES;
 }
 							

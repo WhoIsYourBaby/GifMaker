@@ -24,6 +24,8 @@
 
 + (UIImage *)fixOrientation:(UIImage *)aImage;
 
++ (NSString *)getDeviceName;
+
 @end
 
 @interface NSError (HWDevice)

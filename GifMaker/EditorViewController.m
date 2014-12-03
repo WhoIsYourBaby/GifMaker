@@ -36,9 +36,22 @@
     selectIndexArr = (int *)calloc(self.imgNameArray.count, sizeof(int));
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash target:self action:@selector(btnTrashTap:)];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(btnBackTap:)];
+    [self drawQuartz:self.btnSelectAll];
+    [self drawQuartz:self.btnSelectReverse];
+    [self drawQuartz:self.btnDoodle];
+    [self drawQuartz:self.btnPreview];
 }
 
 
+
+- (void)drawQuartz:(UIView *)aView
+{
+    aView.layer.borderWidth = 0.5;
+    aView.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    aView.layer.cornerRadius = 3.f;
+    aView.layer.shadowColor = [UIColor darkGrayColor].CGColor;
+    aView.layer.shadowOffset = CGSizeMake(5, 5);
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -282,32 +295,3 @@
 
 @end
 
-
-@implementation EditorFooterView
-
-+ (NSString *)identifier
-{
-    static NSString *EditorFooterViewIdentifier = @"EditorFooterView";
-    return EditorFooterViewIdentifier;
-}
-
-
-+ (UINib *)nib
-{
-    return [UINib nibWithNibName:@"EditorFooterView" bundle:nil];
-}
-
-
-+ (NSString *)kind
-{
-    return UICollectionElementKindSectionFooter;
-}
-
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-}
-
-
-@end

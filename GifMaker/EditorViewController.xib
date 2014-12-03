@@ -7,6 +7,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditorViewController">
             <connections>
+                <outlet property="btnDoodle" destination="x7m-OV-g3C" id="vEi-kd-YPe"/>
+                <outlet property="btnPreview" destination="3uX-by-jqz" id="W3x-xz-qjK"/>
+                <outlet property="btnSelectAll" destination="qK5-JJ-ryb" id="Mf9-qe-7uq"/>
+                <outlet property="btnSelectReverse" destination="5Pf-Hc-n0Q" id="x7A-Bj-HLh"/>
                 <outlet property="collctionImgView" destination="XQM-Wx-CWG" id="tm3-db-JUI"/>
                 <outlet property="view" destination="iN0-l3-epB" id="hqo-bg-yXC"/>
             </connections>
@@ -32,6 +36,7 @@
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qK5-JJ-ryb">
                     <rect key="frame" x="31" y="469" width="46" height="30"/>
+                    <color key="backgroundColor" red="0.43591744620893325" green="1" blue="0.44744944322779678" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="46" id="O8j-zb-ucS"/>
                     </constraints>
@@ -44,6 +49,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Pf-Hc-n0Q">
                     <rect key="frame" x="102" y="469" width="46" height="30"/>
+                    <color key="backgroundColor" red="0.4359174462" green="1" blue="0.44744944320000002" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="46" id="ePI-9u-Ejw"/>
                     </constraints>
@@ -54,8 +60,9 @@
                         <action selector="btnSelectReverseTap:" destination="-1" eventType="touchUpInside" id="jM9-SC-tVn"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7m-OV-g3C">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x7m-OV-g3C">
                     <rect key="frame" x="173" y="469" width="46" height="30"/>
+                    <color key="backgroundColor" red="0.4359174462" green="1" blue="0.44744944320000002" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="涂鸦">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -63,8 +70,12 @@
                         <action selector="btnDoodleTap:" destination="-1" eventType="touchUpInside" id="gaN-0v-Xh3"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uX-by-jqz">
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uX-by-jqz">
                     <rect key="frame" x="244" y="469" width="46" height="30"/>
+                    <color key="backgroundColor" red="0.4359174462" green="1" blue="0.44744944320000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="umo-4q-sr4"/>
+                    </constraints>
                     <state key="normal" title="预览">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
