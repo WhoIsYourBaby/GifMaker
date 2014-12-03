@@ -22,7 +22,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(btnDoneTap:)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(btnSaveTap:)];
     NSArray *arr = [[GifManager shareInterface] imageArrayInTemp];
     UIImage *img = [UIImage animatedImageWithImages:arr duration:arr.count * [SettingBundle globalSetting].timeInterval];
     [previewImgView setImage:img];
@@ -43,7 +43,7 @@
 }
 */
 
-- (void)btnDoneTap:(id)sender
+- (void)btnSaveTap:(id)sender
 {
     NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     NSTimeInterval time = [[NSDate date] timeIntervalSince1970];

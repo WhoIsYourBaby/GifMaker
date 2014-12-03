@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-#define k_rect_button CGRectMake(0, 0, 36, 36)
+#define k_rect_button CGRectMake(0, 0, 32, 32)
 
 typedef void(^ToolViewItemSelect)(id objc);
 

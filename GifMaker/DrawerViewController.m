@@ -59,8 +59,8 @@
                         [NSNumber numberWithInt:17],
                         [NSNumber numberWithInt:19],
                         [NSNumber numberWithInt:21],
-                        [NSNumber numberWithInt:23],
-                        [NSNumber numberWithInt:25]
+                        [NSNumber numberWithInt:22],
+                        [NSNumber numberWithInt:23]
                         ];
     for (NSNumber *lw in lines) {
         ToolItemView *item = [ToolItemView toolItemViewWithObjc:lw];
