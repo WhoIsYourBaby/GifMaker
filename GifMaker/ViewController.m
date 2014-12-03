@@ -39,9 +39,10 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    UIBarButtonItem *itemCamera = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(btnCameraTap)];
-    UIBarButtonItem *itemAlbum = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemOrganize target:self action:@selector(btnAlbumTap)];
-    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:itemAlbum, itemCamera, nil];
+    UIBarButtonItem *test1 = [[UIBarButtonItem alloc] initWithTitle:@"t1" style:UIBarButtonItemStyleBordered target:self action:@selector(test1:)];
+    UIBarButtonItem *test2 = [[UIBarButtonItem alloc] initWithTitle:@"t2" style:UIBarButtonItemStyleBordered target:self action:@selector(test2:)];
+    UIBarButtonItem *test3 = [[UIBarButtonItem alloc] initWithTitle:@"t3" style:UIBarButtonItemStyleBordered target:self action:@selector(test3:)];
+    self.navigationItem.rightBarButtonItems = [NSArray arrayWithObjects:test1, test2, test3, nil];
     
     gifCollectView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
     
@@ -68,7 +69,7 @@
 
 
 
-- (void)btnCameraTap
+- (IBAction)btnCameraTap
 {
     [[GifManager shareInterface] cleanTempDir];
     SquareCamViewController *square = [SquareCamViewController quickInstance];
@@ -76,20 +77,17 @@
 }
 
 
-- (void)btnAlbumTap
-{
-}
 
-- (IBAction)test1:(id)sender {
+- (void)test1:(id)sender {
     EditorViewController *test = [EditorViewController quickInstance];
     [self.navigationController pushViewController:test animated:YES];
 }
-- (IBAction)test2:(id)sender {
+- (void)test2:(id)sender {
     DrawerViewController *test = [DrawerViewController quickInstance];
     [self.navigationController presentViewController:test animated:YES completion:nil];
 }
 
-- (IBAction)test3:(id)sender {
+- (void)test3:(id)sender {
     PreviewViewController *test = [PreviewViewController quickInstance];
     [self.navigationController pushViewController:test animated:YES];
 }
