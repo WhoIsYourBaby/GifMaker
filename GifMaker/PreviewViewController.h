@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ASValueTrackingSlider.h"
 
-@interface PreviewViewController : HWViewController
+@interface PreviewViewController : HWViewController <UIActionSheetDelegate>
 {
     IBOutlet UIImageView *previewImgView;
     IBOutlet ASValueTrackingSlider *speedSlider;

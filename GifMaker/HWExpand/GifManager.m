@@ -9,6 +9,10 @@
 #import "GifManager.h"
 #import "UIImage+Expand.h"
 #import "HWDevice.h"
+#import "SettingBundle.h"
+#import "AnimatedGIFImageSerialization.h"
+#import "ALAssetsLibrary+CustomPhotoAlbum.h"
+
 
 #define k_Doc_temp_big @"temp/big"
 #define k_Doc_temp_little @"temp/little"
@@ -33,6 +37,26 @@ static GifManager *interface = nil;
         interface = [[GifManager alloc] init];
     }
     return interface;
+}
+
+
+- (NSString *)gifLocalFolder
+{
+    NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSString *gf = [fp stringByAppendingPathComponent:kGifGroupName];
+    BOOL isFolder = NO;
+    NSError *err = nil;
+    if (![[NSFileManager defaultManager] fileExistsAtPath:gf isDirectory:&isFolder]) {
+        [[NSFileManager defaultManager] createDirectoryAtPath:gf withIntermediateDirectories:YES attributes:nil error:&err];
+    } else {
+        if (!isFolder) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:gf withIntermediateDirectories:YES attributes:nil error:&err];
+        }
+    }
+    if (err) {
+        NSLog(@"%s --> %@", __func__, err);
+    }
+    return gf;
 }
 
 - (NSString *)docTempBig
@@ -222,6 +246,123 @@ static GifManager *interface = nil;
         }
     }];
     return stNameArr;
+}
+
+
+- (ALAssetsLibrary *)albumLibrary
+{
+    if (_albumLibrary == nil) {
+        _albumLibrary = [[ALAssetsLibrary alloc] init];
+    }
+    return _albumLibrary;
+}
+
+
+- (NSMutableArray *)gifMakerAssets
+{
+    if (_gifMakerAssets == nil) {
+        _gifMakerAssets = [[NSMutableArray alloc] initWithCapacity:100];
+    }
+    return _gifMakerAssets;
+}
+
+
+- (void)enumerateAlbumGifAssets:(void (^)(NSMutableArray *myGifAssets))resultBlock
+{
+    // setup our failure view controller in case enumerateGroupsWithTypes fails
+    ALAssetsLibraryAccessFailureBlock failureBlock = ^(NSError *error) {
+        NSString *errorMessage = nil;
+        switch ([error code]) {
+            case ALAssetsLibraryAccessUserDeniedError:
+            case ALAssetsLibraryAccessGloballyDeniedError:
+                errorMessage = @"The user has declined access to it.";
+                break;
+            default:
+                errorMessage = @"Reason unknown.";
+                break;
+        }
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:errorMessage delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alert show];
+    };
+    
+    // emumerate through our groups and only add groups that contain photos
+    ALAssetsLibraryGroupsEnumerationResultsBlock listGroupBlock = ^(ALAssetsGroup *group, BOOL *stop) {
+        NSString *groupName = [group valueForProperty:ALAssetsGroupPropertyName];
+        if ([groupName isEqualToString:kGifGroupName]) {
+            ALAssetsFilter *allFilter = [ALAssetsFilter allAssets];
+            [group setAssetsFilter:allFilter];
+            self.myGifGroup = group;
+            //停止遍历
+            *stop = YES;
+        }
+        //遍历group完成后开始遍历Assets
+        if (group == nil) {
+            [self enumerateAssetsInGifGroup:resultBlock];
+        }
+    };
+    
+    // enumerate photos
+    NSUInteger groupTypes = ALAssetsGroupAlbum | ALAssetsGroupSavedPhotos;
+    [self.albumLibrary enumerateGroupsWithTypes:groupTypes usingBlock:listGroupBlock failureBlock:failureBlock];
+}
+
+- (void)enumerateAssetsInGifGroup:(void (^)(NSMutableArray *myGifAssets))resultBlock
+{
+    //如果不存在
+    ALAssetsLibraryGroupResultBlock blcresult = ^(ALAssetsGroup *group) {
+        //success
+        self.myGifGroup = group;
+    };
+    ALAssetsLibraryAccessFailureBlock failure = ^(NSError *error) {
+        if (resultBlock) {
+            resultBlock(nil);
+        }
+    };
+    if (self.myGifGroup == nil) {
+        [self.albumLibrary addAssetsGroupAlbumWithName:kGifGroupName resultBlock:blcresult failureBlock:failure];
+    }
+    
+    if ([self.myGifGroup numberOfAssets] > 0) {
+        [self.myGifGroup enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
+            if (result == nil) {
+                //遍历完成
+                if (resultBlock) {
+                    resultBlock(self.gifMakerAssets);
+                }
+            } else {
+                [self.gifMakerAssets addObject:result];
+            }
+        }];
+    } else {
+        NSLog(@"%s -> No Assets in GifMaker", __FUNCTION__);
+    }
+}
+
+
+
+- (void)makeGifInAlbum:(UIImage *)aImg
+{
+    NSTimeInterval duration = [[SettingBundle globalSetting] timeInterval] * aImg.images.count;
+    NSError *err = nil;
+    NSData *gifData = [AnimatedGIFImageSerialization animatedGIFDataWithImage:aImg duration:duration loopCount:0 error:&err];
+    [self.albumLibrary saveGifData:gifData toAlbum:kGifGroupName withCompletionBlock:^(NSError *error) {
+        NSLog(@"%s -->%@", __func__, err);
+    }];
+}
+
+
+
+- (void)makeGifInLocal:(UIImage *)aImg
+{
+    NSString *fp = [self gifLocalFolder];
+    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
+    NSString *name = [NSString stringWithFormat:@"%d.gif", (int)time];
+    fp = [fp stringByAppendingPathComponent:name];
+    
+    NSTimeInterval duration = [[SettingBundle globalSetting] timeInterval] * aImg.images.count;
+    NSError *err = nil;
+    NSData *gifData = [AnimatedGIFImageSerialization animatedGIFDataWithImage:aImg duration:duration loopCount:0 error:&err];
+    [gifData writeToFile:fp atomically:YES];
 }
 
 @end

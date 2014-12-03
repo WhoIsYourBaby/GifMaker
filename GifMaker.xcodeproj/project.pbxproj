@@ -104,6 +104,7 @@
 		7D1D24D61A232BA00030C981 /* SettingBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D1D24D51A232BA00030C981 /* SettingBundle.m */; };
 		7D461DFC1A2D7A550018CD94 /* AnimatedGIFImageSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D461DFB1A2D7A550018CD94 /* AnimatedGIFImageSerialization.m */; };
 		7D461DFE1A2DB7D10018CD94 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7D461DFD1A2DB7D10018CD94 /* PreviewViewController.xib */; };
+		7D9DBEAD1A2F044A0055C890 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D9DBEAC1A2F044A0055C890 /* ALAssetsLibrary+CustomPhotoAlbum.m */; };
 		7DD6F9B01A257C2100A1EF58 /* HWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7DD6F9AF1A257C2100A1EF58 /* HWViewController.m */; };
 		7DD6F9B21A25A83900A1EF58 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DD6F9B11A25A83900A1EF58 /* ViewController.xib */; };
 		7DD6F9B41A25AD6B00A1EF58 /* SquareCamViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7DD6F9B31A25AD6B00A1EF58 /* SquareCamViewController.xib */; };
@@ -284,6 +285,8 @@
 		7D461DFA1A2D7A550018CD94 /* AnimatedGIFImageSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedGIFImageSerialization.h; sourceTree = "<group>"; };
 		7D461DFB1A2D7A550018CD94 /* AnimatedGIFImageSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedGIFImageSerialization.m; sourceTree = "<group>"; };
 		7D461DFD1A2DB7D10018CD94 /* PreviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PreviewViewController.xib; sourceTree = "<group>"; };
+		7D9DBEAB1A2F044A0055C890 /* ALAssetsLibrary+CustomPhotoAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomPhotoAlbum.h"; sourceTree = "<group>"; };
+		7D9DBEAC1A2F044A0055C890 /* ALAssetsLibrary+CustomPhotoAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomPhotoAlbum.m"; sourceTree = "<group>"; };
 		7DD6F9AE1A257C2100A1EF58 /* HWViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWViewController.h; sourceTree = "<group>"; };
 		7DD6F9AF1A257C2100A1EF58 /* HWViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWViewController.m; sourceTree = "<group>"; };
 		7DD6F9B11A25A83900A1EF58 /* ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
@@ -342,6 +345,8 @@
 				0215CF5219DCEC3A0049B09B /* GifManager.m */,
 				0215CF5419DCF6B00049B09B /* HWDevice.h */,
 				0215CF5519DCF6B00049B09B /* HWDevice.m */,
+				7D9DBEAB1A2F044A0055C890 /* ALAssetsLibrary+CustomPhotoAlbum.h */,
+				7D9DBEAC1A2F044A0055C890 /* ALAssetsLibrary+CustomPhotoAlbum.m */,
 			);
 			path = HWExpand;
 			sourceTree = "<group>";
@@ -824,6 +829,7 @@
 				7DD6F9B01A257C2100A1EF58 /* HWViewController.m in Sources */,
 				6AA1E3BB19D420B100F0CA9D /* ANGifImageDescriptor.m in Sources */,
 				6AA1E3C319D420B100F0CA9D /* NSImage+ANImageBitmapRep.m in Sources */,
+				7D9DBEAD1A2F044A0055C890 /* ALAssetsLibrary+CustomPhotoAlbum.m in Sources */,
 				6AA1E3BD19D420B100F0CA9D /* LZWSpoof.m in Sources */,
 				6AA1E3BF19D420B100F0CA9D /* PhotoEntry.m in Sources */,
 				6A20B5C919F0FA9100D72911 /* UICollectionViewController+ADFlipTransition.m in Sources */,

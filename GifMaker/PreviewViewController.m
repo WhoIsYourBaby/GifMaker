@@ -45,18 +45,23 @@
 
 - (void)btnSaveTap:(id)sender
 {
-    NSString *fp = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
-    NSTimeInterval time = [[NSDate date] timeIntervalSince1970];
-    NSString *name = [NSString stringWithFormat:@"%d.gif", (int)time];
-    fp = [fp stringByAppendingPathComponent:name];
-    
-    NSArray *imgArr = [[GifManager shareInterface] imageArrayInTemp];
-    NSTimeInterval duration = [[SettingBundle globalSetting] timeInterval] * imgArr.count;
-    UIImage *gifImage = [UIImage animatedImageWithImages:imgArr duration:duration];
-    NSError *err = nil;
-    NSData *gifData = [AnimatedGIFImageSerialization animatedGIFDataWithImage:gifImage duration:duration loopCount:0 error:&err];
-    [gifData writeToFile:fp atomically:YES];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:NSLocalizedString(@"save_to", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"Album", nil), NSLocalizedString(@"Local", nil), nil];
+    [sheet showInView:self.view];
 }
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        //album
+        [[GifManager shareInterface] makeGifInAlbum:previewImgView.image];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    if (buttonIndex == 1) {
+        //local
+        [[GifManager shareInterface] makeGifInLocal:previewImgView.image];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+}
+
 
 @end

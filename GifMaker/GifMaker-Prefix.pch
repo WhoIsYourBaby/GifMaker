@@ -15,6 +15,6 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import "HWViewController.h"
-    #define kGifGroupName @"GifMaker"
+    #define kGifGroupName @"MyGif"
 
 #endif
