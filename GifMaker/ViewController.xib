@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ViewController">
             <connections>
+                <outlet property="gifCollectView" destination="Wbf-5N-GxV" id="2nC-nT-fsB"/>
                 <outlet property="view" destination="iN0-l3-epB" id="B86-yV-bvE"/>
             </connections>
         </placeholder>
@@ -15,19 +16,47 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xs3-8K-GX3">
-                    <rect key="frame" x="125" y="129" width="71" height="30"/>
-                    <state key="normal" title="God Gif">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btnCameraTap" destination="-1" eventType="touchUpInside" id="0d0-BL-oji"/>
-                    </connections>
-                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vku-wd-Ip9">
+                    <rect key="frame" x="0.0" y="454" width="320" height="50"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QXp-Gi-uGl">
+                            <rect key="frame" x="125" y="10" width="70" height="30"/>
+                            <state key="normal" title="God Gif">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnCameraTap" destination="-1" eventType="touchUpInside" id="K02-YF-Nf7"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="0.69790810029999995" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="DcM-m9-qKx"/>
+                    </constraints>
+                </view>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Wbf-5N-GxV">
+                    <rect key="frame" x="0.0" y="64" width="320" height="390"/>
+                    <color key="backgroundColor" red="0.4359174462" green="1" blue="0.44744944320000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ysk-GK-o1r">
+                        <size key="itemSize" width="150" height="150"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Vku-wd-Ip9" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="J8F-tm-ojj"/>
+                <constraint firstItem="Wbf-5N-GxV" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="N8p-J9-BZ4"/>
+                <constraint firstItem="Vku-wd-Ip9" firstAttribute="top" secondItem="Wbf-5N-GxV" secondAttribute="bottom" id="Tep-KT-WeE"/>
+                <constraint firstItem="Wbf-5N-GxV" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="V1V-7u-DXF"/>
+                <constraint firstAttribute="bottom" secondItem="Vku-wd-Ip9" secondAttribute="bottom" id="h0T-Zv-yYi"/>
+                <constraint firstAttribute="trailing" secondItem="Vku-wd-Ip9" secondAttribute="trailing" id="iF7-U8-wI9"/>
+                <constraint firstAttribute="trailing" secondItem="Wbf-5N-GxV" secondAttribute="trailing" id="pGp-Fk-ugf"/>
+            </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
-            <point key="canvasLocation" x="273" y="297"/>
+            <point key="canvasLocation" x="265" y="297"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

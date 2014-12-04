@@ -32,6 +32,7 @@
     itemCount = 0;
     self.backgroundColor = [UIColor clearColor];
     self.pagingEnabled = NO;
+    itemsArray = [NSMutableArray arrayWithCapacity:10];
 }
 
 /*
@@ -43,12 +44,19 @@
 */
 
 
+
+- (void)setSelectIndex:(NSUInteger)selectIndex
+{
+    _selectIndex = selectIndex;
+    [itemsArray[_selectIndex] setSelected:YES];
+}
+
 - (void)addItem:(ToolItemView *)aItem
 {
     aItem.frame = CGRectOffset(aItem.frame, itemCount * aItem.frame.size.width, (self.frame.size.height - aItem.frame.size.height) / 2);
     [self addSubview:aItem];
+    [itemsArray addObject:aItem];
     aItem.delegate = self;
-    if (itemCount == 0) [aItem setSelected:YES];
     itemCount ++;
     int totalWidth = aItem.frame.size.width * itemCount;
     if (totalWidth > self.contentSize.width) {
@@ -59,19 +67,20 @@
 - (void)toolItemTaped:(ToolItemView *)aItem
 {
     if (![aItem isSelected]) {
-        for (ToolItemView *it in [self subviews]) {
-            if ([it isKindOfClass:[ToolItemView class]]) {
-                if ([it isSelected]) {
-                    [it setSelected:NO];
-                }
+        for (int i = 0; i < itemsArray.count; i ++) {
+            ToolItemView *it = itemsArray[i];
+            if ([it isSelected]) {
+                [it setSelected:NO];
             }
         }
         [aItem setSelected:YES];
+        _selectIndex = [itemsArray indexOfObject:aItem];
     }
     if (_callbackBlock) {
         _callbackBlock([aItem SrcObjc]);
     }
 }
+
 
 @end
 

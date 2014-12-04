@@ -19,9 +19,12 @@ typedef void(^ToolViewItemSelect)(id objc);
 @interface DrawerToolView : UIScrollView <ToolItemProtocol>
 {
     int itemCount;
+    NSMutableArray *itemsArray;
 }
 
 @property (copy, nonatomic) ToolViewItemSelect callbackBlock;
+
+@property NSUInteger selectIndex;
 
 - (void)addItem:(ToolItemView *)aItem;
 

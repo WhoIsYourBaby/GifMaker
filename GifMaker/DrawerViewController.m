@@ -13,6 +13,8 @@
 #import "SettingBundle.h"
 
 #define k_toolbar_height 30
+#define k_lineWidth_key @"k_lineWidth_key"
+#define k_color_key @"k_color_key"
 
 @interface DrawerViewController ()
 {
@@ -38,12 +40,17 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"view_bkg"]];
     [self initColorToolbar];
     [self initLineWidthToolbar];
-    ptView.lineColor = [UIColor redColor];
-    ptView.lineWidth = 3.f;
     
     NSArray *imgArr = [[GifManager shareInterface] bigTempImageArrayWithNames:self.srcNameArray];
     self.srcImage = [UIImage animatedImageWithImages:imgArr duration:[SettingBundle globalSetting].timeInterval * self.srcNameArray.count];
     [imgView setImage:self.srcImage];
+}
+
+
+- (void)dealloc
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:lineToolbar.selectIndex] forKey:k_lineWidth_key];
+    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInteger:colorToolbar.selectIndex] forKey:k_color_key];
 }
 
 - (void)initLineWidthToolbar
@@ -72,6 +79,10 @@
         __strong PaintView *bValue = pt;
         bValue.lineWidth = [objc floatValue];
     }];
+    
+    NSInteger index = [[[NSUserDefaults standardUserDefaults] objectForKey:k_lineWidth_key] integerValue];
+    [lineToolbar setSelectIndex:index];
+    ptView.lineWidth = [lines[index] intValue];
 }
 
 - (void)initColorToolbar
@@ -101,6 +112,10 @@
         __strong PaintView *bValue = pt;
         bValue.lineColor = objc;
     }];
+    
+    NSInteger index = [[[NSUserDefaults standardUserDefaults] objectForKey:k_color_key] integerValue];
+    [colorToolbar setSelectIndex:index];
+    ptView.lineColor = colors[index];
 }
 
 
