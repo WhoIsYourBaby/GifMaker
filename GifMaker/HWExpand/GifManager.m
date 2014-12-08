@@ -345,8 +345,9 @@ static GifManager *interface = nil;
     NSTimeInterval duration = [[SettingBundle globalSetting] timeInterval] * aImg.images.count;
     NSError *err = nil;
     NSData *gifData = [AnimatedGIFImageSerialization animatedGIFDataWithImage:aImg duration:duration loopCount:0 error:&err];
-    [self.albumLibrary saveGifData:gifData toAlbum:kGifGroupName withCompletionBlock:^(NSError *error) {
+    [self.albumLibrary saveGifData:gifData toAlbum:kGifGroupName withCompletionBlock:^(ALAsset *asset, NSError *error) {
         NSLog(@"%s -->%@", __func__, err);
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNotiSaveAlbumGif object:asset];
     }];
 }
 
@@ -363,6 +364,26 @@ static GifManager *interface = nil;
     NSError *err = nil;
     NSData *gifData = [AnimatedGIFImageSerialization animatedGIFDataWithImage:aImg duration:duration loopCount:0 error:&err];
     [gifData writeToFile:fp atomically:YES];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNotiSaveLocalGif object:name];
+}
+
+
+- (NSArray *)localGifFiles
+{
+    NSString *folder = [self gifLocalFolder];
+    NSArray *localGifNames = [[NSFileManager defaultManager] subpathsAtPath:folder];
+    return localGifNames;
+}
+
+- (UIImage *)gifImageWithName:(NSString *)aName
+{
+    NSString *folder = [self gifLocalFolder];
+    NSString *item = [folder stringByAppendingPathComponent:aName];
+    NSData *data = [NSData dataWithContentsOfFile:item];
+    NSError *err = nil;
+    UIImage *img = [AnimatedGIFImageSerialization imageWithData:data error:&err];
+    return img;
 }
 
 @end

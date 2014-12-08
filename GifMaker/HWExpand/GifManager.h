@@ -43,5 +43,14 @@
 
 - (void)enumerateAlbumGifAssets:(void (^)(NSMutableArray *myGifAssets))resultBlock;
 
+/**
+ *  返回由gif的file path组成的数组
+ *
+ */
+- (NSArray *)localGifFiles;
+
+
+- (UIImage *)gifImageWithName:(NSString *)aName;
+
 
 @end

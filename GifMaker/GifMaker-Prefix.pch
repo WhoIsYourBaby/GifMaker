@@ -16,5 +16,6 @@
     #import <Foundation/Foundation.h>
     #import "HWViewController.h"
     #define kGifGroupName @"MyGif"
-
+    #define kNotiSaveLocalGif @"kNotiSaveLocalGif"
+    #define kNotiSaveAlbumGif @"kNotiSaveAlbumGif"
 #endif
