@@ -828,6 +828,10 @@ bail:
 {
     timeIndicator = [[NSDate date] timeIntervalSince1970];
     [sender setSelected:![sender isSelected]];
+    if (![sender isSelected]) {
+        countOfPicTaked = 0;
+        [self btnDoneTap:nil];
+    }
 }
 
 // turn on/off face detection

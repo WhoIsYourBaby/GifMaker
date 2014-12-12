@@ -89,6 +89,14 @@
 
 - (void)btnBackTap:(id)sender
 {
+    if ([[[GifManager shareInterface] imageNameArrayInTemp] count] == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"DeleteTempDir", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"Delete", nil) , nil];
+        alert.tag = 1001;
+        [alert show];
+    }
+    /*
     if ([[SettingBundle globalSetting] methodCate] == SettingMethodManual) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"DeleteTempDir", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"NO", nil) otherButtonTitles:NSLocalizedString(@"Delete", nil) , nil];
         alert.tag = 1001;
@@ -97,6 +105,7 @@
         [[GifManager shareInterface] cleanTempDir];
         [self.navigationController popViewControllerAnimated:YES];
     }
+     */
 }
 
 /**
